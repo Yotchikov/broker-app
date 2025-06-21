@@ -1,0 +1,17 @@
+:root {
+  /* Spacing */
+  --space-base: 8px;
+  --space-2-xs-compact: calc(var(--space-base) * 0.25);
+  --space-2-xs: calc(var(--space-base) * 0.5);
+  --space-xs-compact: calc(var(--space-base) * 0.75);
+  --space-xs: calc(var(--space-base) * 1);
+  --space-s-compact: calc(var(--space-base) * 1.25);
+  --space-s: calc(var(--space-base) * 1.5);
+  --space-m-compact: calc(var(--space-base) * 1.75);
+  --space-m: calc(var(--space-base) * 2);
+  --space-l: calc(var(--space-base) * 2.5);
+  --space-xl: calc(var(--space-base) * 3);
+  --space-2-xl: calc(var(--space-base) * 4);
+  --space-3-xl: calc(var(--space-base) * 5);
+  --space-4-xl: calc(var(--space-base) * 6);
+}

@@ -10,7 +10,7 @@
   transition: var(--default-transition);
   display: flex;
   flex-direction: row;
-  gap: 4px;
+  gap: var(--space-2-xs);
   align-items: center;
   justify-content: center;
 
@@ -26,7 +26,7 @@
 
 .size_xs {
   border-radius: 8px;
-  padding: 2px 8px;
+  padding: var(--space-2-xs-compact) var(--space-xs);
 
   & .buttonContent {
     font-size: 14px;
@@ -34,13 +34,13 @@
   }
 
   &.onlyIcon {
-    padding: 2px 2px;
+    padding: var(--space-2-xs-compact) var(--space-2-xs-compact);
   }
 }
 
 .size_s {
   border-radius: 10px;
-  padding: 6px 12px;
+  padding: var(--space-xs-compact) var(--space-s);
 
   & .buttonContent {
     font-size: 14px;
@@ -48,13 +48,13 @@
   }
 
   &.onlyIcon {
-    padding: 6px 6px;
+    padding: var(--space-xs-compact) var(--space-xs-compact);
   }
 }
 
 .size_m {
   border-radius: 12px;
-  padding: 10px 16px;
+  padding: var(--space-xs) var(--space-m);
 
   & .buttonContent {
     font-size: 14px;
@@ -62,13 +62,13 @@
   }
 
   &.onlyIcon {
-    padding: 10px 10px;
+    padding: var(--space-xs) var(--space-xs);
   }
 }
 
 .size_l {
   border-radius: 14px;
-  padding: 12px 20px;
+  padding: var(--space-s) var(--space-l);
 
   & .buttonContent {
     font-size: 16px;
@@ -76,7 +76,7 @@
   }
 
   &.onlyIcon {
-    padding: 12px 12px;
+    padding: var(--space-s) var(--space-s);
   }
 }
 
