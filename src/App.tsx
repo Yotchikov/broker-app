@@ -1,5 +1,7 @@
+import { Button } from 'ui-kit';
+
 function App() {
-  return <div>Hello world!</div>;
+  return <Button>Click me</Button>;
 }
 
 export default App;

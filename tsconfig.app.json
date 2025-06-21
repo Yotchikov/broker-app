@@ -20,7 +20,14 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+
+    /* Path mapping */
+    "baseUrl": ".",
+    "paths": {
+      "ui-kit": ["packages/ui-kit"],
+      "ui-kit/*": ["packages/ui-kit/*"]
+    }
   },
-  "include": ["src"]
+  "include": ["src", "packages/**/*", ".storybook/*"]
 }

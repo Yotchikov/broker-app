@@ -1,0 +1,268 @@
+.button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: var(--default-transition);
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  align-items: center;
+  justify-content: center;
+
+  &:active {
+    transform: scale(0.96);
+  }
+
+  &.disabled {
+    cursor: default;
+    pointer-events: none;
+  }
+}
+
+.size_xs {
+  border-radius: 8px;
+  padding: 2px 8px;
+
+  & .buttonContent {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  &.onlyIcon {
+    padding: 2px 2px;
+  }
+}
+
+.size_s {
+  border-radius: 10px;
+  padding: 6px 12px;
+
+  & .buttonContent {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  &.onlyIcon {
+    padding: 6px 6px;
+  }
+}
+
+.size_m {
+  border-radius: 12px;
+  padding: 10px 16px;
+
+  & .buttonContent {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  &.onlyIcon {
+    padding: 10px 10px;
+  }
+}
+
+.size_l {
+  border-radius: 14px;
+  padding: 12px 20px;
+
+  & .buttonContent {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  &.onlyIcon {
+    padding: 12px 12px;
+  }
+}
+
+.variant_primary {
+  background: var(--color-black-900);
+  color: var(--color-white-900);
+  border: 1px transparent solid;
+
+  &:hover:not(:disabled):not(:active) {
+    background: var(--color-black-800);
+  }
+
+  &:active {
+    background: var(--color-black-1000);
+  }
+
+  &.disabled {
+    background: var(--color-black-50);
+    color: var(--color-black-300);
+  }
+
+  &.loading {
+    background: var(--color-black-800);
+    position: relative;
+    overflow: hidden;
+    cursor: wait;
+    pointer-events: none;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 150%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 10px,
+        var(--color-white-50) 10px,
+        var(--color-white-50) 20px
+      );
+      animation: loading 0.75s infinite linear;
+    }
+  }
+}
+
+.variant_secondary {
+  background: var(--color-black-50);
+  color: var(--color-black-900);
+  border: 1px transparent solid;
+
+  &:hover:not(:disabled):not(:active) {
+    background: var(--color-black-150);
+  }
+
+  &:active {
+    background: var(--color-black-150);
+  }
+
+  &.disabled {
+    background: var(--color-black-50);
+    color: var(--color-black-300);
+  }
+
+  &.loading {
+    background: var(--color-black-50);
+    color: var(--color-black-300);
+    position: relative;
+    overflow: hidden;
+    cursor: wait;
+    pointer-events: none;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 150%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 10px,
+        var(--color-black-50) 10px,
+        var(--color-black-50) 20px
+      );
+      animation: loading 0.75s infinite linear;
+    }
+  }
+}
+
+.variant_outline {
+  background: var(--color-white-1000);
+  color: var(--color-black-900);
+  border: 1px var(--color-black-150) solid;
+
+  &:hover:not(:disabled):not(:active) {
+    background: var(--color-black-50);
+  }
+
+  &:active {
+    background: var(--color-black-50);
+  }
+
+  &.disabled {
+    border: 1px var(--color-black-100) solid;
+    color: var(--color-black-300);
+  }
+
+  &.loading {
+    background: var(--color-white-1000);
+    color: var(--color-black-300);
+    position: relative;
+    overflow: hidden;
+    cursor: wait;
+    pointer-events: none;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 150%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 10px,
+        var(--color-black-50) 10px,
+        var(--color-black-50) 20px
+      );
+      animation: loading 0.75s infinite linear;
+    }
+  }
+}
+
+.variant_ghost {
+  background: transparent;
+  color: var(--color-black-900);
+  border: 1px transparent solid;
+
+  &:hover:not(:disabled):not(:active) {
+    background: var(--color-black-50);
+  }
+
+  &:active {
+    background: var(--color-black-50);
+  }
+
+  &.disabled {
+    color: var(--color-black-300);
+  }
+
+  &.loading {
+    background: var(--color-white-1000);
+    color: var(--color-black-300);
+    position: relative;
+    overflow: hidden;
+    cursor: wait;
+    pointer-events: none;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 150%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 10px,
+        var(--color-black-50) 10px,
+        var(--color-black-50) 20px
+      );
+      animation: loading 0.75s infinite linear;
+    }
+  }
+}
+
+@keyframes loading {
+  0% {
+    transform: translateX(-30px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
