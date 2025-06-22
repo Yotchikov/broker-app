@@ -1,5 +1,5 @@
 :root {
-  /* Spacing */
+  /* Space */
   --space-base: 8px;
   --space-2-xs-compact: calc(var(--space-base) * 0.25);
   --space-2-xs: calc(var(--space-base) * 0.5);
@@ -14,4 +14,23 @@
   --space-2-xl: calc(var(--space-base) * 4);
   --space-3-xl: calc(var(--space-base) * 5);
   --space-4-xl: calc(var(--space-base) * 6);
+
+  /* Border Radius */
+  --border-radius-base: 8px;
+  --border-radius-2-xs: calc(var(--border-radius-base) * 0.5);
+  --border-radius-xs-compact: calc(var(--border-radius-base) * 0.75);
+  --border-radius-xs: calc(var(--border-radius-base) * 1);
+  --border-radius-s-compact: calc(var(--border-radius-base) * 1.25);
+  --border-radius-s: calc(var(--border-radius-base) * 1.5);
+  --border-radius-m-compact: calc(var(--border-radius-base) * 1.75);
+  --border-radius-m: calc(var(--border-radius-base) * 2);
+  --border-radius-l: calc(var(--border-radius-base) * 2.5);
+  --border-radius-xl: calc(var(--border-radius-base) * 3);
+  --border-radius-2-xl: calc(var(--border-radius-base) * 4);
+  --border-radius-round: 100px;
+
+  /* Border Width */
+  --border-width-s: 1px;
+  --border-width-m: 2px;
+  --border-width-l: 4px;
 }
