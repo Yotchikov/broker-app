@@ -1,7 +1,7 @@
-import { Button } from 'ui-kit';
+import { Main } from './pages/main';
 
 function App() {
-  return <Button>Click me</Button>;
+  return <Main />;
 }
 
 export default App;

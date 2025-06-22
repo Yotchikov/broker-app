@@ -23,6 +23,10 @@
   &.disabled {
     background: var(--input-background-disabled);
   }
+  --input-background-hover: var(--color-black-50);
+  &:hover {
+    background: var(--input-background-hover);
+  }
 
   /* Text */
   --input-text-color: var(--color-black-900);

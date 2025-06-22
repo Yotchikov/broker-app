@@ -58,12 +58,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
         [styles.disabled]: isDisabled,
         [styles[`size_${size}`]]: size,
       })}
+      onFocus={onFocus}
+      onBlur={onBlur}
+      onClick={onClick}
     >
       <div
         className={styles.inputContainer}
-        onFocus={onFocus}
-        onBlur={onBlur}
-        onClick={onClick}
         tabIndex={0}
       >
         {leftNode}
