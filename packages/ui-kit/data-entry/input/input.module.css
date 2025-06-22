@@ -1,0 +1,79 @@
+.input {
+  /* Border */
+  border-style: solid;
+  --input-border-radius: var(--border-radius-s);
+  border-radius: var(--input-border-radius);
+  --input-border-width: var(--border-width-s);
+  border-width: var(--input-border-width);
+  --input-border-color: var(--color-black-150);
+  border-color: var(--input-border-color);
+  --input-border-color-disabled: var(--color-black-50);
+  &.disabled {
+    border-color: var(--input-border-color-disabled);
+  }
+
+  /* Space */
+  --input-padding: 0;
+  padding: var(--input-padding);
+
+  /* Background */
+  --input-background: var(--color-white);
+  background: var(--input-background);
+  --input-background-disabled: var(--color-black-50);
+  &.disabled {
+    background: var(--input-background-disabled);
+  }
+
+  /* Text */
+  --input-text-color: var(--color-black-900);
+  & .inputControl {
+    color: var(--input-text-color);
+  }
+  --input-text-color-disabled: var(--color-black-300);
+  &.disabled .inputControl {
+    color: var(--input-text-color-disabled);
+  }
+  --input-placeholder-color: var(--color-black-600);
+  & .inputControl::placeholder {
+    color: var(--input-placeholder-color);
+  }
+  --input-placeholder-color-disabled: var(--color-black-300);
+  &.disabled .inputControl::placeholder {
+    color: var(--input-placeholder-color-disabled);
+  }
+
+  /* Other */
+  cursor: text;
+
+  &.disabled {
+    cursor: default;
+    pointer-events: none;
+  }
+
+  & .inputContainer {
+    display: flex;
+    align-items: stretch;
+  }
+
+  & .inputControl {
+    border: 0 solid transparent;
+    background: transparent;
+    font-size: var(--typography-font-size-s);
+    line-height: var(--typography-line-height-xs);
+    padding: 0;
+    display: block;
+    flex-grow: 1;
+
+    &:focus-visible {
+      outline: none;
+    }
+  }
+}
+
+.size_s {
+  --input-padding: var(--space-xs) var(--space-s);
+}
+
+.size_m {
+  --input-padding: var(--space-s) var(--space-xl);
+}

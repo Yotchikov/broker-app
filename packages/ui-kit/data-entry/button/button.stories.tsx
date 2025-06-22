@@ -20,62 +20,78 @@ export const Default: Story = {};
 
 export const States: Story = {
   render: () => {
-    const props: ButtonProps[] = [
-      {
-        variant: 'primary',
-      },
-      {
-        variant: 'secondary',
-      },
-      {
-        variant: 'outline',
-      },
-      {
-        variant: 'ghost',
-      },
-      {
-        variant: 'primary',
-        isDisabled: true,
-      },
-      {
-        variant: 'secondary',
-        isDisabled: true,
-      },
-      {
-        variant: 'outline',
-        isDisabled: true,
-      },
-      {
-        variant: 'ghost',
-        isDisabled: true,
-      },
-      {
-        variant: 'primary',
-        isLoading: true,
-      },
-      {
-        variant: 'secondary',
-        isLoading: true,
-      },
-      {
-        variant: 'outline',
-        isLoading: true,
-      },
-      {
-        variant: 'ghost',
-        isLoading: true,
-      },
-    ];
+    const props: Record<string, ButtonProps[]> = {
+      Default: [
+        {
+          variant: 'primary',
+        },
+        {
+          variant: 'secondary',
+        },
+        {
+          variant: 'outline',
+        },
+        {
+          variant: 'ghost',
+        },
+      ],
+      Disabled: [
+        {
+          variant: 'primary',
+          isDisabled: true,
+        },
+        {
+          variant: 'secondary',
+          isDisabled: true,
+        },
+        {
+          variant: 'outline',
+          isDisabled: true,
+        },
+        {
+          variant: 'ghost',
+          isDisabled: true,
+        },
+      ],
+      Loading: [
+        {
+          variant: 'primary',
+          isLoading: true,
+        },
+        {
+          variant: 'secondary',
+          isLoading: true,
+        },
+        {
+          variant: 'outline',
+          isLoading: true,
+        },
+        {
+          variant: 'ghost',
+          isLoading: true,
+        },
+      ],
+    };
 
     return (
-      <div style={{ display: 'grid', gap: '12px', gridTemplateColumns: 'repeat(4, 1fr)' }}>
-        {props.map((it, index) => (
-          <Button
-            key={index}
-            {...it}
-          >
-            Button
-          </Button>
+      <div style={{ display: 'grid', gap: '12px', gridTemplateColumns: 'auto repeat(4, 1fr)', alignItems: 'center' }}>
+        <div />
+        <div>Primary</div>
+        <div>Secondary</div>
+        <div>Outline</div>
+        <div>Ghost</div>
+        {Object.entries(props).map(([key, items]) => (
+          <>
+            {key}
+            {items.map((it, index) => (
+              <Button
+                key={index}
+                {...it}
+              >
+                Button
+              </Button>
+            ))}
+          </>
         ))}
       </div>
     );

@@ -11,4 +11,5 @@ export type ButtonProps = {
   variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
   icon?: ReactElement<IconProps>;
   href?: string;
+  className?: string;
 };

@@ -15,13 +15,14 @@ export const Button: FC<ButtonProps> = (props) => {
     icon,
     children,
     href,
+    className,
   } = props;
   const iconContent = icon && cloneElement(icon, ICON_PROPS[size]);
 
   return createElement(
     as,
     {
-      className: clsx(styles.button, styles[`variant_${variant}`], styles[`size_${size}`], {
+      className: clsx(styles.button, className, styles[`variant_${variant}`], styles[`size_${size}`], {
         [styles.disabled]: isDisabled,
         [styles.loading]: isLoading,
         [styles.onlyIcon]: icon && !children,

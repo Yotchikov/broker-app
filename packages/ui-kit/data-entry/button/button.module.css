@@ -3,7 +3,7 @@
   border-style: solid;
   --button-border-radius: 0;
   border-radius: var(--button-border-radius);
-  --button-border-width: 1px;
+  --button-border-width: var(--border-width-s);
   border-width: var(--button-border-width);
   --button-border-color: 0;
   border-color: var(--button-border-color);
