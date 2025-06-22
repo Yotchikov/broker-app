@@ -117,34 +117,34 @@
 }
 
 .size_xs {
-  --button-border-radius: 8px;
+  --button-border-radius: var(--border-radius-xs);
   --button-padding: var(--space-2-xs-compact) var(--space-xs);
-  --button-font-size: 14px;
-  --button-line-height: 20px;
+  --button-font-size: var(--typography-font-size-s);
+  --button-line-height: var(--typography-line-height-s);
   --button-padding-only-icon: var(--space-2-xs-compact) var(--space-2-xs-compact);
 }
 
 .size_s {
-  --button-border-radius: 10px;
+  --button-border-radius: var(--border-radius-s-compact);
   --button-padding: var(--space-xs-compact) var(--space-s);
-  --button-font-size: 14px;
-  --button-line-height: 20px;
+  --button-font-size: var(--typography-font-size-s);
+  --button-line-height: var(--typography-line-height-s);
   --button-padding-only-icon: var(--space-xs-compact) var(--space-xs-compact);
 }
 
 .size_m {
-  --button-border-radius: 12px;
+  --button-border-radius: var(--border-radius-s);
   --button-padding: var(--space-xs) var(--space-m);
-  --button-font-size: 14px;
-  --button-line-height: 20px;
+  --button-font-size: var(--typography-font-size-s);
+  --button-line-height: var(--typography-line-height-s);
   --button-padding-only-icon: var(--space-xs) var(--space-xs);
 }
 
 .size_l {
-  --button-border-radius: 14px;
+  --button-border-radius: var(--border-radius-m-compact);
   --button-padding: var(--space-s) var(--space-l);
-  --button-font-size: 16px;
-  --button-line-height: 24px;
+  --button-font-size: var(--typography-font-size-m);
+  --button-line-height: var(--typography-line-height-m);
   --button-padding-only-icon: var(--space-s) var(--space-s);
 }
 

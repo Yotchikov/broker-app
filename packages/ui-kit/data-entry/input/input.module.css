@@ -7,7 +7,7 @@
   border-width: var(--input-border-width);
   --input-border-color: var(--color-black-150);
   border-color: var(--input-border-color);
-  --input-border-color-disabled: var(--color-black-50);
+  --input-border-color-disabled: transparent;
   &.disabled {
     border-color: var(--input-border-color-disabled);
   }
@@ -43,6 +43,7 @@
   }
 
   /* Other */
+  box-sizing: border-box;
   cursor: text;
 
   &.disabled {
