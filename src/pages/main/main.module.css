@@ -4,5 +4,5 @@
   padding: var(--space-m);
   display: flex;
   flex-direction: column;
-  gap: var(--space-m);
+  gap: var(--space-m-compact);
 }
