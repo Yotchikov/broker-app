@@ -26,7 +26,9 @@
     "baseUrl": ".",
     "paths": {
       "ui-kit": ["packages/ui-kit"],
-      "ui-kit/*": ["packages/ui-kit/*"]
+      "ui-kit/*": ["packages/ui-kit/*"],
+      "domain": ["src/domain"],
+      "domain/*": ["src/domain/*"]
     }
   },
   "include": ["src", "packages/**/*", ".storybook/*"]

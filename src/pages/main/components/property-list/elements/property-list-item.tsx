@@ -1,7 +1,8 @@
 import type { FC } from 'react';
 import styles from '../property-list.module.css';
-import { Button, ChevronDownIcon, Text } from 'ui-kit';
-import type { Property } from '../../../../../domain';
+import { ChevronRightIcon, Text } from 'ui-kit';
+import type { Property } from 'domain';
+import { PropertyPrice } from './property-price';
 
 type PropertyListItemProps = {
   property: Property;
@@ -12,30 +13,29 @@ export const PropertyListItem: FC<PropertyListItemProps> = (props) => {
 
   return (
     <li className={styles.item}>
-      <div className={styles.content}>
-        <div className={styles.icon} />
-        <div className={styles.info}>
-          <Text
-            size='m'
-            weight='semibold'
-          >
-            {property.name}
-          </Text>
-          {property.price && (
+      <a
+        className={styles.wrapper}
+        href={`/properties/${property.id}`}
+      >
+        <div className={styles.content}>
+          <div className={styles.image} />
+          <div className={styles.info}>
             <Text
-              size='xs'
-              color='secondary'
+              size='m'
+              weight='regular'
             >
-              {property.price.amount} {'₽'}
+              {property.name}
             </Text>
-          )}
+            {property.price && (
+              <PropertyPrice
+                amount={property.price.amount}
+                currency={property.price.currency}
+              />
+            )}
+          </div>
         </div>
-      </div>
-      <Button
-        size='s'
-        variant='ghost'
-        icon={<ChevronDownIcon />}
-      />
+        <ChevronRightIcon />
+      </a>
     </li>
   );
 };

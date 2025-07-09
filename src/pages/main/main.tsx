@@ -8,7 +8,7 @@ export const Main: FC = () => {
     <div className={styles.main}>
       <Text
         size='2xl'
-        weight='bold'
+        weight='semibold'
         as='h1'
       >
         Объекты
