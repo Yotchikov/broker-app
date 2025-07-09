@@ -13,6 +13,10 @@ class PropertyMockProvider implements PropertyProvider {
       ownerId: '1',
       prospectIds: [],
       dealType: 'sale',
+      floor: {
+        number: 25,
+        total: 28,
+      },
     },
     {
       id: '2',

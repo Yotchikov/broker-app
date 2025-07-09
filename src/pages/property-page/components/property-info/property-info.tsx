@@ -8,6 +8,7 @@ import { Price } from '../../../../app/components';
 
 export const PropertyInfo: FC = () => {
   const { property } = useLoaderData<{ property: Property }>();
+  const { name, price, floor } = property;
 
   return (
     <div className={styles.info}>
@@ -20,9 +21,9 @@ export const PropertyInfo: FC = () => {
             as='h1'
             align='center'
           >
-            {property.name}
+            {name}
           </Text>
-          {property.price && (
+          {price && (
             <Text
               size='m'
               weight='regular'
@@ -31,14 +32,33 @@ export const PropertyInfo: FC = () => {
               align='center'
             >
               <Price
-                amount={property.price.amount}
-                currency={property.price.currency}
+                amount={price.amount}
+                currency={price.currency}
               />
             </Text>
           )}
         </div>
       </div>
-      <div className={styles.content}></div>
+      <div className={styles.content}>
+        {floor && (
+          <>
+            <Text
+              size='m'
+              weight='regular'
+              color='secondary'
+            >
+              Этаж
+            </Text>
+            <Text
+              size='m'
+              weight='regular'
+            >
+              {floor.number} из {floor.total}
+            </Text>
+          </>
+        )}
+        {}
+      </div>
     </div>
   );
 };
