@@ -1,9 +1,9 @@
 import type { FC } from 'react';
 import { Text } from 'ui-kit';
-import styles from './main.module.css';
+import styles from './main-page.module.css';
 import { PropertyList } from './components';
 
-export const Main: FC = () => {
+export const MainPage: FC = () => {
   return (
     <div className={styles.main}>
       <Text

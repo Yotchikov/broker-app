@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import styles from '../property-list.module.css';
 import { ChevronRightIcon, Text } from 'ui-kit';
-import type { Property } from 'domain';
+import type { Property } from 'src/data';
 import { PropertyPrice } from './property-price';
 
 type PropertyListItemProps = {

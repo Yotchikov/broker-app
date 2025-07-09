@@ -7,6 +7,7 @@ export default defineConfig({
   resolve: {
     alias: {
       'ui-kit': '/packages/ui-kit',
+      data: '/src/data',
     },
   },
 });

@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import type { Currency } from 'domain';
+import type { Currency } from 'src/data';
 import { Text } from 'ui-kit';
 
 const CURRENCY_SYMBOLS: Record<Currency, string> = {

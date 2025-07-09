@@ -27,8 +27,10 @@
     "paths": {
       "ui-kit": ["packages/ui-kit"],
       "ui-kit/*": ["packages/ui-kit/*"],
-      "domain": ["src/domain"],
-      "domain/*": ["src/domain/*"]
+      "data": ["src/data"],
+      "data/*": ["src/data/*"],
+      "pages": ["src/pages"],
+      "pages/*": ["src/pages/*"]
     }
   },
   "include": ["src", "packages/**/*", ".storybook/*"]
