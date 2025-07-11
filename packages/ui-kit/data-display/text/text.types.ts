@@ -7,5 +7,5 @@ export type TextProps = {
   size?: '2xs' | 'xs' | 's' | 'm' | 'l' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | '6xl';
   as?: 'span' | 'div' | 'h1' | 'h2' | 'h3' | 'p';
   className?: string;
-  color?: 'primary' | 'secondary' | 'error' | 'disabled' | 'success';
+  color?: 'primary' | 'secondary' | 'error' | 'disabled' | 'success' | 'info';
 };

@@ -1,7 +1,7 @@
 import type { Owner } from '../../entities';
 import type { OwnerProvider } from './types';
 
-class OwnerMockProvider implements OwnerProvider {
+class OwnerMockProviderImpl implements OwnerProvider {
   private _owners: Owner[] = [
     {
       id: '1',
@@ -9,7 +9,7 @@ class OwnerMockProvider implements OwnerProvider {
     },
   ];
 
-  getOwnerById = (id: string): Owner => {
+  getOwnerById = async (id: string): Promise<Owner> => {
     const owner = this._owners.find((owner) => owner.id === id);
 
     if (!owner) {
@@ -20,4 +20,4 @@ class OwnerMockProvider implements OwnerProvider {
   };
 }
 
-export const ownerMockProvider = new OwnerMockProvider();
+export const ownerMockProvider = new OwnerMockProviderImpl();

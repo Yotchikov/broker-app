@@ -1,0 +1,5 @@
+.owner {
+  background: var(--color-white-1000);
+  border-radius: var(--border-radius-m);
+  padding: var(--space-s) var(--space-m-compact);
+}

@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router';
 import { MainPage, PropertyPage } from '../../pages';
-import { propertyMockProvider } from '../../data';
+import { ownerMockProvider, propertyMockProvider } from '../../data';
 
 export const router = createBrowserRouter([
   {
@@ -27,8 +27,12 @@ export const router = createBrowserRouter([
         throw new Error('Property ID is required');
       }
 
+      const property = await propertyMockProvider.getPropertyById(params.id);
+      const owner = await ownerMockProvider.getOwnerById(property.ownerId);
+
       return {
-        property: await propertyMockProvider.getPropertyById(params.id),
+        property,
+        owner,
       };
     },
     Component: PropertyPage,

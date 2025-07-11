@@ -10,4 +10,5 @@ export type Property = BaseEntity & {
   ownerId: string;
   prospectIds: string[];
   dealType: 'sale' | 'rent';
+  area?: number;
 };

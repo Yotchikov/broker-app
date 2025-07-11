@@ -1,7 +1,7 @@
 import type { Property } from '../../entities';
 import type { PropertyProvider } from './types';
 
-class PropertyMockProvider implements PropertyProvider {
+class PropertyMockProviderImpl implements PropertyProvider {
   private _properties: Property[] = [
     {
       id: '1',
@@ -17,6 +17,7 @@ class PropertyMockProvider implements PropertyProvider {
         number: 25,
         total: 28,
       },
+      area: 4400,
     },
     {
       id: '2',
@@ -46,4 +47,4 @@ class PropertyMockProvider implements PropertyProvider {
   };
 }
 
-export const propertyMockProvider = new PropertyMockProvider();
+export const propertyMockProvider = new PropertyMockProviderImpl();
