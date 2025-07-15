@@ -11,7 +11,7 @@ class PropertyMockProviderImpl implements PropertyProvider {
         currency: 'RUB',
       },
       ownerId: '1',
-      prospectIds: [],
+      prospectIds: ['1', '2'],
       dealType: 'sale',
       floor: {
         number: 25,

@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import styles from './property-page.module.css';
-import { PropertyHeader, PropertyInfo, PropertyOwner } from './components';
+import { PropertyHeader, PropertyInfo, PropertyOwner, PropertyProspects } from './components';
 
 export const PropertyPage: FC = () => {
   return (
@@ -8,6 +8,7 @@ export const PropertyPage: FC = () => {
       <PropertyHeader />
       <PropertyInfo />
       <PropertyOwner />
+      <PropertyProspects />
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router';
 import { MainPage, PropertyPage } from '../../pages';
 import { ownerMockProvider, propertyMockProvider } from '../../data';
+import { prospectMockProvider } from '../../data/providers/prospect/prospect-mock-provider';
 
 export const router = createBrowserRouter([
   {
@@ -29,10 +30,14 @@ export const router = createBrowserRouter([
 
       const property = await propertyMockProvider.getPropertyById(params.id);
       const owner = await ownerMockProvider.getOwnerById(property.ownerId);
+      const prospects = await Promise.all(
+        property.prospectIds.map((prospectId) => prospectMockProvider.getProspectById(prospectId)),
+      );
 
       return {
         property,
         owner,
+        prospects,
       };
     },
     Component: PropertyPage,
