@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { Button } from './button';
-import LinkIcon from '../../icons/svgs/link.svg';
+import AddCircle28 from '../../icons/svgs/add-circle-28.svg';
 import type { ButtonProps } from './button.types';
 
 const meta: Meta<typeof Button> = {
@@ -117,43 +117,43 @@ export const Icons: Story = {
       <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
         <Button
           size='xs'
-          icon={<LinkIcon />}
+          icon={<AddCircle28 />}
         >
           Button
         </Button>
         <Button
           size='s'
-          icon={<LinkIcon />}
+          icon={<AddCircle28 />}
         >
           Button
         </Button>
         <Button
           size='m'
-          icon={<LinkIcon />}
+          icon={<AddCircle28 />}
         >
           Button
         </Button>
         <Button
           size='l'
-          icon={<LinkIcon />}
+          icon={<AddCircle28 />}
         >
           Button
         </Button>
         <Button
           size='xs'
-          icon={<LinkIcon />}
+          icon={<AddCircle28 />}
         ></Button>
         <Button
           size='s'
-          icon={<LinkIcon />}
+          icon={<AddCircle28 />}
         ></Button>
         <Button
           size='m'
-          icon={<LinkIcon />}
+          icon={<AddCircle28 />}
         ></Button>
         <Button
           size='l'
-          icon={<LinkIcon />}
+          icon={<AddCircle28 />}
         ></Button>
       </div>
     );

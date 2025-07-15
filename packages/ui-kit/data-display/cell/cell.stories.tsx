@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { Cell } from './cell';
-import CircleInfoIcon from '../../icons/svgs/circle-info.svg';
+import InfoCircle28 from '../../icons/svgs/info-circle-28.svg';
+import AddCircle28 from '../../icons/svgs/add-circle-28.svg';
 import { Divider } from '../divider';
-import CirclePlusIcon from '../../icons/svgs/circle-plus.svg';
 import { Text } from '../text';
 
 const meta: Meta<typeof Cell> = {
@@ -28,7 +28,7 @@ export const Default: Story = {
       >
         <Cell
           before={
-            <CircleInfoIcon
+            <InfoCircle28
               width={28}
               height={28}
               color='var(--color-blue-500)'
@@ -47,7 +47,7 @@ export const Default: Story = {
         <Divider />
         <Cell
           before={
-            <CirclePlusIcon
+            <AddCircle28
               width={28}
               height={28}
               color='var(--color-blue-500)'
