@@ -3,8 +3,8 @@ import styles from './property-list.module.css';
 import { useLoaderData, useNavigate } from 'react-router';
 import type { Property } from 'data';
 import { Cell } from 'ui-kit';
-import { PropertyPrice } from './elements/property-price';
 import ChevronRight16 from 'ui-kit/icons/svgs/chevron-right-16.svg';
+import { Price } from '../../../../app/components';
 
 export const PropertyList: FC = () => {
   const { properties } = useLoaderData<{ properties: Property[] }>();
@@ -17,12 +17,13 @@ export const PropertyList: FC = () => {
           key={property.id}
           subtitle={
             property.price && (
-              <PropertyPrice
+              <Price
                 amount={property.price.amount}
                 currency={property.price.currency!}
               />
             )
           }
+          before={<div className={styles.image} />}
           after={<ChevronRight16 />}
           onClick={() => {
             navigate(`/properties/${property.id}`);

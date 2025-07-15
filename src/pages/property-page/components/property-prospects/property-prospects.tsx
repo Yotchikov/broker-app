@@ -6,7 +6,6 @@ import ChevronRight16 from 'ui-kit/icons/svgs/chevron-right-16.svg';
 
 export const PropertyProspects = () => {
   const { prospects } = useLoaderData<{ prospects: Prospect[] }>();
-  console.log(prospects);
 
   return (
     <>
@@ -20,7 +19,7 @@ export const PropertyProspects = () => {
       <div>
         {prospects.map((prospect) => (
           <Cell
-            before={<></>}
+            before={<div />}
             after={<ChevronRight16 />}
             key={prospect.id}
             onClick={() => {}}

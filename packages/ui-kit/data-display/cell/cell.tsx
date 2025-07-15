@@ -7,6 +7,18 @@ import clsx from 'clsx';
 export const Cell: FC<CellProps> = (props) => {
   const { before, children, after, subtitle, onClick } = props;
 
+  const content =
+    typeof children === 'string' ? (
+      <Text
+        size='m'
+        weight='regular'
+      >
+        {children}
+      </Text>
+    ) : (
+      children
+    );
+
   return (
     <div
       className={clsx(styles.cell, onClick && styles.interactive)}
@@ -14,14 +26,7 @@ export const Cell: FC<CellProps> = (props) => {
     >
       {before && <div className={styles.before}>{before}</div>}
       <div className={styles.middle}>
-        {children && (
-          <Text
-            size='m'
-            weight='regular'
-          >
-            {children}
-          </Text>
-        )}
+        {content}
         {subtitle && (
           <Text
             size='s'
