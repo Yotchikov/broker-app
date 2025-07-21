@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { Cell } from './cell';
-import InfoCircle28 from '../../icons/svgs/info-circle-28.svg';
-import AddCircle28 from '../../icons/svgs/add-circle-28.svg';
+import InfoCircle28 from '../../icons/svgs/info-circle-28.svg?react';
+import AddCircle28 from '../../icons/svgs/add-circle-28.svg?react';
 import { Divider } from '../divider';
 import { Text } from '../text';
 

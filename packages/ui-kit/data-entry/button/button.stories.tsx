@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { Button } from './button';
-import AddCircle28 from '../../icons/svgs/add-circle-28.svg';
+import AddCircle28 from '../../icons/svgs/add-circle-28.svg?react';
 import type { ButtonProps } from './button.types';
 
 const meta: Meta<typeof Button> = {

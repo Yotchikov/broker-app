@@ -5,9 +5,9 @@ import { Text } from '../text';
 import clsx from 'clsx';
 
 export const Cell: FC<CellProps> = (props) => {
-  const { before, children, after, subtitle, onClick } = props;
+  const { before, children, after, subtitle, className, onClick } = props;
 
-  const content =
+  const childrenNode =
     typeof children === 'string' ? (
       <Text
         size='m'
@@ -19,23 +19,28 @@ export const Cell: FC<CellProps> = (props) => {
       children
     );
 
+  const subtitleNode =
+    typeof subtitle === 'string' ? (
+      <Text
+        size='s'
+        weight='regular'
+        color='secondary'
+      >
+        {subtitle}
+      </Text>
+    ) : (
+      subtitle
+    );
+
   return (
     <div
-      className={clsx(styles.cell, onClick && styles.interactive)}
+      className={clsx(className, styles.cell, onClick && styles.interactive)}
       onClick={onClick}
     >
       {before && <div className={styles.before}>{before}</div>}
       <div className={styles.middle}>
-        {content}
-        {subtitle && (
-          <Text
-            size='s'
-            weight='regular'
-            color='secondary'
-          >
-            {subtitle}
-          </Text>
-        )}
+        {childrenNode}
+        {subtitleNode}
       </div>
       {after && <div className={styles.after}>{after}</div>}
     </div>

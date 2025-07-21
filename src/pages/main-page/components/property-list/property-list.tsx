@@ -2,8 +2,8 @@ import type { FC } from 'react';
 import styles from './property-list.module.css';
 import { useLoaderData, useNavigate } from 'react-router';
 import type { Property } from 'data';
-import { Cell } from 'ui-kit';
-import ChevronRight16 from 'ui-kit/icons/svgs/chevron-right-16.svg';
+import { Cell, Section } from 'ui-kit';
+import ChevronRight16 from 'ui-kit/icons/svgs/chevron-right-16.svg?react';
 import { Price } from '../../../../app/components';
 
 export const PropertyList: FC = () => {
@@ -11,7 +11,7 @@ export const PropertyList: FC = () => {
   const navigate = useNavigate();
 
   return (
-    <ul className={styles.list}>
+    <Section title='Объекты'>
       {properties.map((property) => (
         <Cell
           key={property.id}
@@ -32,6 +32,6 @@ export const PropertyList: FC = () => {
           {property.name}
         </Cell>
       ))}
-    </ul>
+    </Section>
   );
 };

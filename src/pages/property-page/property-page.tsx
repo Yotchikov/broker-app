@@ -1,14 +1,14 @@
 import type { FC } from 'react';
-import styles from './property-page.module.css';
 import { PropertyHeader, PropertyInfo, PropertyOwner, PropertyProspects } from './components';
+import { PageLayout } from '../../../packages/ui-kit';
 
 export const PropertyPage: FC = () => {
   return (
-    <div className={styles.propertyPage}>
+    <PageLayout>
       <PropertyHeader />
       <PropertyInfo />
       <PropertyOwner />
       <PropertyProspects />
-    </div>
+    </PageLayout>
   );
 };

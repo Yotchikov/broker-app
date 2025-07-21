@@ -1,0 +1,13 @@
+.info {
+  animation: appear 0.3s ease;
+  overflow: hidden;
+}
+
+@keyframes appear {
+  0% {
+    max-height: 0;
+  }
+  100% {
+    max-height: 100vh;
+  }
+}

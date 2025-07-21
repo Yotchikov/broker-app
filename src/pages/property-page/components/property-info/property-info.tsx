@@ -1,15 +1,15 @@
 import type { FC } from 'react';
-import { Cell } from '../../../../../packages/ui-kit';
+import { Cell, Section } from '../../../../../packages/ui-kit';
 import type { Property } from '../../../../data';
 import { useLoaderData } from 'react-router';
-import InfoCircle28 from 'ui-kit/icons/svgs/info-circle-28.svg';
+import InfoCircle28 from 'ui-kit/icons/svgs/info-circle-28.svg?react';
 
 export const PropertyInfo: FC = () => {
   const { property } = useLoaderData<{ property: Property }>();
   const { area, floor } = property;
 
   return (
-    <div>
+    <Section title='Информация'>
       {area && (
         <Cell
           before={
@@ -32,6 +32,6 @@ export const PropertyInfo: FC = () => {
           {floor.number} из {floor.total}
         </Cell>
       )}
-    </div>
+    </Section>
   );
 };
