@@ -2,9 +2,10 @@ import type { FC } from 'react';
 import styles from './property-list.module.css';
 import { useLoaderData, useNavigate } from 'react-router';
 import type { Property } from 'data';
-import { Cell, Section } from 'ui-kit';
+import { Cell, Divider, Section, Text } from 'ui-kit';
 import ChevronRight16 from 'ui-kit/icons/svgs/chevron-right-16.svg?react';
 import { Price } from '../../../../app/components';
+import AddCircle28 from 'ui-kit/icons/svgs/add-circle-28.svg?react';
 
 export const PropertyList: FC = () => {
   const { properties } = useLoaderData<{ properties: Property[] }>();
@@ -32,6 +33,15 @@ export const PropertyList: FC = () => {
           {property.name}
         </Cell>
       ))}
+      <Divider />
+      <Cell
+        onClick={() => {
+          navigate('/properties/create');
+        }}
+        before={<AddCircle28 color='var(--color-blue-500)' />}
+      >
+        <Text color='info'>Добавить объект</Text>
+      </Cell>
     </Section>
   );
 };

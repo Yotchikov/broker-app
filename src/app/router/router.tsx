@@ -1,5 +1,5 @@
 import { createBrowserRouter } from 'react-router';
-import { MainPage, PropertyPage } from '../../pages';
+import { MainPage, PropertyFormPage, PropertyPage } from '../../pages';
 import { ownerMockProvider, propertyMockProvider } from '../../data';
 import { prospectMockProvider } from '../../data/providers/prospect/prospect-mock-provider';
 
@@ -41,5 +41,9 @@ export const router = createBrowserRouter([
       };
     },
     Component: PropertyPage,
+  },
+  {
+    path: '/properties/create',
+    Component: PropertyFormPage,
   },
 ]);

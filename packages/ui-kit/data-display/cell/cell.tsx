@@ -5,7 +5,7 @@ import { Text } from '../text';
 import clsx from 'clsx';
 
 export const Cell: FC<CellProps> = (props) => {
-  const { before, children, after, subtitle, className, onClick } = props;
+  const { before, children, after, subtitle, subhead, className, onClick } = props;
 
   const childrenNode =
     typeof children === 'string' ? (
@@ -32,6 +32,19 @@ export const Cell: FC<CellProps> = (props) => {
       subtitle
     );
 
+  const subheadNode =
+    typeof subhead === 'string' ? (
+      <Text
+        size='s'
+        weight='regular'
+        color='secondary'
+      >
+        {subhead}
+      </Text>
+    ) : (
+      subhead
+    );
+
   return (
     <div
       className={clsx(className, styles.cell, onClick && styles.interactive)}
@@ -39,6 +52,7 @@ export const Cell: FC<CellProps> = (props) => {
     >
       {before && <div className={styles.before}>{before}</div>}
       <div className={styles.middle}>
+        {subheadNode}
         {childrenNode}
         {subtitleNode}
       </div>

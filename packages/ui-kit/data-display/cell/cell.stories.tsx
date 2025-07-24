@@ -3,8 +3,9 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Cell } from './cell';
 import InfoCircle28 from '../../icons/svgs/info-circle-28.svg?react';
 import AddCircle28 from '../../icons/svgs/add-circle-28.svg?react';
+import Bin28 from '../../icons/svgs/bin-28.svg?react';
 import { Divider } from '../divider';
-import { Text } from '../text';
+import { ButtonCell } from '../../data-entry';
 
 const meta: Meta<typeof Cell> = {
   title: 'Data Display/Cell',
@@ -39,26 +40,39 @@ export const Default: Story = {
           44.4 м²
         </Cell>
         <Cell
-          before={<></>}
-          subtitle='Этаж'
+          subhead='Этаж'
+          subtitle='Это очень высоко!'
         >
           5 из 7
         </Cell>
         <Divider />
-        <Cell
+        <ButtonCell
           before={
             <AddCircle28
               width={28}
               height={28}
-              color='var(--color-blue-500)'
             />
           }
           onClick={() => {
             console.log('clicked');
           }}
         >
-          <Text color='info'>Добавить собственника</Text>
-        </Cell>
+          Добавить собственника
+        </ButtonCell>
+        <ButtonCell
+          before={
+            <Bin28
+              width={28}
+              height={28}
+            />
+          }
+          variant='danger'
+          onClick={() => {
+            console.log('clicked');
+          }}
+        >
+          Удалить
+        </ButtonCell>
       </div>
     );
   },

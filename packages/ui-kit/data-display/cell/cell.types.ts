@@ -5,6 +5,7 @@ export type CellProps = {
   children?: ReactNode;
   after?: ReactNode;
   subtitle?: ReactNode;
+  subhead?: ReactNode;
   className?: string;
   onClick?: () => void;
 };
