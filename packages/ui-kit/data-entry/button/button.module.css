@@ -149,14 +149,14 @@
 }
 
 .variant_primary {
-  --button-background: var(--color-black-900);
+  --button-background: var(--color-blue-500);
   --button-text-color: var(--color-white-900);
-  --button-background-hover: var(--color-black-800);
-  --button-background-active: var(--color-black-1000);
-  --button-background-disabled: var(--color-black-50);
-  --button-text-color-disabled: var(--color-black-300);
-  --button-background-loading-1: var(--color-black-800);
-  --button-background-loading-2: var(--color-white-50);
+  --button-background-hover: var(--color-blue-400);
+  --button-background-active: var(--color-blue-400);
+  --button-background-disabled: var(--color-blue-300);
+  --button-text-color-disabled: var(--color-white-900);
+  --button-background-loading-1: var(--color-blue-300);
+  --button-background-loading-2: var(--color-white-100);
   --button-text-color-loading: var(--color-white-900);
   --button-border-color: transparent;
   --button-border-color-disabled: transparent;

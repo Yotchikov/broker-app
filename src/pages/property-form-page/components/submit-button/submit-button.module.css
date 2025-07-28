@@ -1,0 +1,8 @@
+.root {
+  padding: var(--space-m) var(--space-xs);
+  background: linear-gradient(180deg, transparent 0%, #f2f2f2 100%);
+}
+
+.submitButton {
+  width: 100%;
+}

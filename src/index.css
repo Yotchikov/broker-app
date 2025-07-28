@@ -1,6 +1,8 @@
 @import 'ui-kit/styles';
 
 html,
-body {
+body,
+#root {
   background: #f2f2f2;
+  height: 100%;
 }
