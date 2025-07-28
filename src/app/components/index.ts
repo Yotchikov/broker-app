@@ -1,2 +1,2 @@
-export { Price } from './price';
-export { PageHeader } from './page-header';
+export * from './price';
+export * from './page-header';

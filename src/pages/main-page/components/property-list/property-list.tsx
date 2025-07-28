@@ -4,8 +4,13 @@ import { useLoaderData, useNavigate } from 'react-router';
 import type { Property } from 'data';
 import { ButtonCell, Cell, Divider, Section } from 'ui-kit';
 import ChevronRight16 from 'ui-kit/icons/svgs/chevron-right-16.svg?react';
-import { Price } from '../../../../app/components';
 import AddCircle28 from 'ui-kit/icons/svgs/add-circle-28.svg?react';
+import { getPrice } from '../../../../app/components';
+
+const DEAL_TYPE_LABELS = {
+  sale: 'Продажа',
+  rent: 'Аренда',
+};
 
 export const PropertyList: FC = () => {
   const { properties } = useLoaderData<{ properties: Property[] }>();
@@ -16,16 +21,10 @@ export const PropertyList: FC = () => {
       {properties.map((property) => (
         <Cell
           key={property.id}
-          subtitle={
-            property.price && (
-              <Price
-                amount={property.price.amount}
-                currency={property.price.currency!}
-              />
-            )
-          }
+          subhead={DEAL_TYPE_LABELS[property.dealType]}
+          subtitle={property.price ? `${getPrice(property.price.amount, property.price.currency)}` : undefined}
           before={<div className={styles.image} />}
-          after={<ChevronRight16 />}
+          after={<ChevronRight16 color='var(--color-black-500)' />}
           onClick={() => {
             navigate(`/properties/${property.id}`);
           }}

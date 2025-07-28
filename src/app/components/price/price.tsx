@@ -1,12 +1,7 @@
 import type { FC } from 'react';
 
 import type { Currency } from 'data';
-
-const CURRENCY_SYMBOLS: Record<Currency, string> = {
-  USD: '$',
-  EUR: '€',
-  RUB: '₽',
-};
+import { getPrice } from './price.utils';
 
 type PriceProps = {
   amount: number;
@@ -14,7 +9,5 @@ type PriceProps = {
 };
 
 export const Price: FC<PriceProps> = ({ amount, currency }) => {
-  const formattedAmount = (amount / 100).toLocaleString('ru-RU');
-
-  return `${formattedAmount} ${CURRENCY_SYMBOLS[currency]}`;
+  return getPrice(amount, currency);
 };
