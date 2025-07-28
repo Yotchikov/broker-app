@@ -1,9 +1,10 @@
 import { ButtonCell, InputCell, PageLayout, Section } from '../../../packages/ui-kit';
 import AddCircle28 from 'ui-kit/icons/svgs/add-circle-28.svg?react';
+import { PageHeader } from '../../app/components';
 
 export const PropertyFormPage = () => {
   return (
-    <PageLayout>
+    <PageLayout header={<PageHeader />}>
       <Section title='Информация'>
         <InputCell
           before='Название'

@@ -1,2 +1,1 @@
-export { Price } from './price';
 export { PageHeader } from './page-header';
