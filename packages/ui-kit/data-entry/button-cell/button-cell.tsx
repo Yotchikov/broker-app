@@ -22,7 +22,7 @@ export const ButtonCell: FC<ButtonCellProps> = (props) => {
   return (
     <Cell
       before={beforeNode}
-      onClick={onClick}
+      onClick={isDisabled ? undefined : onClick}
     >
       {childrenNode}
     </Cell>

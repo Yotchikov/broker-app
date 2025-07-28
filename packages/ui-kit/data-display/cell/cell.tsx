@@ -19,6 +19,18 @@ export const Cell: FC<CellProps> = (props) => {
       children
     );
 
+  const beforeNode =
+    typeof before === 'string' ? (
+      <Text
+        size='m'
+        weight='regular'
+      >
+        {before}
+      </Text>
+    ) : (
+      before
+    );
+
   const subtitleNode =
     typeof subtitle === 'string' ? (
       <Text
@@ -50,7 +62,7 @@ export const Cell: FC<CellProps> = (props) => {
       className={clsx(className, styles.cell, onClick && styles.interactive)}
       onClick={onClick}
     >
-      {before && <div className={styles.before}>{before}</div>}
+      {beforeNode && <div className={styles.before}>{beforeNode}</div>}
       <div className={styles.middle}>
         {subheadNode}
         {childrenNode}
