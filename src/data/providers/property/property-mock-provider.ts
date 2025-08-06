@@ -45,6 +45,12 @@ class PropertyMockProviderImpl implements PropertyProvider {
 
     return property;
   };
+
+  createProperty = async (property: Property): Promise<Property> => {
+    this._properties.push(property);
+
+    return property;
+  };
 }
 
 export const propertyMockProvider = new PropertyMockProviderImpl();

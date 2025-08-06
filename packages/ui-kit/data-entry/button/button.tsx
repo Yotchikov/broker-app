@@ -16,6 +16,7 @@ export const Button: FC<ButtonProps> = (props) => {
     children,
     href,
     className,
+    onClick,
   } = props;
   const iconContent = icon && cloneElement(icon, ICON_PROPS[size]);
 
@@ -29,6 +30,7 @@ export const Button: FC<ButtonProps> = (props) => {
       }),
       disabled: isDisabled || isLoading,
       href,
+      onClick,
     },
     <>
       {iconContent}

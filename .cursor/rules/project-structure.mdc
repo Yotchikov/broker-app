@@ -1,0 +1,306 @@
+---
+alwaysApply: true
+---
+
+# Архитектура проекта - Чистая архитектура на фронтенде
+
+## Принципы чистой архитектуры
+
+Проект построен по принципам чистой архитектуры с четким разделением слоев и их зон ответственности:
+
+### 1. **Слой данных (Data Layer)** - Внешние источники данных
+
+**Путь:** `src/data/`
+**Ответственность:** Получение и хранение данных из внешних источников
+
+**Содержит:**
+
+- `entities/` - Базовые типы данных и интерфейсы сущностей
+  - `base-entity.ts` - Базовый класс для всех сущностей
+  - `property.ts`, `owner.ts`, `prospect.ts` - Конкретные типы сущностей
+- `providers/` - Провайдеры данных (API клиенты, мок-данные, localStorage)
+  - `property/`, `owner/`, `prospect/` - Провайдеры для каждой сущности
+- `index.ts` - Экспорты всех сущностей
+
+**Примеры файлов:**
+
+- `src/data/entities/property.ts` - Типы для недвижимости
+- `src/data/providers/property/property-mock-provider.ts` - Мок-данные для недвижимости
+
+**❗ Запрещено:** Бизнес-логика, UI компоненты, зависимости от других слоев
+
+### 2. **Слой предметной области (Domain Layer)** - Бизнес-логика
+
+**Путь:** `src/domain/`
+**Ответственность:** Сложные бизнес-сценарии, агрегация данных, трансформации
+
+**Содержит:**
+
+- `stores/` - Сложные MobX stores с бизнес-логикой
+- `services/` - Сервисы для трансформации и агрегации данных
+
+**Примеры:**
+
+- `src/domain/stores/property/property.ts` - MobX store для хранения информации об объекте недвижимости с соответствующими вычисляемыми свойствами и экшенами для управления состоянием
+- `src/domain/stores/property/property-owner.ts` - MobX store для хранения информации о собственнике
+- `src/domain/services/property/property.ts` - сервис, который мерджит сущности, которые мы получаем от бекенда с тем кешем, что мы достаем из localStorage
+
+**❗ Запрещено:** UI компоненты, прямые API вызовы
+
+### 3. **Слой отображения (Presentation Layer)** - Страницы и UI
+
+**Путь:** `src/pages/`
+**Ответственность:** Конкретные страницы приложения, композиция компонентов
+
+**Содержит:**
+
+- `main-page/` - Главная страница со списком недвижимости
+- `property-page/` - Страница детальной информации о недвижимости
+- `property-form-page/` - Форма создания/редактирования недвижимости
+- Каждая страница содержит:
+  - `components/` - Компоненты, специфичные для страницы
+  - `*.tsx` - Основной компонент страницы
+  - `*.module.css` - Стили страницы
+
+**Примеры:**
+
+- `src/pages/property-page/property-page.tsx` - Страница недвижимости
+- `src/pages/main-page/components/property-list/property-list.tsx` - Список недвижимости
+
+**❗ Запрещено:** Прямые API вызовы, сложная бизнес-логика
+
+### 4. **Общий слой приложения (Application Layer)** - Инфраструктура
+
+**Путь:** `src/app/`
+**Ответственность:** Общие компоненты приложения, утилиты, роутинг, точка входа в приложение
+
+**Примеры:**
+
+- `src/app/router/router.tsx` - Конфигурация роутинга
+- `src/app/components/page-header/page-header.tsx` - Общий заголовок
+
+### 5. **UI Kit (Shared Components)** - Переиспользуемые компоненты
+
+**Путь:** `packages/ui-kit/`
+**Ответственность:** Статистические переиспользуемые компоненты
+
+**Содержит:**
+
+- `data-display/` - Компоненты отображения данных (Cell, Divider, Text)
+- `data-entry/` - Компоненты ввода данных (Button, Input)
+- `icons/` - SVG иконки
+- `styles/` - Глобальные стили, темы, константы
+
+**❗ Запрещено:** Бизнес-логика, зависимости от конкретных сущностей
+
+## Строгие границы между слоями
+
+### Правила импортов:
+
+- **`ui-kit`** → Может импортировать только `styles/`
+- **`pages`** → Может импортировать: `domain/`, `app/`, `ui-kit`
+- **`domain`** → Может импортировать только `data/` (никогда `pages` или `app`)
+- **`app`** → Может импортировать: `domain/`, `data/`, `ui-kit`
+- **`data`** → Не может импортировать другие слои
+
+### Направление зависимостей:
+
+```
+ui-kit ← pages ← domain ← data
+   ↑        ↑       ↑
+   └─── app ────────┘
+```
+
+## Рекомендации по разработке
+
+1. **Начинайте с data layer** - определите, какие данные нужны
+2. **Создавайте domain layer** для сложной бизнес-логики
+3. **Используйте pages** для композиции UI
+4. **Держите app layer** минимальным
+5. **Переиспользуйте ui-kit** компоненты везде
+
+## Примеры правильной архитектуры
+
+```typescript
+// ✅ Правильно - data layer
+// src/data/entities/property.ts
+export interface Property {
+  id: string;
+  title: string;
+  price: Price;
+}
+
+// ✅ Правильно - domain layer
+// src/domain/property/property.ts
+export class PropertyService {
+  constructor(private propertyProvider: PropertyProvider) {}
+
+  async getPropertiesWithOwners(): Promise<PropertyWithOwner[]> {
+    // Бизнес-логика агрегации
+  }
+}
+
+// ✅ Правильно - pages layer
+// src/pages/main-page/main-page.tsx
+export const MainPage = () => {
+  const properties = usePropertyStore();
+  return <PropertyList properties={properties} />;
+};
+
+// ✅ Правильно - ui-kit
+// packages/ui-kit/data-display/cell/cell.tsx
+export const Cell = ({ children, ...props }: CellProps) => {
+  return <div className={styles.cell} {...props}>{children}</div>;
+};
+```
+# Архитектура проекта - Чистая архитектура на фронтенде
+
+## Принципы чистой архитектуры
+
+Проект построен по принципам чистой архитектуры с четким разделением слоев и их зон ответственности:
+
+### 1. **Слой данных (Data Layer)** - Внешние источники данных
+
+**Путь:** `src/data/`
+**Ответственность:** Получение и хранение данных из внешних источников
+
+**Содержит:**
+
+- `entities/` - Базовые типы данных и интерфейсы сущностей
+  - `base-entity.ts` - Базовый класс для всех сущностей
+  - `property.ts`, `owner.ts`, `prospect.ts` - Конкретные типы сущностей
+- `providers/` - Провайдеры данных (API клиенты, мок-данные, localStorage)
+  - `property/`, `owner/`, `prospect/` - Провайдеры для каждой сущности
+- `index.ts` - Экспорты всех сущностей
+
+**Примеры файлов:**
+
+- `src/data/entities/property.ts` - Типы для недвижимости
+- `src/data/providers/property/property-mock-provider.ts` - Мок-данные для недвижимости
+
+**❗ Запрещено:** Бизнес-логика, UI компоненты, зависимости от других слоев
+
+### 2. **Слой предметной области (Domain Layer)** - Бизнес-логика
+
+**Путь:** `src/domain/`
+**Ответственность:** Сложные бизнес-сценарии, агрегация данных, трансформации
+
+**Содержит:**
+
+- `stores/` - Сложные MobX stores с бизнес-логикой
+- `services/` - Сервисы для трансформации и агрегации данных
+
+**Примеры:**
+
+- `src/domain/stores/property/property.ts` - MobX store для хранения информации об объекте недвижимости с соответствующими вычисляемыми свойствами и экшенами для управления состоянием
+- `src/domain/stores/property/property-owner.ts` - MobX store для хранения информации о собственнике
+- `src/domain/services/property/property.ts` - сервис, который мерджит сущности, которые мы получаем от бекенда с тем кешем, что мы достаем из localStorage
+
+**❗ Запрещено:** UI компоненты, прямые API вызовы
+
+### 3. **Слой отображения (Presentation Layer)** - Страницы и UI
+
+**Путь:** `src/pages/`
+**Ответственность:** Конкретные страницы приложения, композиция компонентов
+
+**Содержит:**
+
+- `main-page/` - Главная страница со списком недвижимости
+- `property-page/` - Страница детальной информации о недвижимости
+- `property-form-page/` - Форма создания/редактирования недвижимости
+- Каждая страница содержит:
+  - `components/` - Компоненты, специфичные для страницы
+  - `*.tsx` - Основной компонент страницы
+  - `*.module.css` - Стили страницы
+
+**Примеры:**
+
+- `src/pages/property-page/property-page.tsx` - Страница недвижимости
+- `src/pages/main-page/components/property-list/property-list.tsx` - Список недвижимости
+
+**❗ Запрещено:** Прямые API вызовы, сложная бизнес-логика
+
+### 4. **Общий слой приложения (Application Layer)** - Инфраструктура
+
+**Путь:** `src/app/`
+**Ответственность:** Общие компоненты приложения, утилиты, роутинг, точка входа в приложение
+
+**Примеры:**
+
+- `src/app/router/router.tsx` - Конфигурация роутинга
+- `src/app/components/page-header/page-header.tsx` - Общий заголовок
+
+### 5. **UI Kit (Shared Components)** - Переиспользуемые компоненты
+
+**Путь:** `packages/ui-kit/`
+**Ответственность:** Статистические переиспользуемые компоненты
+
+**Содержит:**
+
+- `data-display/` - Компоненты отображения данных (Cell, Divider, Text)
+- `data-entry/` - Компоненты ввода данных (Button, Input)
+- `icons/` - SVG иконки
+- `styles/` - Глобальные стили, темы, константы
+
+**❗ Запрещено:** Бизнес-логика, зависимости от конкретных сущностей
+
+## Строгие границы между слоями
+
+### Правила импортов:
+
+- **`ui-kit`** → Может импортировать только `styles/`
+- **`pages`** → Может импортировать: `domain/`, `app/`, `ui-kit`
+- **`domain`** → Может импортировать только `data/` (никогда `pages` или `app`)
+- **`app`** → Может импортировать: `domain/`, `data/`, `ui-kit`
+- **`data`** → Не может импортировать другие слои
+
+### Направление зависимостей:
+
+```
+ui-kit ← pages ← domain ← data
+   ↑        ↑       ↑
+   └─── app ────────┘
+```
+
+## Рекомендации по разработке
+
+1. **Начинайте с data layer** - определите, какие данные нужны
+2. **Создавайте domain layer** для сложной бизнес-логики
+3. **Используйте pages** для композиции UI
+4. **Держите app layer** минимальным
+5. **Переиспользуйте ui-kit** компоненты везде
+
+## Примеры правильной архитектуры
+
+```typescript
+// ✅ Правильно - data layer
+// src/data/entities/property.ts
+export interface Property {
+  id: string;
+  title: string;
+  price: Price;
+}
+
+// ✅ Правильно - domain layer
+// src/domain/property/property.ts
+export class PropertyService {
+  constructor(private propertyProvider: PropertyProvider) {}
+
+  async getPropertiesWithOwners(): Promise<PropertyWithOwner[]> {
+    // Бизнес-логика агрегации
+  }
+}
+
+// ✅ Правильно - pages layer
+// src/pages/main-page/main-page.tsx
+export const MainPage = () => {
+  const properties = usePropertyStore();
+  return <PropertyList properties={properties} />;
+};
+
+// ✅ Правильно - ui-kit
+// packages/ui-kit/data-display/cell/cell.tsx
+export const Cell = ({ children, ...props }: CellProps) => {
+  return <div className={styles.cell} {...props}>{children}</div>;
+};
+```

@@ -12,4 +12,5 @@ export type ButtonProps = {
   icon?: ReactElement<IconProps>;
   href?: string;
   className?: string;
+  onClick?: () => void;
 };
