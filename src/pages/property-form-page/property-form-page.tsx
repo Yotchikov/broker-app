@@ -1,7 +1,6 @@
-import { ButtonCell, InputCell, PageLayout, Section } from '../../../packages/ui-kit';
-import AddCircle28 from 'ui-kit/icons/svgs/add-circle-28.svg?react';
+import { PageLayout } from '../../../packages/ui-kit';
 import { PageHeader } from '../../app/components';
-import { SubmitButton } from './components';
+import { InformationBlock, OwnerBlock, ProspectsBlock, SubmitButton } from './components';
 
 export const PropertyFormPage = () => {
   return (
@@ -9,37 +8,9 @@ export const PropertyFormPage = () => {
       header={<PageHeader />}
       footer={<SubmitButton />}
     >
-      <Section title='Информация'>
-        <InputCell
-          before='Название'
-          placeholder='ЖК Lucky'
-        />
-        <InputCell
-          before='Стоимость'
-          placeholder='1 000 000, ₽'
-          htmlType='number'
-        />
-      </Section>
-      <Section title='Собственник'>
-        <InputCell
-          before='Имя'
-          placeholder='Иван'
-        />
-        <InputCell
-          before='Фамилия'
-          placeholder='Иванов'
-        />
-      </Section>
-      <Section title='Клиенты'>
-        <ButtonCell
-          before={<AddCircle28 />}
-          onClick={() => {
-            console.log('clicked');
-          }}
-        >
-          Добавить
-        </ButtonCell>
-      </Section>
+      <InformationBlock />
+      <OwnerBlock />
+      <ProspectsBlock />
     </PageLayout>
   );
 };
