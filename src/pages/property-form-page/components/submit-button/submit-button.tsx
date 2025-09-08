@@ -1,12 +1,9 @@
 import { Button } from '../../../../../packages/ui-kit';
 import styles from './submit-button.module.css';
-import { useCreatePropertyMutation } from 'data/providers/property';
 
 export const SubmitButton = () => {
-  const { mutate: createProperty } = useCreatePropertyMutation();
-
   const handleClick = () => {
-    createProperty({
+    console.log({
       id: '1',
       name: 'Test',
       ownerId: '1',

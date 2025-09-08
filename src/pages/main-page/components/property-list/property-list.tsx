@@ -1,12 +1,11 @@
 import type { FC } from 'react';
 import styles from './property-list.module.css';
-import { useNavigate } from 'react-router';
+import { useLoaderData, useNavigate } from 'react-router';
 import { ButtonCell, Cell, Divider, Section } from 'ui-kit';
 import ChevronRight16 from 'ui-kit/icons/svgs/chevron-right-16.svg?react';
 import AddCircle28 from 'ui-kit/icons/svgs/add-circle-28.svg?react';
 import { getPrice } from '../../../../app/components';
-import { useGetPropertiesQuery } from 'data/providers/property/hooks';
-import { propertyMockProvider } from 'data/providers/property';
+import type { Property } from '../../../../data';
 
 const DEAL_TYPE_LABELS = {
   sale: 'Продажа',
@@ -14,16 +13,16 @@ const DEAL_TYPE_LABELS = {
 };
 
 export const PropertyList: FC = () => {
-  const { data } = useGetPropertiesQuery(propertyMockProvider);
+  const { properties } = useLoaderData<{ properties: Property[] }>();
   const navigate = useNavigate();
 
-  if (!data) {
+  if (!properties) {
     return null;
   }
 
   return (
     <Section title='Объекты'>
-      {data.map((property) => (
+      {properties.map((property) => (
         <Cell
           key={property.id}
           subhead={DEAL_TYPE_LABELS[property.dealType]}
