@@ -1,14 +1,13 @@
 import { createBrowserRouter } from 'react-router';
 import { MainPage, PropertyFormPage, PropertyPage } from '../../pages';
-import { ownerMockProvider, propertyMockProvider } from '../../data';
-import { prospectMockProvider } from '../../data/providers/prospect/prospect-mock-provider';
+import { ownerDataProvider, propertyDataProvider } from '../../data';
 
 export const router = createBrowserRouter([
   {
     path: '/',
     loader: async () => {
       return {
-        properties: await propertyMockProvider.getProperties(),
+        properties: await propertyDataProvider.getProperties(),
       };
     },
     Component: MainPage,
@@ -28,16 +27,12 @@ export const router = createBrowserRouter([
         throw new Error('Property ID is required');
       }
 
-      const property = await propertyMockProvider.getPropertyById(params.id);
-      const owner = await ownerMockProvider.getOwnerById(property.ownerId);
-      const prospects = await Promise.all(
-        property.prospectIds.map((prospectId) => prospectMockProvider.getProspectById(prospectId)),
-      );
+      const property = await propertyDataProvider.getPropertyById(params.id);
+      const owner = await ownerDataProvider.getOwnerById(property.ownerId);
 
       return {
         property,
         owner,
-        prospects,
       };
     },
     Component: PropertyPage,

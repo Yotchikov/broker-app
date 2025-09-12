@@ -1,6 +1,6 @@
 import type { Property } from 'data';
 
-export interface PropertyProvider {
+export interface PropertyDataProvider {
   getProperties: () => Promise<Property[]>;
   getPropertyById: (id: string) => Promise<Property>;
   createProperty: (property: Property) => Promise<Property>;

@@ -1,1 +1,1 @@
-export * from './property-list';
+export { PropertyList } from './property-list';

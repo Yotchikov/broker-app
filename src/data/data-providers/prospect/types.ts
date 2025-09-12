@@ -1,5 +1,5 @@
 import type { Prospect } from 'data';
 
-export interface ProspectProvider {
+export interface ProspectDataProvider {
   getProspectById: (id: string) => Promise<Prospect>;
 }

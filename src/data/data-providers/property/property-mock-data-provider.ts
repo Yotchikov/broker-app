@@ -1,7 +1,7 @@
 import type { Property } from '../../entities';
-import type { PropertyProvider } from './types';
+import type { PropertyDataProvider } from './types';
 
-class PropertyMockProviderImpl implements PropertyProvider {
+export class PropertyMockDataProviderImpl implements PropertyDataProvider {
   private _properties: Property[] = [
     {
       id: '1',
@@ -11,7 +11,7 @@ class PropertyMockProviderImpl implements PropertyProvider {
         currency: 'RUB',
       },
       ownerId: '1',
-      prospectIds: ['1', '2'],
+      prospectIds: ['1', '2', '3', '4', '5', '6'],
       dealType: 'sale',
       floor: {
         number: 25,
@@ -26,7 +26,7 @@ class PropertyMockProviderImpl implements PropertyProvider {
         amount: 9000000,
         currency: 'RUB',
       },
-      ownerId: '1',
+      ownerId: '2',
       prospectIds: [],
       dealType: 'rent',
     },
@@ -52,5 +52,3 @@ class PropertyMockProviderImpl implements PropertyProvider {
     return property;
   };
 }
-
-export const propertyMockProvider = new PropertyMockProviderImpl();
