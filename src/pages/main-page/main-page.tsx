@@ -4,9 +4,11 @@ import { IconPlus, IconSearch } from '@tabler/icons-react';
 import { useLoaderData } from 'react-router';
 import type { Property } from '../../data/entities';
 import { PropertyList } from './components/property-list';
+import { useNavigate } from 'react-router';
 
 export const MainPage: FC = () => {
   const { properties } = useLoaderData<{ properties: Property[] }>();
+  const navigate = useNavigate();
 
   if (!properties) {
     return null;
@@ -30,6 +32,9 @@ export const MainPage: FC = () => {
         <Button
           variant='light'
           leftSection={<IconPlus size={16} />}
+          onClick={() => {
+            navigate('/properties/create');
+          }}
         >
           Добавить объект
         </Button>

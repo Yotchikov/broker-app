@@ -38,11 +38,11 @@ export class OwnerMockDataProviderImpl implements OwnerDataProvider {
     },
   ];
 
-  getOwnerById = async (id: string): Promise<Owner> => {
+  getOwnerById = async (id: string) => {
     const owner = this._owners.find((owner) => owner.id === id);
 
     if (!owner) {
-      throw new Error(`Owner with id ${id} not found`);
+      return null;
     }
 
     return owner;

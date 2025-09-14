@@ -28,7 +28,7 @@ export const router = createBrowserRouter([
       }
 
       const property = await propertyDataProvider.getPropertyById(params.id);
-      const owner = await ownerDataProvider.getOwnerById(property.ownerId);
+      const owner = property.ownerId ? await ownerDataProvider.getOwnerById(property.ownerId) : null;
 
       return {
         property,
@@ -39,6 +39,10 @@ export const router = createBrowserRouter([
   },
   {
     path: '/properties/create',
+    Component: PropertyFormPage,
+  },
+  {
+    path: '/properties/:id/edit',
     Component: PropertyFormPage,
   },
 ]);

@@ -7,7 +7,7 @@ export type Property = BaseEntity & {
     total: number;
   };
   price?: Price;
-  ownerId: string;
+  ownerId?: string;
   prospectIds: string[];
   dealType: 'sale' | 'rent';
   area?: number;

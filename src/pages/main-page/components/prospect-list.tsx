@@ -5,11 +5,10 @@ import {
   Button,
   Card,
   Center,
+  Divider,
   Group,
-  Progress,
   RingProgress,
   Stack,
-  Table,
   Text,
   useMantineTheme,
 } from '@mantine/core';
@@ -118,16 +117,14 @@ export const ProspectList: FC<ProspectListProps> = (props) => {
             {item.name}
           </Text>
         </Group>
+        <Divider />
         <Group
           gap='xs'
           align='start'
           justify='space-between'
           wrap='nowrap'
         >
-          <Stack
-            gap='2px'
-            ml={12}
-          >
+          <Stack gap='2px'>
             {Object.entries(item.contacts).map(([key, value]) => (
               <a
                 href={`${CONTACT_LINKS[key as keyof Prospect['contacts']]}${value}`}
@@ -176,5 +173,17 @@ export const ProspectList: FC<ProspectListProps> = (props) => {
     </Card>
   ));
 
-  return <Stack gap='sm'>{cards}</Stack>;
+  return (
+    <Stack gap='sm'>
+      <Text
+        fz='xs'
+        tt='uppercase'
+        fw={700}
+        c='dimmed'
+      >
+        Клиенты
+      </Text>
+      {cards}
+    </Stack>
+  );
 };
