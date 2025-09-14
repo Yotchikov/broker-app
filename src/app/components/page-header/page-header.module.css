@@ -1,9 +1,0 @@
-.pageHeader {
-  padding: var(--space-m) var(--space-xs);
-}
-
-.backButton {
-  display: inline-flex;
-  align-items: center;
-  color: var(--color-blue-500);
-}

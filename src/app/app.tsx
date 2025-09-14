@@ -1,12 +1,16 @@
 import '@mantine/core/styles.css';
 
-import { MantineProvider } from '@mantine/core';
+import { createTheme, MantineProvider } from '@mantine/core';
 import { RouterProvider } from 'react-router';
 import { router } from './router';
 
+const theme = createTheme({
+  fontFamily: 'Outfit, sans-serif',
+});
+
 export const App = () => {
   return (
-    <MantineProvider>
+    <MantineProvider theme={theme}>
       <RouterProvider router={router} />
     </MantineProvider>
   );

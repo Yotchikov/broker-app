@@ -1,78 +1,132 @@
-import { Accordion, Avatar, Button, Grid, Group, Stack, Text } from '@mantine/core';
+import { Accordion, ActionIcon, Avatar, Group, Menu, Stack, Text } from '@mantine/core';
 import type { Property } from '../../../data/entities/property';
-import { IconPencil, IconTrash } from '@tabler/icons-react';
+import { IconDots, IconPencil, IconPlus, IconTrash, IconUser, IconUsers } from '@tabler/icons-react';
 import { useLoaderData, useNavigate } from 'react-router';
 import { OwnerInformation } from './owner-information';
 import { ProspectList } from './prospect-list';
 import { Price } from '../../../app/components';
+import styles from '../main-page.module.css';
 
 export const PropertyList = () => {
   const { properties } = useLoaderData<{ properties: Property[] }>();
   const navigate = useNavigate();
 
   return (
-    <Accordion>
+    <Accordion
+      chevronPosition='left'
+      classNames={{ chevron: styles.chevron }}
+    >
       {properties.map((property) => (
         <Accordion.Item
           value={property.id}
           key={property.id}
         >
-          <Accordion.Control>
-            <Group
-              align='flex-start'
-              gap='xs'
-            >
-              <Avatar
-                radius='xl'
-                name={property.name}
-                color='initials'
-              />
-              <Stack gap={0}>
-                {property.name}
-                {property.price && (
-                  <Text size='xs'>
-                    <Price
-                      amount={property.price.amount}
-                      currency={property.price.currency}
-                    />
-                  </Text>
-                )}
-              </Stack>
-            </Group>
-          </Accordion.Control>
+          <Group
+            gap={0}
+            wrap='nowrap'
+            pr={'md'}
+          >
+            <Accordion.Control>
+              <Group
+                align='flex-start'
+                gap='xs'
+              >
+                <Avatar
+                  radius='xl'
+                  name={property.name}
+                  color='initials'
+                />
+                <Stack gap={0}>
+                  {property.name}
+                  {property.price && (
+                    <Text
+                      size='xs'
+                      c='dimmed'
+                    >
+                      <Price
+                        amount={property.price.amount}
+                        currency={property.price.currency}
+                      />
+                    </Text>
+                  )}
+                </Stack>
+              </Group>
+            </Accordion.Control>
+            <Menu position='bottom-end'>
+              <Menu.Target>
+                <ActionIcon
+                  variant='subtle'
+                  color='black'
+                >
+                  <IconDots size={16} />
+                </ActionIcon>
+              </Menu.Target>
+              <Menu.Dropdown>
+                <Menu.Item
+                  leftSection={<IconPencil size={16} />}
+                  onClick={() => {
+                    navigate(`/properties/${property.id}/edit`);
+                  }}
+                >
+                  Редактировать
+                </Menu.Item>
+                <Menu.Item
+                  color='red'
+                  leftSection={<IconTrash size={16} />}
+                  onClick={() => {
+                    // TODO: delete property
+                  }}
+                >
+                  Удалить
+                </Menu.Item>
+              </Menu.Dropdown>
+            </Menu>
+          </Group>
           <Accordion.Panel>
-            <Stack gap='xs'>
-              {property.ownerId && <OwnerInformation ownerId={property.ownerId} />}
-              {property.prospectIds.length > 0 && <ProspectList prospectIds={property.prospectIds} />}
-              <Grid>
-                <Grid.Col span={6}>
-                  <Button
-                    variant='light'
-                    color='blue'
-                    leftSection={<IconPencil size={16} />}
-                    fullWidth
-                    onClick={() => {
-                      navigate(`/properties/${property.id}/edit`);
-                    }}
+            <Accordion
+              multiple
+              chevronPosition='left'
+              variant='unstyled'
+              classNames={{ chevron: styles.chevron }}
+            >
+              {property.ownerId && (
+                <Accordion.Item value='owner'>
+                  <Accordion.Control>
+                    <Group gap='xs'>
+                      <IconUser size={16} />
+                      Собственник
+                    </Group>
+                  </Accordion.Control>
+                  <Accordion.Panel>
+                    <OwnerInformation ownerId={property.ownerId} />
+                  </Accordion.Panel>
+                </Accordion.Item>
+              )}
+              {property.prospectIds.length > 0 && (
+                <Accordion.Item value='prospects'>
+                  <Group
+                    gap={0}
+                    wrap='nowrap'
                   >
-                    Редактировать
-                  </Button>
-                </Grid.Col>
-                <Grid.Col span={6}>
-                  <Button
-                    variant='light'
-                    color='red'
-                    leftSection={<IconTrash size={16} />}
-                    fullWidth
-                    onClick={() => {
-                      // TODO: delete property
-                    }}
-                  >
-                    Удалить
-                  </Button>
-                </Grid.Col>
-              </Grid>
-            </Stack>
+                    <Accordion.Control>
+                      <Group gap='xs'>
+                        <IconUsers size={16} />
+                        Клиенты
+                      </Group>
+                    </Accordion.Control>
+                    <ActionIcon
+                      variant='subtle'
+                      color='black'
+                    >
+                      <IconPlus size={16} />
+                    </ActionIcon>
+                  </Group>
+                  <Accordion.Panel>
+                    <ProspectList prospectIds={property.prospectIds} />
+                  </Accordion.Panel>
+                </Accordion.Item>
+              )}
+            </Accordion>
           </Accordion.Panel>
         </Accordion.Item>
       ))}

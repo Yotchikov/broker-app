@@ -1,17 +1,4 @@
-import {
-  Avatar,
-  Badge,
-  Box,
-  Button,
-  Card,
-  Center,
-  Divider,
-  Group,
-  RingProgress,
-  Stack,
-  Text,
-  useMantineTheme,
-} from '@mantine/core';
+import { Avatar, Badge, Card, Center, Group, RingProgress, Stack, Text, useMantineTheme } from '@mantine/core';
 import { prospectDataProvider, type Prospect, type ProspectStatus } from '../../../data';
 import { useEffect, useState, type FC, type ReactNode } from 'react';
 import { IconAt, IconBrandTelegram, IconBrandWhatsapp, IconPhone } from '@tabler/icons-react';
@@ -78,46 +65,30 @@ export const ProspectList: FC<ProspectListProps> = (props) => {
   }, [prospectIds]);
 
   const cards = prospects.map((item) => (
-    <Card
-      withBorder
-      padding='md'
-      radius='md'
-      pos='relative'
-      style={{
-        overflow: 'visible',
-      }}
-    >
-      <Box
-        pos='absolute'
-        top={0}
-        right={0}
-        style={{
-          zIndex: 100,
-          transform: 'translate(8px, -8px)',
-        }}
-      >
-        {PROSPECT_STATUS_LABELS[item.status]}
-      </Box>
+    <Card padding={0}>
       <Stack gap='xs'>
         <Group
           gap='xs'
           align='center'
+          justify='space-between'
           wrap='nowrap'
         >
-          <Avatar
-            radius={'xl'}
-            color='initials'
-          >
-            {item.emoji}
-          </Avatar>
-          <Text
-            fz='lg'
-            fw={500}
-          >
-            {item.name}
-          </Text>
+          <Group gap='xs'>
+            <Avatar
+              radius={'xl'}
+              color='initials'
+            >
+              {item.emoji}
+            </Avatar>
+            <Text
+              fz='lg'
+              fw={500}
+            >
+              {item.name}
+            </Text>
+          </Group>
+          {PROSPECT_STATUS_LABELS[item.status]}
         </Group>
-        <Divider />
         <Group
           gap='xs'
           align='start'
@@ -163,27 +134,9 @@ export const ProspectList: FC<ProspectListProps> = (props) => {
             }
           />
         </Group>
-        <Button
-          size='xs'
-          variant='light'
-        >
-          Заметка
-        </Button>
       </Stack>
     </Card>
   ));
 
-  return (
-    <Stack gap='sm'>
-      <Text
-        fz='xs'
-        tt='uppercase'
-        fw={700}
-        c='dimmed'
-      >
-        Клиенты
-      </Text>
-      {cards}
-    </Stack>
-  );
+  return <Stack gap='xs'>{cards}</Stack>;
 };

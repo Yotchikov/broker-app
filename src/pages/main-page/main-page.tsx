@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import { Button, Container, Input, SegmentedControl, Stack } from '@mantine/core';
+import { Box, Button, Container, Input, SegmentedControl, Stack } from '@mantine/core';
 import { IconPlus, IconSearch } from '@tabler/icons-react';
 import { useLoaderData } from 'react-router';
 import type { Property } from '../../data/entities';
@@ -15,29 +15,40 @@ export const MainPage: FC = () => {
   }
 
   return (
-    <Container>
+    <Container p={0}>
       <Stack
         gap='sm'
         py='sm'
       >
-        <Input
-          placeholder='Поиск'
-          leftSection={<IconSearch size={16} />}
-        />
-        <SegmentedControl
-          fullWidth
-          data={['Всё', 'Аренда', 'Продажа']}
-        />
-        <PropertyList />
-        <Button
-          variant='light'
-          leftSection={<IconPlus size={16} />}
-          onClick={() => {
-            navigate('/properties/create');
-          }}
+        <Stack
+          px={'md'}
+          gap='sm'
         >
-          Добавить объект
-        </Button>
+          <Input
+            placeholder='Поиск'
+            leftSection={<IconSearch size={16} />}
+          />
+          <SegmentedControl
+            fullWidth
+            data={['Всё', 'Аренда', 'Продажа']}
+          />
+        </Stack>
+        <PropertyList />
+        <Box
+          px={'md'}
+          w='100%'
+        >
+          <Button
+            variant='light'
+            leftSection={<IconPlus size={16} />}
+            onClick={() => {
+              navigate('/properties/create');
+            }}
+            fullWidth
+          >
+            Добавить объект
+          </Button>
+        </Box>
       </Stack>
     </Container>
   );

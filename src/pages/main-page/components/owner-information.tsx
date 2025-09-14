@@ -60,29 +60,19 @@ export const OwnerInformation: FC<OwnerInformationProps> = ({ ownerId }) => {
       <Avatar
         name={owner.name}
         size={72}
-        radius='md'
+        radius='100%'
         color='initials'
       >
         {owner.emoji}
       </Avatar>
-      <Stack gap={'xs'}>
-        <Stack gap={0}>
-          <Text
-            fz='xs'
-            tt='uppercase'
-            fw={700}
-            c='dimmed'
-          >
-            Собственник
-          </Text>
-          <Text
-            fz='lg'
-            fw={500}
-          >
-            {owner.name}
-          </Text>
-        </Stack>
-        <Stack gap={'4px'}>
+      <Stack gap={4}>
+        <Text
+          fz='lg'
+          fw={500}
+        >
+          {owner.name}
+        </Text>
+        <Stack gap={4}>
           {Object.entries(owner.contacts).map(([key, value]) => (
             <a
               href={`${CONTACT_LINKS[key as keyof Owner['contacts']]}${value}`}
