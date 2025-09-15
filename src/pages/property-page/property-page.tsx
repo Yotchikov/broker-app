@@ -269,12 +269,6 @@ export const PropertyPage: FC = () => {
                     withBorder
                   >
                     <Group gap='md'>
-                      <Avatar
-                        size='md'
-                        color='orange'
-                      >
-                        {prospect.emoji}
-                      </Avatar>
                       <Stack
                         gap='xs'
                         style={{ flex: 1 }}

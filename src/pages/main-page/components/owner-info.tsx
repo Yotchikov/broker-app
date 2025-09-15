@@ -37,11 +37,11 @@ const CONTACT_LINKS: Record<keyof Owner['contacts'], string> = {
   whatsapp: 'https://wa.me/',
 };
 
-type OwnerInformationProps = {
+type OwnerInfoProps = {
   ownerId: string;
 };
 
-export const OwnerInformation: FC<OwnerInformationProps> = ({ ownerId }) => {
+export const OwnerInfo: FC<OwnerInfoProps> = ({ ownerId }) => {
   const [owner, setOwner] = useState<Owner | null>(null);
 
   useEffect(() => {

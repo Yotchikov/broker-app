@@ -76,10 +76,11 @@ export const ProspectList: FC<ProspectListProps> = (props) => {
           <Group gap='xs'>
             <Avatar
               radius={'xl'}
-              color='initials'
-            >
-              {item.emoji}
-            </Avatar>
+              src={item.photo}
+              alt={item.name}
+              name={item.name}
+              bg={theme.colors.gray[2]}
+            />
             <Text
               fz='lg'
               fw={500}

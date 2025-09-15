@@ -1,11 +1,12 @@
-import { Accordion, ActionIcon, Avatar, Group, Menu, Stack, Text } from '@mantine/core';
+import { Accordion, ActionIcon, Avatar, Group, Menu, Space, Stack, Text } from '@mantine/core';
 import type { Property } from '../../../data/entities/property';
 import { IconDots, IconPencil, IconPlus, IconTrash, IconUser, IconUsers } from '@tabler/icons-react';
 import { useLoaderData, useNavigate } from 'react-router';
-import { OwnerInformation } from './owner-information';
+import { OwnerInfo } from './owner-info';
 import { ProspectList } from './prospect-list';
 import { Price } from '../../../app/components';
 import styles from '../main-page.module.css';
+import { PropertyInfo } from './property-info';
 
 export const PropertyList = () => {
   const { properties } = useLoaderData<{ properties: Property[] }>();
@@ -83,6 +84,11 @@ export const PropertyList = () => {
             </Menu>
           </Group>
           <Accordion.Panel>
+            <PropertyInfo
+              area={property.area}
+              floor={property.floor}
+            />
+            <Space h='md' />
             <Accordion
               multiple
               chevronPosition='left'
@@ -98,7 +104,7 @@ export const PropertyList = () => {
                     </Group>
                   </Accordion.Control>
                   <Accordion.Panel>
-                    <OwnerInformation ownerId={property.ownerId} />
+                    <OwnerInfo ownerId={property.ownerId} />
                   </Accordion.Panel>
                 </Accordion.Item>
               )}

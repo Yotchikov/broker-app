@@ -13,12 +13,12 @@ export type ProspectStatus =
   | 'feedback_from_the_deal';
 
 export type Prospect = BaseEntity & {
-  emoji: string;
   contacts: {
     phone?: string;
     email?: string;
     telegram?: string;
     whatsapp?: string;
   };
+  photo?: string;
   status: ProspectStatus;
 };

@@ -1,12 +1,13 @@
 import type { Prospect } from '../../entities';
 import type { ProspectDataProvider } from './types';
+import avatar1 from '../../../../public/memoji/Avatar-1.png';
 
 export class ProspectMockDataProviderImpl implements ProspectDataProvider {
   private _prospects: Prospect[] = [
     {
       id: '1',
       name: 'Александр Еремеев',
-      emoji: '🇷🇺',
+      photo: avatar1,
       contacts: {
         phone: '+79876543210',
         email: 'alexander.eremeev@example.com',
@@ -18,7 +19,6 @@ export class ProspectMockDataProviderImpl implements ProspectDataProvider {
     {
       id: '2',
       name: 'Пара с котом',
-      emoji: '🐱',
       contacts: {
         phone: '+79876543210',
         email: 'paras_kotom@example.com',
@@ -30,7 +30,6 @@ export class ProspectMockDataProviderImpl implements ProspectDataProvider {
     {
       id: '3',
       name: 'Марк',
-      emoji: '🇺🇸',
       contacts: {
         phone: '+1234567890',
         email: 'mark@example.com',
@@ -42,7 +41,6 @@ export class ProspectMockDataProviderImpl implements ProspectDataProvider {
     {
       id: '4',
       name: 'Илон Маск',
-      emoji: '🇺🇸',
       contacts: {
         phone: '+1234567890',
         email: 'elon.musk@example.com',
@@ -54,7 +52,6 @@ export class ProspectMockDataProviderImpl implements ProspectDataProvider {
     {
       id: '5',
       name: 'Стив Джобс',
-      emoji: '🇺🇸',
       contacts: {
         phone: '+1234567890',
         email: 'steve.jobs@example.com',
@@ -66,7 +63,6 @@ export class ProspectMockDataProviderImpl implements ProspectDataProvider {
     {
       id: '6',
       name: 'Билл Гейтс',
-      emoji: '🇺🇸',
       contacts: {
         phone: '+1234567890',
         email: 'bill.gates@example.com',
