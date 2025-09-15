@@ -5,7 +5,7 @@ import { RouterProvider } from 'react-router';
 import { router } from './router';
 
 const theme = createTheme({
-  fontFamily: 'Outfit, sans-serif',
+  fontFamily: 'Manrope, sans-serif',
 });
 
 export const App = () => {

@@ -82,4 +82,10 @@ export class ProspectMockDataProviderImpl implements ProspectDataProvider {
 
     return prospect;
   };
+
+  createProspect = async (prospect: Prospect): Promise<Prospect> => {
+    this._prospects.push(prospect);
+
+    return prospect;
+  };
 }

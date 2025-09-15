@@ -47,4 +47,10 @@ export class OwnerMockDataProviderImpl implements OwnerDataProvider {
 
     return owner;
   };
+
+  createOwner = async (owner: Owner): Promise<Owner> => {
+    this._owners.push(owner);
+
+    return owner;
+  };
 }
