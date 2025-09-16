@@ -79,7 +79,7 @@ export const ProspectList: FC<ProspectListProps> = (props) => {
               src={item.photo}
               alt={item.name}
               name={item.name}
-              bg={theme.colors.gray[2]}
+              bg={theme.colors.blue[1]}
             />
             <Text
               fz='lg'

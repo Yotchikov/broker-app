@@ -1,6 +1,6 @@
 import { useEffect, useState, type FC, type ReactNode } from 'react';
 import { ownerDataProvider, type Owner } from '../../../data';
-import { Group, Avatar, Text, Stack } from '@mantine/core';
+import { Group, Avatar, Text, Stack, useMantineTheme } from '@mantine/core';
 import { IconPhone, IconBrandWhatsapp, IconBrandTelegram, IconAt } from '@tabler/icons-react';
 
 const CONTACT_ICONS: Record<keyof Owner['contacts'], ReactNode> = {
@@ -42,6 +42,7 @@ type OwnerInfoProps = {
 };
 
 export const OwnerInfo: FC<OwnerInfoProps> = ({ ownerId }) => {
+  const theme = useMantineTheme();
   const [owner, setOwner] = useState<Owner | null>(null);
 
   useEffect(() => {
@@ -62,9 +63,9 @@ export const OwnerInfo: FC<OwnerInfoProps> = ({ ownerId }) => {
         size={72}
         radius='100%'
         color='initials'
-      >
-        {owner.emoji}
-      </Avatar>
+        src={owner.avatar}
+        bg={theme.colors.blue[1]}
+      />
       <Stack gap={4}>
         <Text
           fz='lg'

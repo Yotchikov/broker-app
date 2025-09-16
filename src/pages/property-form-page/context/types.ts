@@ -11,7 +11,7 @@ export type PropertyFormData = {
 
   // Owner info
   ownerName: string;
-  ownerEmoji: string;
+  ownerAvatar: string;
   ownerPhone: string;
   ownerEmail: string;
   ownerTelegram: string;
@@ -44,7 +44,7 @@ export type PropertyFormContextValue = {
     data: Partial<
       Pick<
         PropertyFormData,
-        'ownerName' | 'ownerEmoji' | 'ownerPhone' | 'ownerEmail' | 'ownerTelegram' | 'ownerWhatsapp'
+        'ownerName' | 'ownerAvatar' | 'ownerPhone' | 'ownerEmail' | 'ownerTelegram' | 'ownerWhatsapp'
       >
     >,
   ) => void;
@@ -74,7 +74,7 @@ export const defaultFormData: PropertyFormData = {
 
   // Owner info
   ownerName: '',
-  ownerEmoji: '👤',
+  ownerAvatar: '👤',
   ownerPhone: '',
   ownerEmail: '',
   ownerTelegram: '',

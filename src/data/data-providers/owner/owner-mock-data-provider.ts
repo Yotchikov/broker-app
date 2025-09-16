@@ -1,12 +1,16 @@
 import type { Owner } from '../../entities';
 import type { OwnerDataProvider } from './types';
 
+import avatar1 from '../../../../public/memoji/Avatar-1.png';
+import avatar2 from '../../../../public/memoji/Avatar-2.png';
+import avatar3 from '../../../../public/memoji/Avatar-3.png';
+
 export class OwnerMockDataProviderImpl implements OwnerDataProvider {
   private _owners: Owner[] = [
     {
       id: '1',
       name: 'Джон Доу',
-      emoji: '🇺🇸',
+      avatar: avatar1,
       contacts: {
         phone: '+1234567890',
         email: 'john.doe@example.com',
@@ -17,7 +21,7 @@ export class OwnerMockDataProviderImpl implements OwnerDataProvider {
     {
       id: '2',
       name: 'Ирина Иванова',
-      emoji: '🇷🇺',
+      avatar: avatar2,
       contacts: {
         phone: '+79876543210',
         email: 'irina.ivanova@example.com',
@@ -28,7 +32,7 @@ export class OwnerMockDataProviderImpl implements OwnerDataProvider {
     {
       id: '3',
       name: 'Александр Петров',
-      emoji: '🇷🇺',
+      avatar: avatar3,
       contacts: {
         phone: '+79876543210',
         email: 'alexander.petrov@example.com',

@@ -25,7 +25,7 @@ export const PropertyFormProvider: FC<PropertyFormProviderProps> = ({ children }
 
     // Owner info
     ownerName: '',
-    ownerEmoji: '👤',
+    ownerAvatar: '👤',
     ownerPhone: '',
     ownerEmail: '',
     ownerTelegram: '',
@@ -79,7 +79,7 @@ export const PropertyFormProvider: FC<PropertyFormProviderProps> = ({ children }
       data: Partial<
         Pick<
           PropertyFormData,
-          'ownerName' | 'ownerEmoji' | 'ownerPhone' | 'ownerEmail' | 'ownerTelegram' | 'ownerWhatsapp'
+          'ownerName' | 'ownerAvatar' | 'ownerPhone' | 'ownerEmail' | 'ownerTelegram' | 'ownerWhatsapp'
         >
       >,
     ) => {
@@ -130,7 +130,7 @@ export const PropertyFormProvider: FC<PropertyFormProviderProps> = ({ children }
       floorTotal: '',
       area: '',
       ownerName: '',
-      ownerEmoji: '👤',
+      ownerAvatar: '👤',
       ownerPhone: '',
       ownerEmail: '',
       ownerTelegram: '',
@@ -150,7 +150,7 @@ export const PropertyFormProvider: FC<PropertyFormProviderProps> = ({ children }
       const owner: Owner = {
         id: crypto.randomUUID(),
         name: formData.ownerName.trim(),
-        emoji: formData.ownerEmoji,
+        avatar: formData.ownerAvatar,
         contacts: {
           phone: formData.ownerPhone || undefined,
           email: formData.ownerEmail || undefined,

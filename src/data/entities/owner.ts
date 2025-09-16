@@ -1,7 +1,7 @@
 import type { BaseEntity } from './base-entity';
 
 export type Owner = BaseEntity & {
-  emoji: string;
+  avatar?: string;
   contacts: {
     phone?: string;
     email?: string;
