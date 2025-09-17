@@ -51,4 +51,8 @@ export class PropertyMockDataProviderImpl implements PropertyDataProvider {
 
     return property;
   };
+
+  deletePropertyById = async (id: string): Promise<void> => {
+    this._properties = this._properties.filter((property) => property.id !== id);
+  };
 }
