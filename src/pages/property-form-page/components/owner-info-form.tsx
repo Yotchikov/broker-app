@@ -1,5 +1,5 @@
 import { usePropertyForm } from '../context';
-import { Box, Button, Group, Stack, TextInput, Title, Flex, Text } from '@mantine/core';
+import { Box, Button, Group, Stack, TextInput, Title } from '@mantine/core';
 import { AvatarSelector } from '../../../app/components';
 
 export const OwnerInfoForm = () => {

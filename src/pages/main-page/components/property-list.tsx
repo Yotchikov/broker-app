@@ -57,7 +57,7 @@ export const PropertyList = () => {
               <Menu.Target>
                 <ActionIcon
                   variant='subtle'
-                  color='black'
+                  color='gray'
                 >
                   <IconDots size={16} />
                 </ActionIcon>
@@ -122,7 +122,7 @@ export const PropertyList = () => {
                     </Accordion.Control>
                     <ActionIcon
                       variant='subtle'
-                      color='black'
+                      color='gray'
                     >
                       <IconPlus size={16} />
                     </ActionIcon>
