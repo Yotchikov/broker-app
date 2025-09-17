@@ -7,7 +7,7 @@ export class ProspectMockDataProviderImpl implements ProspectDataProvider {
     {
       id: '1',
       name: 'Александр Еремеев',
-      photo: avatar1,
+      avatar: avatar1,
       contacts: {
         phone: '+79876543210',
         email: 'alexander.eremeev@example.com',

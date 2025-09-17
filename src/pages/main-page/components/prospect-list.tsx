@@ -1,61 +1,16 @@
-import { Avatar, Badge, Card, Center, Group, RingProgress, Stack, Text, useMantineTheme } from '@mantine/core';
-import { prospectDataProvider, type Prospect, type ProspectStatus } from '../../../data';
-import { useEffect, useState, type FC, type ReactNode } from 'react';
-import { IconAt, IconBrandTelegram, IconBrandWhatsapp, IconPhone } from '@tabler/icons-react';
-
-const PROSPECT_STATUS_LABELS: Record<ProspectStatus, ReactNode> = {
-  inquired: <Badge color='blue'>Интересовался</Badge>,
-  scheduled_a_showing: <Badge color='blue'>Назначен показ</Badge>,
-  feedback_from_the_showing: <Badge color='yellow'>Фидбек с показа</Badge>,
-  request_to_the_owner: <Badge color='green'>Запрос собственнику</Badge>,
-  bargaining: <Badge color='yellow'>Торг</Badge>,
-  contract_discussion: <Badge color='yellow'>Обсуждение договора</Badge>,
-  document_preparation: <Badge color='blue'>Подготовка документов</Badge>,
-  scheduled_signing: <Badge color='yellow'>Назначено подписание</Badge>,
-  deal: <Badge color='blue'>Сделка</Badge>,
-  feedback_from_the_deal: <Badge color='green'>Фидбек со сделки</Badge>,
-};
-
-const CONTACT_ICONS: Record<keyof Prospect['contacts'], ReactNode> = {
-  phone: (
-    <IconPhone
-      color='grey'
-      size={16}
-    />
-  ),
-  email: (
-    <IconAt
-      color='grey'
-      size={16}
-    />
-  ),
-  telegram: (
-    <IconBrandTelegram
-      color='grey'
-      size={16}
-    />
-  ),
-  whatsapp: (
-    <IconBrandWhatsapp
-      color='grey'
-      size={16}
-    />
-  ),
-};
-
-const CONTACT_LINKS: Record<keyof Prospect['contacts'], string> = {
-  phone: 'tel:',
-  email: 'mailto:',
-  telegram: 'https://t.me/',
-  whatsapp: 'https://wa.me/',
-};
+import { Divider, Grid, Group, Stack, Text } from '@mantine/core';
+import { prospectDataProvider, type Prospect } from '../../../data';
+import { useEffect, useState, type FC } from 'react';
+import { AvatarSelector } from '../../../app/components';
+import React from 'react';
+import { CONTACT_ICONS, CONTACT_LABELS, CONTACT_LINKS, PROSPECT_STATUS_LABELS } from './consts';
+import { IconInfoCircle } from '@tabler/icons-react';
 
 type ProspectListProps = {
   prospectIds: string[];
 };
 
 export const ProspectList: FC<ProspectListProps> = (props) => {
-  const theme = useMantineTheme();
   const { prospectIds } = props;
 
   const [prospects, setProspects] = useState<Prospect[]>([]);
@@ -64,80 +19,54 @@ export const ProspectList: FC<ProspectListProps> = (props) => {
     Promise.all(prospectIds.map((prospectId) => prospectDataProvider.getProspectById(prospectId))).then(setProspects);
   }, [prospectIds]);
 
-  const cards = prospects.map((item) => (
-    <Card padding={0}>
-      <Stack gap='xs'>
+  const cards = prospects.map((prospect, index) => (
+    <React.Fragment key={prospect.id}>
+      <Stack gap='sm'>
         <Group
-          gap='xs'
+          gap='sm'
           align='center'
-          justify='space-between'
-          wrap='nowrap'
         >
-          <Group gap='xs'>
-            <Avatar
-              radius={'xl'}
-              src={item.photo}
-              alt={item.name}
-              name={item.name}
-              bg={theme.colors.blue[1]}
-            />
-            <Text
-              fz='lg'
-              fw={500}
-            >
-              {item.name}
-            </Text>
-          </Group>
-          {PROSPECT_STATUS_LABELS[item.status]}
-        </Group>
-        <Group
-          gap='xs'
-          align='start'
-          justify='space-between'
-          wrap='nowrap'
-        >
-          <Stack gap='2px'>
-            {Object.entries(item.contacts).map(([key, value]) => (
-              <a
-                href={`${CONTACT_LINKS[key as keyof Prospect['contacts']]}${value}`}
-                key={key}
-                target='_blank'
-              >
-                <Group
-                  gap='sm'
-                  wrap='nowrap'
-                >
-                  {CONTACT_ICONS[key as keyof Prospect['contacts']]}
-                  <Text
-                    fz='xs'
-                    c='dimmed'
-                  >
-                    {value}
-                  </Text>
-                </Group>
-              </a>
-            ))}
-          </Stack>
-          <RingProgress
-            roundCaps
-            thickness={6}
-            size={100}
-            sections={[{ value: 15, color: theme.primaryColor }]}
-            label={
-              <Center>
-                <Text
-                  fz='xl'
-                  fw={500}
-                >
-                  {15}%
-                </Text>
-              </Center>
-            }
+          <AvatarSelector
+            selectedAvatar={prospect.avatar}
+            onAvatarSelect={() => {
+              // TODO: Implement avatar select
+            }}
+            size={48}
           />
+          {prospect.name}
         </Group>
+        <Grid pl={8}>
+          <Grid.Col span={4}>
+            <Group gap='xs'>
+              <IconInfoCircle size={16} />
+              <Text size='sm'>Статус</Text>
+            </Group>
+          </Grid.Col>
+          <Grid.Col span={8}>{PROSPECT_STATUS_LABELS[prospect.status]}</Grid.Col>
+          {Object.entries(prospect.contacts).map(([key, value]) => (
+            <React.Fragment key={key}>
+              <Grid.Col span={4}>
+                <Group gap='xs'>
+                  {CONTACT_ICONS[key as keyof Prospect['contacts']]}
+                  <Text size='sm'>{CONTACT_LABELS[key as keyof Prospect['contacts']]}</Text>
+                </Group>
+              </Grid.Col>
+              <Grid.Col span={8}>
+                <a
+                  href={`${CONTACT_LINKS[key as keyof Prospect['contacts']]}${value}`}
+                  key={key}
+                  target='_blank'
+                >
+                  <Text size='sm'>{value}</Text>
+                </a>
+              </Grid.Col>
+            </React.Fragment>
+          ))}
+        </Grid>
       </Stack>
-    </Card>
+      {index !== prospects.length - 1 && <Divider />}
+    </React.Fragment>
   ));
 
-  return <Stack gap='xs'>{cards}</Stack>;
+  return <Stack gap='md'>{cards}</Stack>;
 };

@@ -1,49 +1,9 @@
-import { useEffect, useState, type FC, type ReactNode } from 'react';
+import { useEffect, useState, type FC } from 'react';
 import { ownerDataProvider, type Owner } from '../../../data';
 import { Group, Text, Stack, Grid } from '@mantine/core';
-import { IconPhone, IconBrandWhatsapp, IconBrandTelegram, IconAt } from '@tabler/icons-react';
 import { AvatarSelector } from '../../../app/components';
-
-const CONTACT_ICONS: Record<keyof Owner['contacts'], ReactNode> = {
-  phone: (
-    <IconPhone
-      color='grey'
-      size={16}
-    />
-  ),
-  email: (
-    <IconAt
-      color='grey'
-      size={16}
-    />
-  ),
-  telegram: (
-    <IconBrandTelegram
-      color='grey'
-      size={16}
-    />
-  ),
-  whatsapp: (
-    <IconBrandWhatsapp
-      color='grey'
-      size={16}
-    />
-  ),
-};
-
-const CONTACT_LABELS: Record<keyof Owner['contacts'], string> = {
-  phone: 'Телефон',
-  email: 'Email',
-  telegram: 'Telegram',
-  whatsapp: 'WhatsApp',
-};
-
-const CONTACT_LINKS: Record<keyof Owner['contacts'], string> = {
-  phone: 'tel:',
-  email: 'mailto:',
-  telegram: 'https://t.me/',
-  whatsapp: 'https://wa.me/',
-};
+import { CONTACT_ICONS, CONTACT_LABELS, CONTACT_LINKS } from './consts';
+import React from 'react';
 
 type OwnerInfoProps = {
   ownerId: string;
@@ -75,9 +35,9 @@ export const OwnerInfo: FC<OwnerInfoProps> = ({ ownerId }) => {
         />
         {owner.name}
       </Group>
-      <Grid pl={16}>
+      <Grid pl={8}>
         {Object.entries(owner.contacts).map(([key, value]) => (
-          <>
+          <React.Fragment key={key}>
             <Grid.Col span={4}>
               <Group gap='xs'>
                 {CONTACT_ICONS[key as keyof Owner['contacts']]}
@@ -93,7 +53,7 @@ export const OwnerInfo: FC<OwnerInfoProps> = ({ ownerId }) => {
                 <Text size='sm'>{value}</Text>
               </a>
             </Grid.Col>
-          </>
+          </React.Fragment>
         ))}
       </Grid>
     </Stack>

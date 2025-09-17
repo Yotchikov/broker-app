@@ -19,6 +19,6 @@ export type Prospect = BaseEntity & {
     telegram?: string;
     whatsapp?: string;
   };
-  photo?: string;
+  avatar?: string;
   status: ProspectStatus;
 };
