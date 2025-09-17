@@ -1,7 +1,6 @@
 import React from 'react';
 import { Modal, SimpleGrid, Box, Button, Avatar } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import styles from './avatar-selector.module.css';
 
 type AvatarSelectorProps = {
   selectedAvatar?: string;
@@ -27,14 +26,9 @@ export const AvatarSelector: React.FC<AvatarSelectorProps> = ({ selectedAvatar, 
         style={{
           width: size,
           height: size,
-          borderRadius: '50%',
-          border: '2px solid #e9ecef',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
           cursor: 'pointer',
-          backgroundColor: '#f8f9fa',
           transition: 'all 0.2s ease',
+          border: '2px solid var(--mantine-color-default-border)',
         }}
         onClick={open}
       />
@@ -52,7 +46,6 @@ export const AvatarSelector: React.FC<AvatarSelectorProps> = ({ selectedAvatar, 
           {AVATAR_PATHS.map((avatarPath) => (
             <Avatar
               key={avatarPath}
-              className={styles.avatarOption}
               onClick={() => handleAvatarClick(avatarPath)}
               src={avatarPath}
               alt={`Avatar ${avatarPath.split('-')[1]?.split('.')[0]}`}
@@ -60,7 +53,10 @@ export const AvatarSelector: React.FC<AvatarSelectorProps> = ({ selectedAvatar, 
                 width: 60,
                 height: 60,
                 borderRadius: '50%',
-                border: selectedAvatar === avatarPath ? '3px solid #228be6' : '2px solid #e9ecef',
+                border:
+                  selectedAvatar === avatarPath
+                    ? '2px solid var(--mantine-color-blue-5)'
+                    : '2px solid var(--mantine-color-default-border)',
                 cursor: 'pointer',
                 overflow: 'hidden',
                 transition: 'all 0.2s ease',

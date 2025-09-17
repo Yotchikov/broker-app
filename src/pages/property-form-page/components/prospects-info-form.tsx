@@ -41,7 +41,7 @@ export const ProspectsInfoForm = () => {
         <Title order={4}>Клиенты</Title>
         <ActionIcon
           variant='subtle'
-          color='black'
+          color='default'
           onClick={handleAddProspect}
           loading={isLoading}
         >
@@ -140,7 +140,7 @@ export const ProspectsInfoForm = () => {
           onClick={submitForm}
           loading={isLoading}
         >
-          {isLoading ? 'Сохранение...' : 'Создать'}
+          {'Создать'}
         </Button>
       </Group>
     </Stack>

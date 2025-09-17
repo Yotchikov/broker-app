@@ -1,9 +1,11 @@
 import { ActionIcon, Group } from '@mantine/core';
 import { IconHome, IconSettings } from '@tabler/icons-react';
-import { Link } from 'react-router';
+import { Link, useLocation } from 'react-router';
 import { BOTTOM_NAVBAR_HEIGHT } from './consts';
 
 export const BottomNavbar = () => {
+  const currentPath = useLocation().pathname;
+
   return (
     <Group
       gap={40}
@@ -15,14 +17,14 @@ export const BottomNavbar = () => {
       left={0}
       right={0}
       style={{
-        borderTop: '1px solid var(--mantine-color-gray-5)',
+        borderTop: '1px solid var(--mantine-color-default-border)',
       }}
+      bg='var(--mantine-color-body)'
     >
       <ActionIcon
         size='xl'
-        radius='xl'
-        variant='subtle'
-        color={'gray'}
+        variant='transparent'
+        color={currentPath === '/' ? 'var(--mantine-color-bright)' : 'default'}
         aria-label='Home'
         component={Link}
         to='/'
@@ -35,9 +37,8 @@ export const BottomNavbar = () => {
 
       <ActionIcon
         size='xl'
-        radius='xl'
-        variant='subtle'
-        color={'gray'}
+        variant='transparent'
+        color={currentPath === '/settings' ? 'var(--mantine-color-bright)' : 'default'}
         aria-label='Settings'
         component={Link}
         to='/settings'
