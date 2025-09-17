@@ -1,5 +1,5 @@
-import { Container, Group, Stack, Switch, Text, Title, useMantineColorScheme } from '@mantine/core';
-import { IconMoon } from '@tabler/icons-react';
+import { Button, Container, Group, Stack, Switch, Text, Title, useMantineColorScheme } from '@mantine/core';
+import { IconMoon, IconTrash } from '@tabler/icons-react';
 
 export const SettingsPage = () => {
   const { colorScheme, setColorScheme } = useMantineColorScheme();
@@ -22,6 +22,16 @@ export const SettingsPage = () => {
             onChange={() => setColorScheme(colorScheme === 'dark' ? 'light' : 'dark')}
           />
         </Group>
+        <Button
+          variant='light'
+          color='red'
+          leftSection={<IconTrash size={16} />}
+          onClick={() => {
+            // TODO: delete account
+          }}
+        >
+          Удалить аккаунт
+        </Button>
       </Stack>
     </Container>
   );
