@@ -25,8 +25,6 @@
     /* Path mapping */
     "baseUrl": ".",
     "paths": {
-      "ui-kit": ["packages/ui-kit"],
-      "ui-kit/*": ["packages/ui-kit/*"],
       "data": ["src/data"],
       "data/*": ["src/data/*"],
       "pages": ["src/pages"],

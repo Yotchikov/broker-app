@@ -1,7 +1,8 @@
 import { Button, Container, Group, Stack, Switch, Text, Title, useMantineColorScheme } from '@mantine/core';
 import { IconMoon, IconTrash } from '@tabler/icons-react';
+import type { FC } from 'react';
 
-export const SettingsPage = () => {
+export const SettingsPage: FC = () => {
   const { colorScheme, setColorScheme } = useMantineColorScheme();
 
   return (

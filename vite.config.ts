@@ -7,7 +7,6 @@ export default defineConfig({
   plugins: [svgr(), react()],
   resolve: {
     alias: {
-      'ui-kit': '/packages/ui-kit',
       data: '/src/data',
     },
   },
