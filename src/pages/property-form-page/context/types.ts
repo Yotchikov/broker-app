@@ -25,7 +25,7 @@ export type PropertyFormData = {
     telegram: string;
     whatsapp: string;
     status: Prospect['status'];
-    photo?: string;
+    avatar?: string;
   }>;
 };
 

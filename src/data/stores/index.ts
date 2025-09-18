@@ -1,0 +1,1 @@
+export { propertyStore } from './property';

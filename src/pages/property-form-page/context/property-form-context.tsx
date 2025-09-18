@@ -25,7 +25,7 @@ export const PropertyFormProvider: FC<PropertyFormProviderProps> = ({ children }
 
     // Owner info
     ownerName: '',
-    ownerAvatar: '👤',
+    ownerAvatar: '',
     ownerPhone: '',
     ownerEmail: '',
     ownerTelegram: '',
@@ -169,7 +169,7 @@ export const PropertyFormProvider: FC<PropertyFormProviderProps> = ({ children }
           telegram: prospectData.telegram || undefined,
           whatsapp: prospectData.whatsapp || undefined,
         },
-        photo: prospectData.photo,
+        avatar: prospectData.avatar,
         status: prospectData.status,
       }));
 
