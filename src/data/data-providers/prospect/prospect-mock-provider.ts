@@ -91,10 +91,12 @@ export class ProspectMockDataProviderImpl implements ProspectDataProvider {
 
   updateProspect = async (prospect: Prospect): Promise<Prospect> => {
     const index = this._prospects.findIndex((p) => p.id === prospect.id);
+
     if (index === -1) {
       throw new Error(`Prospect with id ${prospect.id} not found`);
     }
     this._prospects[index] = prospect;
+
     return prospect;
   };
 

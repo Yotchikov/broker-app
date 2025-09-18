@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState, type FC, type ReactNode } from 'react';
+import { useCallback, useEffect, useMemo, useState, type FC, type ReactNode } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import type { Property, Owner, Prospect } from 'data';
 import { propertyDataProvider, ownerDataProvider, prospectDataProvider } from 'data';

@@ -60,10 +60,13 @@ export class OwnerMockDataProviderImpl implements OwnerDataProvider {
 
   updateOwner = async (owner: Owner): Promise<Owner> => {
     const index = this._owners.findIndex((o) => o.id === owner.id);
+
     if (index === -1) {
       throw new Error(`Owner with id ${owner.id} not found`);
     }
+
     this._owners[index] = owner;
+
     return owner;
   };
 
