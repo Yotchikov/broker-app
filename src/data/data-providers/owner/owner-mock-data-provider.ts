@@ -57,4 +57,17 @@ export class OwnerMockDataProviderImpl implements OwnerDataProvider {
 
     return owner;
   };
+
+  updateOwner = async (owner: Owner): Promise<Owner> => {
+    const index = this._owners.findIndex((o) => o.id === owner.id);
+    if (index === -1) {
+      throw new Error(`Owner with id ${owner.id} not found`);
+    }
+    this._owners[index] = owner;
+    return owner;
+  };
+
+  deleteOwnerById = async (id: string): Promise<void> => {
+    this._owners = this._owners.filter((owner) => owner.id !== id);
+  };
 }

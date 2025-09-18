@@ -1,8 +1,8 @@
 import { usePropertyForm } from '../context';
-import { Box, Button, Group, NumberInput, SegmentedControl, Stack, TextInput, Title } from '@mantine/core';
+import { Button, Group, NumberInput, SegmentedControl, Stack, TextInput, Title, Notification } from '@mantine/core';
 
 export const PropertyInfoForm = () => {
-  const { formData, updatePropertyInfo, nextStep, isLoading: loading, error } = usePropertyForm();
+  const { formData, updatePropertyInfo, nextStep, isLoading: loading, error, setError } = usePropertyForm();
 
   const dealTypes = [
     { value: 'sale', label: 'Продажа' },
@@ -16,22 +16,32 @@ export const PropertyInfoForm = () => {
         label='Название'
         placeholder='ЖК Lucky'
         required
-        value={formData.name}
+        value={formData.property.name}
         onChange={(ev) => updatePropertyInfo({ name: ev.currentTarget.value })}
       />
 
       <SegmentedControl
         fullWidth
         data={dealTypes}
-        value={formData.dealType}
+        value={formData.property.dealType}
         onChange={(v) => updatePropertyInfo({ dealType: (v as 'sale' | 'rent') ?? 'sale' })}
       />
 
       <NumberInput
         label='Цена'
-        placeholder={formData.dealType === 'sale' ? '15,000,000' : '80,000'}
-        value={formData.amount}
-        onChange={(v) => updatePropertyInfo({ amount: Number.isFinite(v as number) ? (v as number) : '' })}
+        placeholder={formData.property.dealType === 'sale' ? '15,000,000' : '80,000'}
+        value={formData.property.price?.amount}
+        onChange={(v) => {
+          if (Number.isFinite(v as number)) {
+            updatePropertyInfo({
+              price: {
+                // TODO: add currency
+                currency: 'RUB',
+                amount: v as number,
+              },
+            });
+          }
+        }}
         min={0}
         rightSection='₽'
         thousandSeparator
@@ -41,15 +51,25 @@ export const PropertyInfoForm = () => {
         <NumberInput
           label='Этаж'
           placeholder='7'
-          value={formData.floorNumber}
-          onChange={(v) => updatePropertyInfo({ floorNumber: Number.isFinite(v as number) ? (v as number) : '' })}
+          value={formData.property.floor?.number}
+          onChange={(v) => {
+            if (Number.isFinite(v as number)) {
+              updatePropertyInfo({
+                floor: { number: v as number, total: formData.property.floor?.total ?? 0 },
+              });
+            }
+          }}
           min={0}
         />
         <NumberInput
           label='Всего этажей'
           placeholder='19'
-          value={formData.floorTotal}
-          onChange={(v) => updatePropertyInfo({ floorTotal: Number.isFinite(v as number) ? (v as number) : '' })}
+          value={formData.property.floor?.total}
+          onChange={(v) => {
+            if (Number.isFinite(v as number)) {
+              updatePropertyInfo({ floor: { number: formData.property.floor?.number ?? 0, total: v as number } });
+            }
+          }}
           min={0}
         />
       </Group>
@@ -57,14 +77,27 @@ export const PropertyInfoForm = () => {
       <NumberInput
         label='Площадь'
         placeholder='69'
-        value={formData.area}
-        onChange={(v) => updatePropertyInfo({ area: Number.isFinite(v as number) ? (v as number) : '' })}
+        value={formData.property.area}
+        onChange={(v) => {
+          if (Number.isFinite(v as number)) {
+            updatePropertyInfo({ area: v as number });
+          }
+        }}
         min={0}
         rightSection='м²'
         thousandSeparator
       />
 
-      {error && <Box c='red.6'>{error}</Box>}
+      {error && (
+        <Notification
+          color='red'
+          title='Ошибка'
+          radius={'md'}
+          onClose={() => setError(null)}
+        >
+          {error}
+        </Notification>
+      )}
 
       <Group justify='flex-end'>
         <Button

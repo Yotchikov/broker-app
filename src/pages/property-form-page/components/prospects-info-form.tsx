@@ -1,5 +1,17 @@
 import { usePropertyForm } from '../context';
-import { Box, Button, Group, Stack, TextInput, Select, ActionIcon, Card, Text, Title } from '@mantine/core';
+import {
+  Box,
+  Button,
+  Group,
+  Stack,
+  TextInput,
+  Select,
+  ActionIcon,
+  Card,
+  Text,
+  Title,
+  Notification,
+} from '@mantine/core';
 import { IconPlus, IconTrash } from '@tabler/icons-react';
 import type { ProspectStatus } from 'data';
 
@@ -17,17 +29,24 @@ const prospectStatuses: Array<{ value: ProspectStatus; label: string }> = [
 ];
 
 export const ProspectsInfoForm = () => {
-  const { formData, addProspect, removeProspect, updateProspect, prevStep, submitForm, isLoading, error } =
-    usePropertyForm();
+  const {
+    formData,
+    addProspect,
+    removeProspect,
+    updateProspect,
+    prevStep,
+    submitForm,
+    isLoading,
+    isEditMode,
+    error,
+    setError,
+  } = usePropertyForm();
 
   const handleAddProspect = () => {
     addProspect({
       name: '',
-      phone: '',
-      email: '',
-      telegram: '',
-      whatsapp: '',
       status: 'inquired',
+      contacts: {},
     });
   };
 
@@ -87,7 +106,7 @@ export const ProspectsInfoForm = () => {
                 <TextInput
                   label='Телефон'
                   placeholder='+7 (999) 123-45-67'
-                  value={prospect.phone}
+                  value={prospect.contacts.phone}
                   onChange={(ev) => handleUpdateProspect(index, 'phone', ev.currentTarget.value)}
                 />
 
@@ -95,21 +114,21 @@ export const ProspectsInfoForm = () => {
                   label='Email'
                   placeholder='alexander@example.com'
                   type='email'
-                  value={prospect.email}
+                  value={prospect.contacts.email}
                   onChange={(ev) => handleUpdateProspect(index, 'email', ev.currentTarget.value)}
                 />
 
                 <Group grow>
                   <TextInput
                     label='Telegram'
-                    placeholder='@username'
-                    value={prospect.telegram}
+                    placeholder='username'
+                    value={prospect.contacts.telegram}
                     onChange={(ev) => handleUpdateProspect(index, 'telegram', ev.currentTarget.value)}
                   />
                   <TextInput
                     label='WhatsApp'
                     placeholder='+7 (999) 123-45-67'
-                    value={prospect.whatsapp}
+                    value={prospect.contacts.whatsapp}
                     onChange={(ev) => handleUpdateProspect(index, 'whatsapp', ev.currentTarget.value)}
                   />
                 </Group>
@@ -126,7 +145,16 @@ export const ProspectsInfoForm = () => {
         </Stack>
       )}
 
-      {error && <Box c='red.6'>{error}</Box>}
+      {error && (
+        <Notification
+          color='red'
+          title='Ошибка'
+          radius={'md'}
+          onClose={() => setError(null)}
+        >
+          {error}
+        </Notification>
+      )}
 
       <Group justify='space-between'>
         <Button
@@ -140,7 +168,7 @@ export const ProspectsInfoForm = () => {
           onClick={submitForm}
           loading={isLoading}
         >
-          {'Создать'}
+          {isEditMode ? 'Сохранить' : 'Создать'}
         </Button>
       </Group>
     </Stack>

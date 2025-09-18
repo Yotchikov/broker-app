@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState, type FC, type ReactNode } from 'react';
+import React, { useCallback, useEffect, useMemo, useState, type FC, type ReactNode } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import type { Property, Owner, Prospect } from 'data';
 import { propertyDataProvider, ownerDataProvider, prospectDataProvider } from 'data';
@@ -16,20 +16,16 @@ export const PropertyFormProvider: FC<PropertyFormProviderProps> = ({ children }
 
   const [formData, setFormData] = useState<PropertyFormData>({
     // Property info
-    name: '',
-    dealType: 'sale',
-    amount: '',
-    floorNumber: '',
-    floorTotal: '',
-    area: '',
+    property: {
+      name: '',
+      dealType: 'sale',
+    },
 
     // Owner info
-    ownerName: '',
-    ownerAvatar: '',
-    ownerPhone: '',
-    ownerEmail: '',
-    ownerTelegram: '',
-    ownerWhatsapp: '',
+    owner: {
+      name: '',
+      contacts: {},
+    },
 
     // Prospects info
     prospects: [],
@@ -40,8 +36,8 @@ export const PropertyFormProvider: FC<PropertyFormProviderProps> = ({ children }
   const [error, setError] = useState<string | null>(null);
 
   // Load existing data in edit mode
-  React.useEffect(() => {
-    if (!isEditMode || !params?.id) return;
+  useEffect(() => {
+    if (!isEditMode) return;
 
     const loadExistingData = async () => {
       try {
@@ -67,29 +63,13 @@ export const PropertyFormProvider: FC<PropertyFormProviderProps> = ({ children }
     loadExistingData();
   }, [isEditMode, params?.id]);
 
-  const updatePropertyInfo = useCallback(
-    (data: Partial<Pick<PropertyFormData, 'name' | 'dealType' | 'amount' | 'floorNumber' | 'floorTotal' | 'area'>>) => {
-      setFormData((prev) => ({ ...prev, ...data }));
-    },
-    [],
-  );
+  const updatePropertyInfo = useCallback((data: Partial<PropertyFormData['property']>) => {
+    console.log('updatePropertyInfo', data);
+    setFormData((prev) => ({ ...prev, property: { ...prev.property, ...data } }));
+  }, []);
 
-  const updateOwnerInfo = useCallback(
-    (
-      data: Partial<
-        Pick<
-          PropertyFormData,
-          'ownerName' | 'ownerAvatar' | 'ownerPhone' | 'ownerEmail' | 'ownerTelegram' | 'ownerWhatsapp'
-        >
-      >,
-    ) => {
-      setFormData((prev) => ({ ...prev, ...data }));
-    },
-    [],
-  );
-
-  const updateProspects = useCallback((prospects: PropertyFormData['prospects']) => {
-    setFormData((prev) => ({ ...prev, prospects }));
+  const updateOwnerInfo = useCallback((data: Partial<PropertyFormData['owner']>) => {
+    setFormData((prev) => ({ ...prev, owner: { ...prev.owner, ...data } }));
   }, []);
 
   const addProspect = useCallback((prospect: PropertyFormData['prospects'][0]) => {
@@ -121,41 +101,33 @@ export const PropertyFormProvider: FC<PropertyFormProviderProps> = ({ children }
     setCurrentStep((prev) => Math.max(prev - 1, 0));
   }, []);
 
-  const resetForm = useCallback(() => {
-    setFormData({
-      name: '',
-      dealType: 'sale',
-      amount: '',
-      floorNumber: '',
-      floorTotal: '',
-      area: '',
-      ownerName: '',
-      ownerAvatar: '👤',
-      ownerPhone: '',
-      ownerEmail: '',
-      ownerTelegram: '',
-      ownerWhatsapp: '',
-      prospects: [],
-    });
-    setCurrentStep(0);
-    setError(null);
-  }, []);
-
   const submitForm = useCallback(async () => {
     setIsLoading(true);
     setError(null);
 
     try {
+      if (formData.property.name.trim() === '') {
+        throw new Error('Название объекта не может быть пустым');
+      }
+
+      if (formData.owner.name.trim() === '') {
+        throw new Error('Имя собственника не может быть пустым');
+      }
+
+      if (formData.prospects.some((prospect) => prospect.name.trim() === '')) {
+        throw new Error('Имя клиента не может быть пустым');
+      }
+
       // Create owner first
       const owner: Owner = {
         id: crypto.randomUUID(),
-        name: formData.ownerName.trim(),
-        avatar: formData.ownerAvatar,
+        name: formData.owner.name.trim(),
+        avatar: formData.owner.avatar,
         contacts: {
-          phone: formData.ownerPhone || undefined,
-          email: formData.ownerEmail || undefined,
-          telegram: formData.ownerTelegram || undefined,
-          whatsapp: formData.ownerWhatsapp || undefined,
+          phone: formData.owner.contacts.phone || undefined,
+          email: formData.owner.contacts.email || undefined,
+          telegram: formData.owner.contacts.telegram || undefined,
+          whatsapp: formData.owner.contacts.whatsapp || undefined,
         },
       };
 
@@ -164,10 +136,10 @@ export const PropertyFormProvider: FC<PropertyFormProviderProps> = ({ children }
         id: crypto.randomUUID(),
         name: prospectData.name.trim(),
         contacts: {
-          phone: prospectData.phone || undefined,
-          email: prospectData.email || undefined,
-          telegram: prospectData.telegram || undefined,
-          whatsapp: prospectData.whatsapp || undefined,
+          phone: prospectData.contacts.phone || undefined,
+          email: prospectData.contacts.email || undefined,
+          telegram: prospectData.contacts.telegram || undefined,
+          whatsapp: prospectData.contacts.whatsapp || undefined,
         },
         avatar: prospectData.avatar,
         status: prospectData.status,
@@ -176,25 +148,25 @@ export const PropertyFormProvider: FC<PropertyFormProviderProps> = ({ children }
       // Create property
       const property: Property = {
         id: isEditMode && params?.id ? params.id : crypto.randomUUID(),
-        name: formData.name.trim(),
-        dealType: formData.dealType,
+        name: formData.property.name.trim(),
+        dealType: formData.property.dealType,
         ownerId: owner.id,
         prospectIds: prospects.map((p) => p.id),
         price:
-          formData.amount === ''
-            ? undefined
-            : {
-                amount: Number(formData.amount) * 100,
+          formData.property.price && formData.property.price.amount > 0
+            ? {
+                amount: Number(formData.property.price?.amount) * 100,
                 currency: 'RUB',
-              },
+              }
+            : undefined,
         floor:
-          formData.floorNumber === '' && formData.floorTotal === ''
-            ? undefined
-            : {
-                number: Number(formData.floorNumber || 0),
-                total: Number(formData.floorTotal || 0),
-              },
-        area: formData.area === '' ? undefined : Number(formData.area),
+          formData.property.floor && formData.property.floor.number > 0 && formData.property.floor.total > 0
+            ? {
+                number: Number(formData.property.floor?.number || 0),
+                total: Number(formData.property.floor?.total || 0),
+              }
+            : undefined,
+        area: formData.property.area && formData.property.area > 0 ? Number(formData.property.area) * 100 : undefined,
       };
 
       // Create owner first
@@ -222,9 +194,9 @@ export const PropertyFormProvider: FC<PropertyFormProviderProps> = ({ children }
       currentStep,
       isLoading,
       error,
+      isEditMode,
       updatePropertyInfo,
       updateOwnerInfo,
-      updateProspects,
       addProspect,
       removeProspect,
       updateProspect,
@@ -232,23 +204,23 @@ export const PropertyFormProvider: FC<PropertyFormProviderProps> = ({ children }
       nextStep,
       prevStep,
       submitForm,
-      resetForm,
+      setError,
     }),
     [
       formData,
       currentStep,
       isLoading,
       error,
+      isEditMode,
       updatePropertyInfo,
       updateOwnerInfo,
-      updateProspects,
       addProspect,
       removeProspect,
       updateProspect,
       nextStep,
       prevStep,
       submitForm,
-      resetForm,
+      setError,
     ],
   );
 

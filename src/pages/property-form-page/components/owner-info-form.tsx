@@ -1,19 +1,19 @@
 import { usePropertyForm } from '../context';
-import { Box, Button, Group, Stack, TextInput, Title } from '@mantine/core';
+import { Button, Group, Stack, TextInput, Title, Notification } from '@mantine/core';
 import { AvatarSelector } from '../../../app/components';
 
 export const OwnerInfoForm = () => {
-  const { formData, updateOwnerInfo, nextStep, prevStep, isLoading: loading, error } = usePropertyForm();
+  const { formData, updateOwnerInfo, nextStep, prevStep, isLoading: loading, error, setError } = usePropertyForm();
 
   const handleAvatarSelect = (avatarPath: string) => {
-    updateOwnerInfo({ ownerAvatar: avatarPath });
+    updateOwnerInfo({ avatar: avatarPath });
   };
 
   return (
     <Stack gap='md'>
       <Title order={4}>Собственник</Title>
       <AvatarSelector
-        selectedAvatar={formData.ownerAvatar !== '👤' ? formData.ownerAvatar : undefined}
+        selectedAvatar={formData.owner.avatar}
         onAvatarSelect={handleAvatarSelect}
         size={80}
       />
@@ -21,35 +21,48 @@ export const OwnerInfoForm = () => {
         label='Имя'
         placeholder='Иван Иванов'
         required
-        value={formData.ownerName}
-        onChange={(ev) => updateOwnerInfo({ ownerName: ev.currentTarget.value })}
+        value={formData.owner.name}
+        onChange={(ev) => updateOwnerInfo({ name: ev.currentTarget.value })}
       />
       <TextInput
         label='Телефон'
         placeholder='+7 (999) 123-45-67'
-        value={formData.ownerPhone}
-        onChange={(ev) => updateOwnerInfo({ ownerPhone: ev.currentTarget.value })}
+        value={formData.owner.contacts.phone}
+        onChange={(ev) => updateOwnerInfo({ contacts: { ...formData.owner.contacts, phone: ev.currentTarget.value } })}
       />
       <TextInput
         label='Email'
         placeholder='ivan@example.com'
         type='email'
-        value={formData.ownerEmail}
-        onChange={(ev) => updateOwnerInfo({ ownerEmail: ev.currentTarget.value })}
+        value={formData.owner.contacts.email}
+        onChange={(ev) => updateOwnerInfo({ contacts: { ...formData.owner.contacts, email: ev.currentTarget.value } })}
       />
       <TextInput
         label='Telegram'
         placeholder='@username'
-        value={formData.ownerTelegram}
-        onChange={(ev) => updateOwnerInfo({ ownerTelegram: ev.currentTarget.value })}
+        value={formData.owner.contacts.telegram}
+        onChange={(ev) =>
+          updateOwnerInfo({ contacts: { ...formData.owner.contacts, telegram: ev.currentTarget.value } })
+        }
       />
       <TextInput
         label='WhatsApp'
         placeholder='+7 (999) 123-45-67'
-        value={formData.ownerWhatsapp}
-        onChange={(ev) => updateOwnerInfo({ ownerWhatsapp: ev.currentTarget.value })}
+        value={formData.owner.contacts.whatsapp}
+        onChange={(ev) =>
+          updateOwnerInfo({ contacts: { ...formData.owner.contacts, whatsapp: ev.currentTarget.value } })
+        }
       />
-      {error && <Box c='red.6'>{error}</Box>}
+      {error && (
+        <Notification
+          color='red'
+          title='Ошибка'
+          radius={'md'}
+          onClose={() => setError(null)}
+        >
+          {error}
+        </Notification>
+      )}
       <Group justify='space-between'>
         <Button
           variant='light'

@@ -3,21 +3,14 @@ import { Box, Button, Container, Input, SegmentedControl, Stack, Title } from '@
 import { IconPlus, IconSearch } from '@tabler/icons-react';
 import { PropertyList } from './components/property-list';
 import { useLoaderData, useNavigate } from 'react-router';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import type { Property } from '../../data/entities/property';
-import { propertyStore } from '../../data/stores';
-import { observer } from 'mobx-react-lite';
 
-export const MainPage: FC = observer(() => {
+export const MainPage: FC = () => {
   const navigate = useNavigate();
+  const { properties } = useLoaderData<{ properties: Property[] }>();
 
   const [dealType, setDealType] = useState<'all' | 'sale' | 'rent'>('all');
-
-  useEffect(() => {
-    propertyStore.loadProperties();
-  }, []);
-
-  const properties = propertyStore.properties;
 
   return (
     <Container p={0}>
@@ -96,4 +89,4 @@ export const MainPage: FC = observer(() => {
       </Stack>
     </Container>
   );
-});
+};

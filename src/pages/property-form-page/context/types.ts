@@ -1,32 +1,9 @@
-import type { Prospect } from 'data';
+import type { Owner, Property, Prospect } from 'data';
 
 export type PropertyFormData = {
-  // Property info
-  name: string;
-  dealType: 'sale' | 'rent';
-  amount: number | '';
-  floorNumber: number | '';
-  floorTotal: number | '';
-  area: number | '';
-
-  // Owner info
-  ownerName: string;
-  ownerAvatar: string;
-  ownerPhone: string;
-  ownerEmail: string;
-  ownerTelegram: string;
-  ownerWhatsapp: string;
-
-  // Prospects info
-  prospects: Array<{
-    name: string;
-    phone: string;
-    email: string;
-    telegram: string;
-    whatsapp: string;
-    status: Prospect['status'];
-    avatar?: string;
-  }>;
+  property: Omit<Property, 'id' | 'prospectIds' | 'ownerId'>;
+  owner: Omit<Owner, 'id'>;
+  prospects: Omit<Prospect, 'id'>[];
 };
 
 export type PropertyFormContextValue = {
@@ -35,20 +12,11 @@ export type PropertyFormContextValue = {
   currentStep: number;
   isLoading: boolean;
   error: string | null;
+  isEditMode: boolean;
 
   // Actions
-  updatePropertyInfo: (
-    data: Partial<Pick<PropertyFormData, 'name' | 'dealType' | 'amount' | 'floorNumber' | 'floorTotal' | 'area'>>,
-  ) => void;
-  updateOwnerInfo: (
-    data: Partial<
-      Pick<
-        PropertyFormData,
-        'ownerName' | 'ownerAvatar' | 'ownerPhone' | 'ownerEmail' | 'ownerTelegram' | 'ownerWhatsapp'
-      >
-    >,
-  ) => void;
-  updateProspects: (prospects: PropertyFormData['prospects']) => void;
+  updatePropertyInfo: (data: Partial<PropertyFormData['property']>) => void;
+  updateOwnerInfo: (data: Partial<PropertyFormData['owner']>) => void;
   addProspect: (prospect: PropertyFormData['prospects'][0]) => void;
   removeProspect: (index: number) => void;
   updateProspect: (index: number, prospect: Partial<PropertyFormData['prospects'][0]>) => void;
@@ -60,26 +28,5 @@ export type PropertyFormContextValue = {
 
   // Form submission
   submitForm: () => Promise<void>;
-  resetForm: () => void;
-};
-
-export const defaultFormData: PropertyFormData = {
-  // Property info
-  name: '',
-  dealType: 'sale',
-  amount: '',
-  floorNumber: '',
-  floorTotal: '',
-  area: '',
-
-  // Owner info
-  ownerName: '',
-  ownerAvatar: '👤',
-  ownerPhone: '',
-  ownerEmail: '',
-  ownerTelegram: '',
-  ownerWhatsapp: '',
-
-  // Prospects info
-  prospects: [],
+  setError: (error: string | null) => void;
 };

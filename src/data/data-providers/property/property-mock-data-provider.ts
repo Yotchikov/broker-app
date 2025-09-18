@@ -63,7 +63,20 @@ export class PropertyMockDataProviderImpl implements PropertyDataProvider {
   };
 
   createProperty = async (property: Property): Promise<Property> => {
+    console.log('createProperty', property);
     this._properties.push(property);
+
+    return property;
+  };
+
+  updateProperty = async (property: Property): Promise<Property> => {
+    const index = this._properties.findIndex((p) => p.id === property.id);
+
+    if (index === -1) {
+      throw new Error(`Property with id ${property.id} not found`);
+    }
+
+    this._properties[index] = property;
 
     return property;
   };
