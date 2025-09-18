@@ -1,18 +1,16 @@
 import type { FC } from 'react';
-import { Box, Button, Container, Input, SegmentedControl, Stack } from '@mantine/core';
+import { Box, Button, Container, Input, SegmentedControl, Stack, Title } from '@mantine/core';
 import { IconPlus, IconSearch } from '@tabler/icons-react';
-import { useLoaderData } from 'react-router';
-import type { Property } from '../../data/entities';
 import { PropertyList } from './components/property-list';
-import { useNavigate } from 'react-router';
+import { useLoaderData, useNavigate } from 'react-router';
+import { useState } from 'react';
+import type { Property } from '../../data/entities/property';
 
 export const MainPage: FC = () => {
-  const { properties } = useLoaderData<{ properties: Property[] }>();
   const navigate = useNavigate();
 
-  if (!properties) {
-    return null;
-  }
+  const [dealType, setDealType] = useState<'all' | 'sale' | 'rent'>('all');
+  const { properties } = useLoaderData<{ properties: Property[] }>();
 
   return (
     <Container p={0}>
@@ -30,10 +28,49 @@ export const MainPage: FC = () => {
           />
           <SegmentedControl
             fullWidth
-            data={['Всё', 'Аренда', 'Продажа']}
+            data={[
+              { label: 'Всё', value: 'all' },
+              { label: 'Продажа', value: 'sale' },
+              { label: 'Аренда', value: 'rent' },
+            ]}
+            value={dealType}
+            onChange={(value) => setDealType(value as 'all' | 'sale' | 'rent')}
           />
         </Stack>
-        <PropertyList />
+        {(dealType === 'all' || dealType === 'sale') && (
+          <>
+            <Title
+              order={3}
+              px='md'
+            >
+              Продажа{' '}
+              <Box
+                display='inline-block'
+                c='dimmed'
+              >
+                {properties.filter((property) => property.dealType === 'sale').length}
+              </Box>
+            </Title>
+            <PropertyList properties={properties.filter((property) => property.dealType === 'sale')} />
+          </>
+        )}
+        {(dealType === 'all' || dealType === 'rent') && (
+          <>
+            <Title
+              order={3}
+              px='md'
+            >
+              Аренда{' '}
+              <Box
+                display='inline-block'
+                c='dimmed'
+              >
+                {properties.filter((property) => property.dealType === 'rent').length}
+              </Box>
+            </Title>
+            <PropertyList properties={properties.filter((property) => property.dealType === 'rent')} />
+          </>
+        )}
         <Box
           px={'md'}
           w='100%'

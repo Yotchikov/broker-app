@@ -40,7 +40,7 @@ export const ProspectsInfoForm = () => {
       <Group justify='space-between'>
         <Title order={4}>Клиенты</Title>
         <ActionIcon
-          variant='subtle'
+          variant='transparent'
           color='default'
           onClick={handleAddProspect}
           loading={isLoading}
@@ -69,7 +69,7 @@ export const ProspectsInfoForm = () => {
                   <Text fw={500}>Клиент {index + 1}</Text>
                   <ActionIcon
                     color='red'
-                    variant='subtle'
+                    variant='transparent'
                     onClick={() => removeProspect(index)}
                     loading={isLoading}
                   >

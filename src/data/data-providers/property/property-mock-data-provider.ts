@@ -20,6 +20,22 @@ export class PropertyMockDataProviderImpl implements PropertyDataProvider {
       area: 4400,
     },
     {
+      id: '3',
+      name: 'ЖК Пресня 13',
+      price: {
+        amount: 1500000000,
+        currency: 'RUB',
+      },
+      ownerId: '1',
+      prospectIds: ['1', '2', '3', '4', '5', '6'],
+      dealType: 'sale',
+      floor: {
+        number: 25,
+        total: 28,
+      },
+      area: 4400,
+    },
+    {
       id: '2',
       name: 'Куусинена 4Ак5',
       price: {

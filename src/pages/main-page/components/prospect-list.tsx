@@ -56,6 +56,7 @@ export const ProspectList: FC<ProspectListProps> = (props) => {
                   href={`${CONTACT_LINKS[key as keyof Prospect['contacts']]}${value}`}
                   key={key}
                   target='_blank'
+                  style={{ textDecoration: 'none', color: 'inherit' }}
                 >
                   <Text size='sm'>{value}</Text>
                 </a>

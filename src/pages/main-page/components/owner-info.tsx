@@ -49,6 +49,7 @@ export const OwnerInfo: FC<OwnerInfoProps> = ({ ownerId }) => {
                 href={`${CONTACT_LINKS[key as keyof Owner['contacts']]}${value}`}
                 key={key}
                 target='_blank'
+                style={{ textDecoration: 'none', color: 'inherit' }}
               >
                 <Text size='sm'>{value}</Text>
               </a>
