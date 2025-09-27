@@ -34,6 +34,7 @@ export const PropertyInfoForm = () => {
         label='Цена'
         size='md'
         variant='filled'
+        thousandSeparator=' '
         placeholder={formData.property.dealType === 'sale' ? '15,000,000' : '80,000'}
         value={formData.property.price?.amount}
         onChange={(v) => {
@@ -49,7 +50,6 @@ export const PropertyInfoForm = () => {
         }}
         min={0}
         rightSection='₽'
-        thousandSeparator
       />
 
       <Group wrap='nowrap'>
@@ -97,8 +97,8 @@ export const PropertyInfoForm = () => {
           }
         }}
         min={0}
+        thousandSeparator=' '
         rightSection='м²'
-        thousandSeparator
       />
 
       {error && (

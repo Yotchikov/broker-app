@@ -38,6 +38,7 @@ export const ProspectsInfoForm = () => {
 
   const handleAddProspect = () => {
     addProspect({
+      id: crypto.randomUUID(),
       name: '',
       status: 'inquired',
       contacts: {},

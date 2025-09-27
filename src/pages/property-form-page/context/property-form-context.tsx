@@ -18,12 +18,14 @@ export const PropertyFormProvider: FC<PropertyFormProviderProps> = ({ children }
   const [formData, setFormData] = useState<PropertyFormData>({
     // Property info
     property: {
+      id: crypto.randomUUID(),
       name: '',
       dealType: 'sale',
     },
 
     // Owner info
     owner: {
+      id: crypto.randomUUID(),
       name: '',
       contacts: {},
     },
@@ -44,15 +46,49 @@ export const PropertyFormProvider: FC<PropertyFormProviderProps> = ({ children }
       try {
         setIsLoading(true);
         const property = await propertyDataProvider.getPropertyById(params.id as string);
+        const owner = await ownerDataProvider.getOwnerById(property.ownerId as string);
+        const prospects = await Promise.all(property.prospectIds.map((id) => prospectDataProvider.getProspectById(id)));
 
         setFormData((prev) => ({
           ...prev,
-          name: property.name ?? '',
-          dealType: property.dealType,
-          amount: property.price?.amount ? property.price.amount / 100 : '',
-          floorNumber: property.floor?.number ?? '',
-          floorTotal: property.floor?.total ?? '',
-          area: property.area ?? '',
+          property: {
+            ...prev.property,
+            id: property.id,
+            name: property.name ?? '',
+            dealType: property.dealType,
+            price: {
+              ...prev.property.price,
+              amount: property.price?.amount ? property.price.amount / 100 : 0,
+              currency: property.price?.currency ?? 'RUB',
+            },
+            floor: {
+              ...prev.property.floor,
+              number: property.floor?.number ?? 0,
+              total: property.floor?.total ?? 0,
+            },
+            area: property.area ? property.area / 100 : 0,
+          },
+          owner: {
+            ...prev.owner,
+            id: owner?.id ?? crypto.randomUUID(),
+            name: owner?.name ?? '',
+            avatar: owner?.avatar ?? '',
+            contacts: owner?.contacts ?? {},
+          },
+          prospects: prospects.map((prospect) => ({
+            ...prospect,
+            id: prospect.id ?? crypto.randomUUID(),
+            name: prospect.name ?? '',
+            contacts: {
+              ...prospect.contacts,
+              phone: prospect.contacts.phone ?? '',
+              email: prospect.contacts.email ?? '',
+              telegram: prospect.contacts.telegram ?? '',
+              whatsapp: prospect.contacts.whatsapp ?? '',
+            },
+            avatar: prospect.avatar ?? '',
+            status: prospect.status,
+          })),
         }));
       } catch (e) {
         setError(e instanceof Error ? e.message : 'Не удалось загрузить объект');
@@ -122,7 +158,7 @@ export const PropertyFormProvider: FC<PropertyFormProviderProps> = ({ children }
 
       // Create owner first
       const owner: Owner = {
-        id: crypto.randomUUID(),
+        id: formData.owner.id || crypto.randomUUID(),
         name: formData.owner.name.trim(),
         avatar: formData.owner.avatar,
         contacts: {
@@ -135,7 +171,7 @@ export const PropertyFormProvider: FC<PropertyFormProviderProps> = ({ children }
 
       // Create prospects
       const prospects: Prospect[] = formData.prospects.map((prospectData) => ({
-        id: crypto.randomUUID(),
+        id: prospectData.id || crypto.randomUUID(),
         name: prospectData.name.trim(),
         contacts: {
           phone: prospectData.contacts.phone || undefined,
@@ -171,16 +207,23 @@ export const PropertyFormProvider: FC<PropertyFormProviderProps> = ({ children }
         area: formData.property.area && formData.property.area > 0 ? Number(formData.property.area) * 100 : undefined,
       };
 
-      // Create owner first
-      await ownerDataProvider.createOwner(owner);
+      if (isEditMode) {
+        await ownerDataProvider.updateOwner(owner);
 
-      // Create prospects
-      for (const prospect of prospects) {
-        await prospectDataProvider.createProspect(prospect);
+        for (const prospect of prospects) {
+          await prospectDataProvider.updateProspect(prospect);
+        }
+
+        await propertyDataProvider.updateProperty(property);
+      } else {
+        await ownerDataProvider.createOwner(owner);
+
+        for (const prospect of prospects) {
+          await prospectDataProvider.createProspect(prospect);
+        }
+
+        await propertyDataProvider.createProperty(property);
       }
-
-      // Create property with references to owner and prospects
-      await propertyDataProvider.createProperty(property);
 
       navigate('/');
     } catch (e) {

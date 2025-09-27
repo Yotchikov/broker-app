@@ -1,9 +1,9 @@
 import type { Owner, Property, Prospect } from 'data';
 
 export type PropertyFormData = {
-  property: Omit<Property, 'id' | 'prospectIds' | 'ownerId'>;
-  owner: Omit<Owner, 'id'>;
-  prospects: Omit<Prospect, 'id'>[];
+  property: Omit<Property, 'prospectIds' | 'ownerId'>;
+  owner: Owner;
+  prospects: Prospect[];
 };
 
 export type PropertyFormContextValue = {
