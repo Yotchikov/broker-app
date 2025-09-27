@@ -5,6 +5,7 @@ import { PropertyList } from './components/property-list';
 import { useLoaderData } from 'react-router';
 import { useState } from 'react';
 import type { Property } from '../../data/entities/property';
+import { TOP_NAVBAR_HEIGHT } from '../../app/components';
 
 export const MainPage: FC = () => {
   const { properties } = useLoaderData<{ properties: Property[] }>();
@@ -12,7 +13,10 @@ export const MainPage: FC = () => {
   const [dealType, setDealType] = useState<'all' | 'sale' | 'rent'>('all');
 
   return (
-    <Container p={0}>
+    <Container
+      p={0}
+      mt={-TOP_NAVBAR_HEIGHT}
+    >
       <Stack
         gap='sm'
         py='sm'
@@ -23,6 +27,7 @@ export const MainPage: FC = () => {
         >
           <Input
             size='md'
+            variant='filled'
             placeholder='Поиск'
             leftSection={<IconSearch size={16} />}
           />
