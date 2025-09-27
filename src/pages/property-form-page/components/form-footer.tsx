@@ -13,7 +13,8 @@ export const FormFooter = () => {
       p='md'
       left={0}
       right={0}
-      bg='linear-gradient(to bottom, transparent 0%, var(--mantine-color-body) 25%)'
+      style={{ backdropFilter: 'blur(10px)' }}
+      //   bg='linear-gradient(to bottom, transparent 0%, var(--mantine-color-body) 25%)'
     >
       {prevStep ? (
         <Button

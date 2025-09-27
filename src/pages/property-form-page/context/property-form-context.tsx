@@ -65,7 +65,6 @@ export const PropertyFormProvider: FC<PropertyFormProviderProps> = ({ children }
   }, [isEditMode, params?.id]);
 
   const updatePropertyInfo = useCallback((data: Partial<PropertyFormData['property']>) => {
-    console.log('updatePropertyInfo', data);
     setFormData((prev) => ({ ...prev, property: { ...prev.property, ...data } }));
   }, []);
 

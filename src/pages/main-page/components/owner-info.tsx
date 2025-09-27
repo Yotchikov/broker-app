@@ -1,7 +1,6 @@
 import { useEffect, useState, type FC } from 'react';
 import { ownerDataProvider, type Owner } from '../../../data';
-import { Group, Text, Stack, Grid } from '@mantine/core';
-import { AvatarSelector } from '../../../app/components';
+import { Group, Text, Stack, Grid, Avatar } from '@mantine/core';
 import { CONTACT_ICONS, CONTACT_LABELS, CONTACT_LINKS } from './consts';
 import React from 'react';
 
@@ -26,12 +25,10 @@ export const OwnerInfo: FC<OwnerInfoProps> = ({ ownerId }) => {
         gap='sm'
         align='center'
       >
-        <AvatarSelector
-          selectedAvatar={owner.avatar}
-          onAvatarSelect={() => {
-            // TODO: Implement avatar select
-          }}
-          size={48}
+        <Avatar
+          radius='xl'
+          name={owner.name}
+          color='initials'
         />
         {owner.name}
       </Group>

@@ -1,7 +1,6 @@
-import { Divider, Grid, Group, Stack, Text } from '@mantine/core';
+import { Avatar, Divider, Grid, Group, Stack, Text } from '@mantine/core';
 import { prospectDataProvider, type Prospect } from '../../../data';
 import { useEffect, useState, type FC } from 'react';
-import { AvatarSelector } from '../../../app/components';
 import React from 'react';
 import { CONTACT_ICONS, CONTACT_LABELS, CONTACT_LINKS, PROSPECT_STATUS_LABELS } from './consts';
 import { IconInfoCircle } from '@tabler/icons-react';
@@ -26,12 +25,10 @@ export const ProspectList: FC<ProspectListProps> = (props) => {
           gap='sm'
           align='center'
         >
-          <AvatarSelector
-            selectedAvatar={prospect.avatar}
-            onAvatarSelect={() => {
-              // TODO: Implement avatar select
-            }}
-            size={48}
+          <Avatar
+            radius='xl'
+            name={prospect.name}
+            color='initials'
           />
           {prospect.name}
         </Group>

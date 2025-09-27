@@ -63,7 +63,6 @@ export class PropertyMockDataProviderImpl implements PropertyDataProvider {
   };
 
   createProperty = async (property: Property): Promise<Property> => {
-    console.log('createProperty', property);
     this._properties.push(property);
 
     return property;

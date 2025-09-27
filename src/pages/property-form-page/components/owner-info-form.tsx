@@ -1,23 +1,13 @@
 import { usePropertyForm } from '../context';
 import { Stack, TextInput, Title, Notification } from '@mantine/core';
-import { AvatarSelector } from '../../../app/components';
 import { IconBrandTelegram, IconBrandWhatsapp, IconMail, IconPhone } from '@tabler/icons-react';
 
 export const OwnerInfoForm = () => {
   const { formData, updateOwnerInfo, error, setError } = usePropertyForm();
 
-  const handleAvatarSelect = (avatarPath: string) => {
-    updateOwnerInfo({ avatar: avatarPath });
-  };
-
   return (
     <Stack gap='md'>
       <Title order={3}>Собственник</Title>
-      <AvatarSelector
-        selectedAvatar={formData.owner.avatar}
-        onAvatarSelect={handleAvatarSelect}
-        size={80}
-      />
       <TextInput
         size='md'
         variant='filled'
