@@ -65,7 +65,7 @@ export class ProspectMockDataProviderImpl implements ProspectDataProvider {
       name: 'Билл Гейтс',
       contacts: {
         phone: '+1234567890',
-        email: 'bill.gates@example.com',
+        email: undefined,
         telegram: 'bill_gates',
         whatsapp: '+1234567890',
       },

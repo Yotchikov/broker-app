@@ -35,22 +35,26 @@ export const OwnerInfo: FC<OwnerInfoProps> = ({ ownerId }) => {
       <Grid pl={8}>
         {Object.entries(owner.contacts).map(([key, value]) => (
           <React.Fragment key={key}>
-            <Grid.Col span={4}>
-              <Group gap='xs'>
-                {CONTACT_ICONS[key as keyof Owner['contacts']]}
-                <Text size='sm'>{CONTACT_LABELS[key as keyof Owner['contacts']]}</Text>
-              </Group>
-            </Grid.Col>
-            <Grid.Col span={8}>
-              <a
-                href={`${CONTACT_LINKS[key as keyof Owner['contacts']]}${value}`}
-                key={key}
-                target='_blank'
-                style={{ textDecoration: 'none', color: 'inherit' }}
-              >
-                <Text size='sm'>{value}</Text>
-              </a>
-            </Grid.Col>
+            {value && (
+              <>
+                <Grid.Col span={4}>
+                  <Group gap='xs'>
+                    {CONTACT_ICONS[key as keyof Owner['contacts']]}
+                    <Text size='sm'>{CONTACT_LABELS[key as keyof Owner['contacts']]}</Text>
+                  </Group>
+                </Grid.Col>
+                <Grid.Col span={8}>
+                  <a
+                    href={`${CONTACT_LINKS[key as keyof Owner['contacts']]}${value}`}
+                    key={key}
+                    target='_blank'
+                    style={{ textDecoration: 'none', color: 'inherit' }}
+                  >
+                    <Text size='sm'>{value}</Text>
+                  </a>
+                </Grid.Col>
+              </>
+            )}
           </React.Fragment>
         ))}
       </Grid>

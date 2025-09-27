@@ -25,7 +25,7 @@ export class OwnerMockDataProviderImpl implements OwnerDataProvider {
       contacts: {
         phone: '+79876543210',
         email: 'irina.ivanova@example.com',
-        telegram: 'irina_ivanova',
+        telegram: undefined,
         whatsapp: '+79876543210',
       },
     },

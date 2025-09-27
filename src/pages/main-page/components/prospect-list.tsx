@@ -42,22 +42,26 @@ export const ProspectList: FC<ProspectListProps> = (props) => {
           <Grid.Col span={8}>{PROSPECT_STATUS_LABELS[prospect.status]}</Grid.Col>
           {Object.entries(prospect.contacts).map(([key, value]) => (
             <React.Fragment key={key}>
-              <Grid.Col span={4}>
-                <Group gap='xs'>
-                  {CONTACT_ICONS[key as keyof Prospect['contacts']]}
-                  <Text size='sm'>{CONTACT_LABELS[key as keyof Prospect['contacts']]}</Text>
-                </Group>
-              </Grid.Col>
-              <Grid.Col span={8}>
-                <a
-                  href={`${CONTACT_LINKS[key as keyof Prospect['contacts']]}${value}`}
-                  key={key}
-                  target='_blank'
-                  style={{ textDecoration: 'none', color: 'inherit' }}
-                >
-                  <Text size='sm'>{value}</Text>
-                </a>
-              </Grid.Col>
+              {value && (
+                <>
+                  <Grid.Col span={4}>
+                    <Group gap='xs'>
+                      {CONTACT_ICONS[key as keyof Prospect['contacts']]}
+                      <Text size='sm'>{CONTACT_LABELS[key as keyof Prospect['contacts']]}</Text>
+                    </Group>
+                  </Grid.Col>
+                  <Grid.Col span={8}>
+                    <a
+                      href={`${CONTACT_LINKS[key as keyof Prospect['contacts']]}${value}`}
+                      key={key}
+                      target='_blank'
+                      style={{ textDecoration: 'none', color: 'inherit' }}
+                    >
+                      <Text size='sm'>{value}</Text>
+                    </a>
+                  </Grid.Col>
+                </>
+              )}
             </React.Fragment>
           ))}
         </Grid>
