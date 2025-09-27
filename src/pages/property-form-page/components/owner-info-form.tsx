@@ -1,9 +1,10 @@
 import { usePropertyForm } from '../context';
-import { Button, Group, Stack, TextInput, Title, Notification } from '@mantine/core';
+import { Stack, TextInput, Title, Notification } from '@mantine/core';
 import { AvatarSelector } from '../../../app/components';
+import { IconBrandTelegram, IconBrandWhatsapp, IconMail, IconPhone } from '@tabler/icons-react';
 
 export const OwnerInfoForm = () => {
-  const { formData, updateOwnerInfo, nextStep, prevStep, isLoading: loading, error, setError } = usePropertyForm();
+  const { formData, updateOwnerInfo, error, setError } = usePropertyForm();
 
   const handleAvatarSelect = (avatarPath: string) => {
     updateOwnerInfo({ avatar: avatarPath });
@@ -11,42 +12,53 @@ export const OwnerInfoForm = () => {
 
   return (
     <Stack gap='md'>
-      <Title order={4}>Собственник</Title>
+      <Title order={3}>Собственник</Title>
       <AvatarSelector
         selectedAvatar={formData.owner.avatar}
         onAvatarSelect={handleAvatarSelect}
         size={80}
       />
       <TextInput
+        size='md'
+        variant='filled'
         label='Имя'
         placeholder='Иван Иванов'
         required
         value={formData.owner.name}
         onChange={(ev) => updateOwnerInfo({ name: ev.currentTarget.value })}
       />
+      <Title order={4}>Контакты</Title>
       <TextInput
-        label='Телефон'
+        size='md'
+        variant='filled'
         placeholder='+7 (999) 123-45-67'
+        leftSection={<IconPhone size={16} />}
         value={formData.owner.contacts.phone}
         onChange={(ev) => updateOwnerInfo({ contacts: { ...formData.owner.contacts, phone: ev.currentTarget.value } })}
       />
       <TextInput
-        label='Email'
+        size='md'
+        variant='filled'
         placeholder='ivan@example.com'
         type='email'
+        leftSection={<IconMail size={16} />}
         value={formData.owner.contacts.email}
         onChange={(ev) => updateOwnerInfo({ contacts: { ...formData.owner.contacts, email: ev.currentTarget.value } })}
       />
       <TextInput
-        label='Telegram'
-        placeholder='@username'
+        size='md'
+        variant='filled'
+        leftSection={<IconBrandTelegram size={16} />}
+        placeholder='telegram_username'
         value={formData.owner.contacts.telegram}
         onChange={(ev) =>
           updateOwnerInfo({ contacts: { ...formData.owner.contacts, telegram: ev.currentTarget.value } })
         }
       />
       <TextInput
-        label='WhatsApp'
+        size='md'
+        variant='filled'
+        leftSection={<IconBrandWhatsapp size={16} />}
         placeholder='+7 (999) 123-45-67'
         value={formData.owner.contacts.whatsapp}
         onChange={(ev) =>
@@ -63,21 +75,6 @@ export const OwnerInfoForm = () => {
           {error}
         </Notification>
       )}
-      <Group justify='space-between'>
-        <Button
-          variant='light'
-          onClick={prevStep}
-          disabled={loading}
-        >
-          Назад
-        </Button>
-        <Button
-          onClick={nextStep}
-          disabled={loading}
-        >
-          Далее
-        </Button>
-      </Group>
     </Stack>
   );
 };

@@ -23,8 +23,8 @@ export type PropertyFormContextValue = {
 
   // Navigation
   setCurrentStep: (step: number) => void;
-  nextStep: () => void;
-  prevStep: () => void;
+  nextStep: (() => void) | null;
+  prevStep: (() => void) | null;
 
   // Form submission
   submitForm: () => Promise<void>;

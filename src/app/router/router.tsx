@@ -2,15 +2,20 @@ import { createBrowserRouter, Outlet } from 'react-router';
 import { MainPage, PropertyFormPage, SettingsPage } from '../../pages';
 import { BottomNavbar, BOTTOM_NAVBAR_HEIGHT } from '../components/bottom-navbar';
 import { propertyDataProvider } from '../../data';
+import { Box } from '@mantine/core';
 
 export const router = createBrowserRouter([
   {
     path: '/',
     element: (
-      <div style={{ paddingBottom: BOTTOM_NAVBAR_HEIGHT }}>
+      <Box
+        pos='relative'
+        h='100%'
+        pb={BOTTOM_NAVBAR_HEIGHT}
+      >
         <Outlet />
         <BottomNavbar />
-      </div>
+      </Box>
     ),
     children: [
       {

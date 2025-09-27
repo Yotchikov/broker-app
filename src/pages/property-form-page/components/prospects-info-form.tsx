@@ -1,18 +1,6 @@
 import { usePropertyForm } from '../context';
-import {
-  Box,
-  Button,
-  Group,
-  Stack,
-  TextInput,
-  Select,
-  ActionIcon,
-  Card,
-  Text,
-  Title,
-  Notification,
-} from '@mantine/core';
-import { IconPlus, IconTrash } from '@tabler/icons-react';
+import { Box, Group, Stack, TextInput, ActionIcon, Card, Text, Title, Notification, NativeSelect } from '@mantine/core';
+import { IconBrandTelegram, IconBrandWhatsapp, IconMail, IconPhone, IconPlus, IconTrash } from '@tabler/icons-react';
 import type { ProspectStatus } from 'data';
 
 const prospectStatuses: Array<{ value: ProspectStatus; label: string }> = [
@@ -29,18 +17,7 @@ const prospectStatuses: Array<{ value: ProspectStatus; label: string }> = [
 ];
 
 export const ProspectsInfoForm = () => {
-  const {
-    formData,
-    addProspect,
-    removeProspect,
-    updateProspect,
-    prevStep,
-    submitForm,
-    isLoading,
-    isEditMode,
-    error,
-    setError,
-  } = usePropertyForm();
+  const { formData, addProspect, removeProspect, updateProspect, isLoading, error, setError } = usePropertyForm();
 
   const handleAddProspect = () => {
     addProspect({
@@ -57,14 +34,15 @@ export const ProspectsInfoForm = () => {
   return (
     <Stack gap='md'>
       <Group justify='space-between'>
-        <Title order={4}>Клиенты</Title>
+        <Title order={3}>Клиенты</Title>
         <ActionIcon
+          size='md'
           variant='transparent'
           color='default'
           onClick={handleAddProspect}
           loading={isLoading}
         >
-          <IconPlus size={16} />
+          <IconPlus size={24} />
         </ActionIcon>
       </Group>
 
@@ -80,12 +58,12 @@ export const ProspectsInfoForm = () => {
           {formData.prospects.map((prospect, index) => (
             <Card
               key={index}
-              withBorder
-              p='md'
+              shadow='md'
+              radius='md'
             >
               <Stack gap='sm'>
                 <Group justify='space-between'>
-                  <Text fw={500}>Клиент {index + 1}</Text>
+                  <Title order={4}>Клиент {index + 1}</Title>
                   <ActionIcon
                     color='red'
                     variant='transparent'
@@ -95,49 +73,59 @@ export const ProspectsInfoForm = () => {
                     <IconTrash size={16} />
                   </ActionIcon>
                 </Group>
-
                 <TextInput
                   label='Имя'
+                  size='md'
+                  variant='filled'
                   placeholder='Александр Еремеев'
+                  required
                   value={prospect.name}
                   onChange={(ev) => handleUpdateProspect(index, 'name', ev.currentTarget.value)}
                 />
-
+                <NativeSelect
+                  label='Статус'
+                  size='md'
+                  variant='filled'
+                  data={prospectStatuses}
+                  value={prospect.status}
+                  onChange={(event) =>
+                    handleUpdateProspect(index, 'status', event.currentTarget.value as ProspectStatus)
+                  }
+                />
+                <Title order={4}>Контакты</Title>
                 <TextInput
-                  label='Телефон'
+                  size='md'
+                  variant='filled'
+                  leftSection={<IconPhone size={16} />}
                   placeholder='+7 (999) 123-45-67'
                   value={prospect.contacts.phone}
                   onChange={(ev) => handleUpdateProspect(index, 'phone', ev.currentTarget.value)}
                 />
 
                 <TextInput
-                  label='Email'
+                  size='md'
+                  variant='filled'
+                  leftSection={<IconMail size={16} />}
                   placeholder='alexander@example.com'
                   type='email'
                   value={prospect.contacts.email}
                   onChange={(ev) => handleUpdateProspect(index, 'email', ev.currentTarget.value)}
                 />
-
-                <Group grow>
-                  <TextInput
-                    label='Telegram'
-                    placeholder='username'
-                    value={prospect.contacts.telegram}
-                    onChange={(ev) => handleUpdateProspect(index, 'telegram', ev.currentTarget.value)}
-                  />
-                  <TextInput
-                    label='WhatsApp'
-                    placeholder='+7 (999) 123-45-67'
-                    value={prospect.contacts.whatsapp}
-                    onChange={(ev) => handleUpdateProspect(index, 'whatsapp', ev.currentTarget.value)}
-                  />
-                </Group>
-
-                <Select
-                  label='Статус'
-                  data={prospectStatuses}
-                  value={prospect.status}
-                  onChange={(value) => handleUpdateProspect(index, 'status', value as ProspectStatus)}
+                <TextInput
+                  variant='filled'
+                  leftSection={<IconBrandTelegram size={16} />}
+                  size='md'
+                  placeholder='telegram_username'
+                  value={prospect.contacts.telegram}
+                  onChange={(ev) => handleUpdateProspect(index, 'telegram', ev.currentTarget.value)}
+                />
+                <TextInput
+                  variant='filled'
+                  leftSection={<IconBrandWhatsapp size={16} />}
+                  size='md'
+                  placeholder='+7 (999) 123-45-67'
+                  value={prospect.contacts.whatsapp}
+                  onChange={(ev) => handleUpdateProspect(index, 'whatsapp', ev.currentTarget.value)}
                 />
               </Stack>
             </Card>
@@ -155,22 +143,6 @@ export const ProspectsInfoForm = () => {
           {error}
         </Notification>
       )}
-
-      <Group justify='space-between'>
-        <Button
-          variant='light'
-          onClick={prevStep}
-          disabled={isLoading}
-        >
-          Назад
-        </Button>
-        <Button
-          onClick={submitForm}
-          loading={isLoading}
-        >
-          {isEditMode ? 'Сохранить' : 'Создать'}
-        </Button>
-      </Group>
     </Stack>
   );
 };

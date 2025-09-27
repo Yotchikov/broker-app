@@ -1,8 +1,8 @@
 import { usePropertyForm } from '../context';
-import { Button, Group, NumberInput, SegmentedControl, Stack, TextInput, Title, Notification } from '@mantine/core';
+import { Group, NumberInput, SegmentedControl, Stack, TextInput, Title, Notification } from '@mantine/core';
 
 export const PropertyInfoForm = () => {
-  const { formData, updatePropertyInfo, nextStep, isLoading: loading, error, setError } = usePropertyForm();
+  const { formData, updatePropertyInfo, error, setError } = usePropertyForm();
 
   const dealTypes = [
     { value: 'sale', label: 'Продажа' },
@@ -11,9 +11,11 @@ export const PropertyInfoForm = () => {
 
   return (
     <Stack gap='md'>
-      <Title order={4}>Объект</Title>
+      <Title order={3}>Объект</Title>
       <TextInput
         label='Название'
+        variant='filled'
+        size='md'
         placeholder='ЖК Lucky'
         required
         value={formData.property.name}
@@ -21,6 +23,7 @@ export const PropertyInfoForm = () => {
       />
 
       <SegmentedControl
+        size='md'
         fullWidth
         data={dealTypes}
         value={formData.property.dealType}
@@ -29,6 +32,8 @@ export const PropertyInfoForm = () => {
 
       <NumberInput
         label='Цена'
+        size='md'
+        variant='filled'
         placeholder={formData.property.dealType === 'sale' ? '15,000,000' : '80,000'}
         value={formData.property.price?.amount}
         onChange={(v) => {
@@ -50,6 +55,8 @@ export const PropertyInfoForm = () => {
       <Group wrap='nowrap'>
         <NumberInput
           label='Этаж'
+          size='md'
+          variant='filled'
           placeholder='7'
           value={formData.property.floor?.number}
           onChange={(v) => {
@@ -63,6 +70,8 @@ export const PropertyInfoForm = () => {
         />
         <NumberInput
           label='Всего этажей'
+          size='md'
+          variant='filled'
           placeholder='19'
           value={formData.property.floor?.total}
           onChange={(v) => {
@@ -76,6 +85,8 @@ export const PropertyInfoForm = () => {
 
       <NumberInput
         label='Площадь'
+        size='md'
+        variant='filled'
         placeholder='69'
         value={formData.property.area}
         onChange={(v) => {
@@ -98,15 +109,6 @@ export const PropertyInfoForm = () => {
           {error}
         </Notification>
       )}
-
-      <Group justify='flex-end'>
-        <Button
-          onClick={nextStep}
-          disabled={loading}
-        >
-          Далее
-        </Button>
-      </Group>
     </Stack>
   );
 };

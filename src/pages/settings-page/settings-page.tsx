@@ -12,7 +12,7 @@ export const SettingsPage: FC = () => {
         px='md'
         gap='md'
       >
-        <Title order={3}>Настройки</Title>
+        <Title order={2}>Настройки</Title>
         <Group justify='space-between'>
           <Group>
             <IconMoon size={16} />

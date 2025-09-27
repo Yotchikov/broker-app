@@ -13,6 +13,7 @@ export const PropertyFormProvider: FC<PropertyFormProviderProps> = ({ children }
   const navigate = useNavigate();
   const params = useParams();
   const isEditMode = Boolean(params?.id);
+  const stepsCount = 3;
 
   const [formData, setFormData] = useState<PropertyFormData>({
     // Property info
@@ -93,13 +94,15 @@ export const PropertyFormProvider: FC<PropertyFormProviderProps> = ({ children }
     }));
   }, []);
 
-  const nextStep = useCallback(() => {
-    setCurrentStep((prev) => Math.min(prev + 1, 2));
-  }, []);
+  const nextStep = useMemo(
+    () => (currentStep === stepsCount - 1 ? null : () => setCurrentStep((prev) => Math.min(prev + 1, stepsCount - 1))),
+    [currentStep],
+  );
 
-  const prevStep = useCallback(() => {
-    setCurrentStep((prev) => Math.max(prev - 1, 0));
-  }, []);
+  const prevStep = useMemo(
+    () => (currentStep === 0 ? null : () => setCurrentStep((prev) => Math.max(prev - 1, 0))),
+    [currentStep],
+  );
 
   const submitForm = useCallback(async () => {
     setIsLoading(true);
