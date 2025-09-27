@@ -71,21 +71,6 @@ export const MainPage: FC = () => {
             <PropertyList properties={properties.filter((property) => property.dealType === 'rent')} />
           </>
         )}
-        <Box
-          px={'md'}
-          w='100%'
-        >
-          <Button
-            variant='light'
-            leftSection={<IconPlus size={16} />}
-            onClick={() => {
-              navigate('/properties/create');
-            }}
-            fullWidth
-          >
-            Добавить объект
-          </Button>
-        </Box>
       </Stack>
     </Container>
   );
