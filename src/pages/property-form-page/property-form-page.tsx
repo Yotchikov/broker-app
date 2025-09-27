@@ -39,7 +39,7 @@ const PropertyFormContent: FC = () => {
             </Stepper.Step>
           </Stepper>
         </Stack>
-        <Space h={66} />
+        <Space h={76} />
         <FormFooter />
       </Stack>
     </Container>
