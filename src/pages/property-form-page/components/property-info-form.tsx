@@ -107,6 +107,11 @@ export const PropertyInfoForm = () => {
           title='Ошибка'
           radius={'md'}
           onClose={() => setError(null)}
+          pos='absolute'
+          bottom={76 * 2}
+          left={16}
+          right={16}
+          style={{ zIndex: 2000 }}
         >
           {error}
         </Notification>

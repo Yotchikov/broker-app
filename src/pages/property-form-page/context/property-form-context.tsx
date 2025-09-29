@@ -183,14 +183,17 @@ export const PropertyFormProvider: FC<PropertyFormProviderProps> = ({ children }
 
     try {
       if (formData.property.name.trim() === '') {
+        navigate('?tab=property');
         throw new Error('Название объекта не может быть пустым');
       }
 
       if (formData.owner.name.trim() === '') {
+        navigate('?tab=owner');
         throw new Error('Имя собственника не может быть пустым');
       }
 
       if (formData.prospects.some((prospect) => prospect.name.trim() === '')) {
+        navigate('?tab=prospects');
         throw new Error('Имя клиента не может быть пустым');
       }
 
