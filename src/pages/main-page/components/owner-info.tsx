@@ -30,7 +30,7 @@ export const OwnerInfo: FC<OwnerInfoProps> = ({ ownerId }) => {
           name={owner.name}
           color='initials'
         />
-        {owner.name}
+        <Text size='md'>{owner.name}</Text>
       </Group>
       <Grid pl={8}>
         {Object.entries(owner.contacts).map(([key, value]) => (

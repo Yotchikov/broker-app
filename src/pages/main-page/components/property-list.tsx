@@ -1,8 +1,9 @@
-import { Accordion, Stack, Text } from '@mantine/core';
+import { Accordion, Divider, Stack, Text } from '@mantine/core';
 import type { Property } from '../../../data/entities/property';
 import styles from '../main-page.module.css';
 import { PropertyListItem } from './property-list-item';
 import { IconMoodConfuzed } from '@tabler/icons-react';
+import React from 'react';
 
 type PropertyListProps = {
   properties: Property[];
@@ -28,12 +29,13 @@ export const PropertyList = (props: PropertyListProps) => {
       <Accordion
         chevronPosition='left'
         classNames={{ chevron: styles.chevron }}
+        variant='unstyled'
       >
-        {properties.map((property) => (
-          <PropertyListItem
-            key={property.id}
-            property={property}
-          />
+        {properties.map((property, index) => (
+          <React.Fragment key={property.id}>
+            <PropertyListItem property={property} />
+            {index !== properties.length - 1 && <Divider />}
+          </React.Fragment>
         ))}
       </Accordion>
     </>

@@ -170,7 +170,7 @@ export const ProspectsInfoForm = () => {
                     size='md'
                     variant='filled'
                     leftSection={<IconMail size={16} />}
-                    placeholder='alexander@example.com'
+                    placeholder='email@example.com'
                     type='email'
                     value={prospect.contacts.email}
                     onChange={(ev) =>

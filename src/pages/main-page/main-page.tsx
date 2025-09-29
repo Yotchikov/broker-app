@@ -46,7 +46,7 @@ export const MainPage: FC = () => {
         {(dealType === 'all' || dealType === 'sale') && (
           <>
             <Title
-              order={3}
+              order={2}
               px='md'
             >
               Продажа{' '}
@@ -63,7 +63,7 @@ export const MainPage: FC = () => {
         {(dealType === 'all' || dealType === 'rent') && (
           <>
             <Title
-              order={3}
+              order={2}
               px='md'
             >
               Аренда{' '}

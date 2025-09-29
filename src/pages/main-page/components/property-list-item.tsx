@@ -75,19 +75,20 @@ export const PropertyListItem: FC<PropertyListItemProps> = (props) => {
         >
           <Accordion.Control>
             <Group
-              align='flex-start'
+              align='center'
               gap='xs'
             >
               <Avatar
+                size={48}
                 radius='xl'
                 name={property.name}
                 color='initials'
               />
               <Stack gap={0}>
-                {property.name}
+                <Text size='lg'>{property.name}</Text>
                 {property.price && (
                   <Text
-                    size='xs'
+                    size='sm'
                     c='dimmed'
                   >
                     <Price
@@ -141,12 +142,37 @@ export const PropertyListItem: FC<PropertyListItemProps> = (props) => {
           >
             {property.ownerId && (
               <Accordion.Item value='owner'>
-                <Accordion.Control>
-                  <Group gap='xs'>
-                    <IconUser size={16} />
-                    Собственник
-                  </Group>
-                </Accordion.Control>
+                <Group
+                  gap={0}
+                  wrap='nowrap'
+                >
+                  <Accordion.Control>
+                    <Group gap='xs'>
+                      <IconUser size={16} />
+                      Собственник
+                    </Group>
+                  </Accordion.Control>
+                  <Menu position='bottom-end'>
+                    <Menu.Target>
+                      <ActionIcon
+                        variant='transparent'
+                        color='default'
+                      >
+                        <IconDots size={16} />
+                      </ActionIcon>
+                    </Menu.Target>
+                    <Menu.Dropdown>
+                      <Menu.Item
+                        leftSection={<IconPencil size={16} />}
+                        onClick={() => {
+                          navigate(`/properties/${property.id}/edit?tab=owner`);
+                        }}
+                      >
+                        Редактировать
+                      </Menu.Item>
+                    </Menu.Dropdown>
+                  </Menu>
+                </Group>
                 <Accordion.Panel>
                   <OwnerInfo ownerId={property.ownerId} />
                 </Accordion.Panel>
@@ -159,17 +185,42 @@ export const PropertyListItem: FC<PropertyListItemProps> = (props) => {
                   wrap='nowrap'
                 >
                   <Accordion.Control>
-                    <Group gap='xs'>
+                    <Group
+                      gap='xs'
+                      wrap='nowrap'
+                    >
                       <IconUsers size={16} />
                       Клиенты
                     </Group>
                   </Accordion.Control>
-                  <ActionIcon
-                    variant='transparent'
-                    color='default'
-                  >
-                    <IconPlus size={16} />
-                  </ActionIcon>
+                  <Menu position='bottom-end'>
+                    <Menu.Target>
+                      <ActionIcon
+                        variant='transparent'
+                        color='default'
+                      >
+                        <IconDots size={16} />
+                      </ActionIcon>
+                    </Menu.Target>
+                    <Menu.Dropdown>
+                      <Menu.Item
+                        leftSection={<IconPlus size={16} />}
+                        onClick={() => {
+                          navigate(`/properties/${property.id}/edit?tab=prospects`);
+                        }}
+                      >
+                        Добавить
+                      </Menu.Item>
+                      <Menu.Item
+                        leftSection={<IconPencil size={16} />}
+                        onClick={() => {
+                          navigate(`/properties/${property.id}/edit?tab=prospects`);
+                        }}
+                      >
+                        Редактировать
+                      </Menu.Item>
+                    </Menu.Dropdown>
+                  </Menu>
                 </Group>
                 <Accordion.Panel>
                   <ProspectList prospectIds={property.prospectIds} />

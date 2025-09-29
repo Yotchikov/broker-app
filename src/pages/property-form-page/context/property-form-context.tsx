@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState, type FC, type ReactNode } from 'react';
-import { useNavigate, useParams } from 'react-router';
+import { useNavigate, useParams, useSearchParams } from 'react-router';
 import type { Property, Owner, Prospect } from 'data';
 import { propertyDataProvider, ownerDataProvider, prospectDataProvider } from 'data';
 import type { PropertyFormData, PropertyFormContextValue } from './types';
@@ -12,8 +12,26 @@ type PropertyFormProviderProps = {
 export const PropertyFormProvider: FC<PropertyFormProviderProps> = ({ children }) => {
   const navigate = useNavigate();
   const params = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const isEditMode = Boolean(params?.id);
   const stepsCount = 3;
+
+  // Map tab query parameter to step number
+  const getStepFromTab = (tab: string | null): number => {
+    switch (tab) {
+      case 'property':
+        return 0;
+      case 'owner':
+        return 1;
+      case 'prospects':
+        return 2;
+      default:
+        return 0;
+    }
+  };
+
+  // Get initial step from URL query parameter
+  const initialStep = getStepFromTab(searchParams.get('tab'));
 
   const [formData, setFormData] = useState<PropertyFormData>({
     // Property info
@@ -34,9 +52,29 @@ export const PropertyFormProvider: FC<PropertyFormProviderProps> = ({ children }
     prospects: [],
   });
 
-  const [currentStep, setCurrentStep] = useState(0);
+  const [currentStep, setCurrentStep] = useState(initialStep);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Sync step with URL query parameter
+  useEffect(() => {
+    const tab = searchParams.get('tab');
+    const stepFromUrl = getStepFromTab(tab);
+    if (stepFromUrl !== currentStep) {
+      setCurrentStep(stepFromUrl);
+    }
+  }, [searchParams, currentStep]);
+
+  // Update URL when step changes
+  const updateStep = useCallback(
+    (step: number) => {
+      const tabMap = ['property', 'owner', 'prospects'];
+      const newTab = tabMap[step];
+      setSearchParams({ tab: newTab });
+      setCurrentStep(step);
+    },
+    [setSearchParams],
+  );
 
   // Load existing data in edit mode
   useEffect(() => {
@@ -130,13 +168,13 @@ export const PropertyFormProvider: FC<PropertyFormProviderProps> = ({ children }
   }, []);
 
   const nextStep = useMemo(
-    () => (currentStep === stepsCount - 1 ? null : () => setCurrentStep((prev) => Math.min(prev + 1, stepsCount - 1))),
-    [currentStep],
+    () => (currentStep === stepsCount - 1 ? null : () => updateStep(Math.min(currentStep + 1, stepsCount - 1))),
+    [currentStep, updateStep],
   );
 
   const prevStep = useMemo(
-    () => (currentStep === 0 ? null : () => setCurrentStep((prev) => Math.max(prev - 1, 0))),
-    [currentStep],
+    () => (currentStep === 0 ? null : () => updateStep(Math.max(currentStep - 1, 0))),
+    [currentStep, updateStep],
   );
 
   const submitForm = useCallback(async () => {
@@ -245,7 +283,7 @@ export const PropertyFormProvider: FC<PropertyFormProviderProps> = ({ children }
       addProspect,
       removeProspect,
       updateProspect,
-      setCurrentStep,
+      setCurrentStep: updateStep,
       nextStep,
       prevStep,
       submitForm,
@@ -262,6 +300,7 @@ export const PropertyFormProvider: FC<PropertyFormProviderProps> = ({ children }
       addProspect,
       removeProspect,
       updateProspect,
+      updateStep,
       nextStep,
       prevStep,
       submitForm,

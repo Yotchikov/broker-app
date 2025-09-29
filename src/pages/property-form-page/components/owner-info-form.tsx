@@ -29,7 +29,7 @@ export const OwnerInfoForm = () => {
       <TextInput
         size='md'
         variant='filled'
-        placeholder='ivan@example.com'
+        placeholder='email@example.com'
         type='email'
         leftSection={<IconMail size={16} />}
         value={formData.owner.contacts.email}
