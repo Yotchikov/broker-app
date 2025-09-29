@@ -1,3 +1,4 @@
-import { PropertyMockDataProviderImpl } from './property-mock-data-provider';
+import { PropertyLocalDataProviderImpl } from './property-local-data-provider';
 
-export const propertyDataProvider = new PropertyMockDataProviderImpl();
+// export const propertyDataProvider = new PropertyMockDataProviderImpl();
+export const propertyDataProvider = new PropertyLocalDataProviderImpl();
