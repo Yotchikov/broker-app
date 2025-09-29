@@ -178,55 +178,56 @@ export const PropertyListItem: FC<PropertyListItemProps> = (props) => {
                 </Accordion.Panel>
               </Accordion.Item>
             )}
-            {property.prospectIds.length > 0 && (
-              <Accordion.Item value='prospects'>
-                <Group
-                  gap={0}
-                  wrap='nowrap'
-                >
-                  <Accordion.Control>
-                    <Group
-                      gap='xs'
-                      wrap='nowrap'
+            <Accordion.Item value='prospects'>
+              <Group
+                gap={0}
+                wrap='nowrap'
+              >
+                <Accordion.Control>
+                  <Group
+                    gap='xs'
+                    wrap='nowrap'
+                  >
+                    <IconUsers size={16} />
+                    Клиенты <Text c='dimmed'>{property.prospectIds.length}</Text>
+                  </Group>
+                </Accordion.Control>
+                <Menu position='bottom-end'>
+                  <Menu.Target>
+                    <ActionIcon
+                      variant='transparent'
+                      color='default'
                     >
-                      <IconUsers size={16} />
-                      Клиенты
-                    </Group>
-                  </Accordion.Control>
-                  <Menu position='bottom-end'>
-                    <Menu.Target>
-                      <ActionIcon
-                        variant='transparent'
-                        color='default'
-                      >
-                        <IconDots size={16} />
-                      </ActionIcon>
-                    </Menu.Target>
-                    <Menu.Dropdown>
-                      <Menu.Item
-                        leftSection={<IconPlus size={16} />}
-                        onClick={() => {
-                          navigate(`/properties/${property.id}/edit?tab=prospects`);
-                        }}
-                      >
-                        Добавить
-                      </Menu.Item>
-                      <Menu.Item
-                        leftSection={<IconPencil size={16} />}
-                        onClick={() => {
-                          navigate(`/properties/${property.id}/edit?tab=prospects`);
-                        }}
-                      >
-                        Редактировать
-                      </Menu.Item>
-                    </Menu.Dropdown>
-                  </Menu>
-                </Group>
-                <Accordion.Panel>
-                  <ProspectList prospectIds={property.prospectIds} />
-                </Accordion.Panel>
-              </Accordion.Item>
-            )}
+                      <IconDots size={16} />
+                    </ActionIcon>
+                  </Menu.Target>
+                  <Menu.Dropdown>
+                    <Menu.Item
+                      leftSection={<IconPlus size={16} />}
+                      onClick={() => {
+                        navigate(`/properties/${property.id}/edit?tab=prospects`);
+                      }}
+                    >
+                      Добавить
+                    </Menu.Item>
+                    <Menu.Item
+                      leftSection={<IconPencil size={16} />}
+                      onClick={() => {
+                        navigate(`/properties/${property.id}/edit?tab=prospects`);
+                      }}
+                    >
+                      Редактировать
+                    </Menu.Item>
+                  </Menu.Dropdown>
+                </Menu>
+              </Group>
+              <Accordion.Panel>
+                <ProspectList
+                  prospectIds={property.prospectIds}
+                  propertyId={property.id}
+                />
+              </Accordion.Panel>
+            </Accordion.Item>
           </Accordion>
         </Accordion.Panel>
       </Accordion.Item>

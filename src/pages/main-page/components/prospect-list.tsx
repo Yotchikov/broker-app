@@ -1,22 +1,42 @@
-import { Avatar, Divider, Grid, Group, Stack, Text } from '@mantine/core';
+import { Avatar, Divider, Grid, Group, Stack, Text, UnstyledButton } from '@mantine/core';
 import { prospectDataProvider, type Prospect } from '../../../data';
 import { useEffect, useState, type FC } from 'react';
 import React from 'react';
 import { CONTACT_ICONS, CONTACT_LABELS, CONTACT_LINKS, PROSPECT_STATUS_LABELS } from './consts';
-import { IconInfoCircle } from '@tabler/icons-react';
+import { IconInfoCircle, IconUsersPlus } from '@tabler/icons-react';
+import { useNavigate } from 'react-router';
 
 type ProspectListProps = {
+  propertyId: string;
   prospectIds: string[];
 };
 
 export const ProspectList: FC<ProspectListProps> = (props) => {
-  const { prospectIds } = props;
+  const { prospectIds, propertyId } = props;
 
   const [prospects, setProspects] = useState<Prospect[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     Promise.all(prospectIds.map((prospectId) => prospectDataProvider.getProspectById(prospectId))).then(setProspects);
   }, [prospectIds]);
+
+  if (prospects.length === 0) {
+    return (
+      <Group justify='center'>
+        <UnstyledButton onClick={() => navigate(`/properties/${propertyId}/edit?tab=prospects`)}>
+          <Stack
+            p='xl'
+            align='center'
+            gap='md'
+          >
+            <IconUsersPlus size={48} />
+            <Text ta='center'>Добавьте клиента</Text>
+          </Stack>
+        </UnstyledButton>
+      </Group>
+    );
+  }
 
   const cards = prospects.map((prospect, index) => (
     <React.Fragment key={prospect.id}>
