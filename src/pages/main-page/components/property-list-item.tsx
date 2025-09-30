@@ -1,14 +1,15 @@
 import { type FC } from 'react';
 import type { Property } from '../../../data/entities/property';
-import { Accordion, Group, Avatar, Stack, Menu, ActionIcon, Space, Text } from '@mantine/core';
-import { IconDots, IconPencil, IconUser, IconUsers, IconPlus } from '@tabler/icons-react';
+import { Accordion, Group, Avatar, Stack, Space, Text } from '@mantine/core';
+import { IconUser, IconUsers } from '@tabler/icons-react';
 import { Price } from '../../../app/components';
 import { OwnerInfo } from './owner-info';
 import { PropertyInfo } from './property-info';
 import { ProspectList } from './prospect-list';
 import styles from '../main-page.module.css';
-import { useNavigate } from 'react-router';
 import { PropertyListItemMenu } from './property-list-item-menu';
+import { OwnerInfoMenu } from './owner-info-menu';
+import { ProspectListMenu } from './prospect-list-menu';
 
 type PropertyListItemProps = {
   property: Property;
@@ -16,8 +17,6 @@ type PropertyListItemProps = {
 
 export const PropertyListItem: FC<PropertyListItemProps> = (props) => {
   const { property } = props;
-
-  const navigate = useNavigate();
 
   return (
     <>
@@ -83,26 +82,7 @@ export const PropertyListItem: FC<PropertyListItemProps> = (props) => {
                       Собственник
                     </Group>
                   </Accordion.Control>
-                  <Menu position='bottom-end'>
-                    <Menu.Target>
-                      <ActionIcon
-                        variant='transparent'
-                        color='default'
-                      >
-                        <IconDots size={16} />
-                      </ActionIcon>
-                    </Menu.Target>
-                    <Menu.Dropdown>
-                      <Menu.Item
-                        leftSection={<IconPencil size={16} />}
-                        onClick={() => {
-                          navigate(`/properties/${property.id}/edit?tab=owner`);
-                        }}
-                      >
-                        Редактировать
-                      </Menu.Item>
-                    </Menu.Dropdown>
-                  </Menu>
+                  <OwnerInfoMenu propertyId={property.id} />
                 </Group>
                 <Accordion.Panel>
                   <OwnerInfo ownerId={property.ownerId} />
@@ -123,34 +103,7 @@ export const PropertyListItem: FC<PropertyListItemProps> = (props) => {
                     Клиенты <Text c='dimmed'>{property.prospectIds.length}</Text>
                   </Group>
                 </Accordion.Control>
-                <Menu position='bottom-end'>
-                  <Menu.Target>
-                    <ActionIcon
-                      variant='transparent'
-                      color='default'
-                    >
-                      <IconDots size={16} />
-                    </ActionIcon>
-                  </Menu.Target>
-                  <Menu.Dropdown>
-                    <Menu.Item
-                      leftSection={<IconPlus size={16} />}
-                      onClick={() => {
-                        navigate(`/properties/${property.id}/edit?tab=prospects`);
-                      }}
-                    >
-                      Добавить
-                    </Menu.Item>
-                    <Menu.Item
-                      leftSection={<IconPencil size={16} />}
-                      onClick={() => {
-                        navigate(`/properties/${property.id}/edit?tab=prospects`);
-                      }}
-                    >
-                      Редактировать
-                    </Menu.Item>
-                  </Menu.Dropdown>
-                </Menu>
+                <ProspectListMenu propertyId={property.id} />
               </Group>
               <Accordion.Panel>
                 <ProspectList
