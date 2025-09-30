@@ -1,95 +1,32 @@
-import { Badge } from '@mantine/core';
 import { IconPhone, IconAt, IconBrandTelegram, IconBrandWhatsapp } from '@tabler/icons-react';
 import type { ReactNode } from 'react';
 import type { ProspectStatus, Prospect } from '../../../data';
 
-const COMMON_BADGE_PROPS = {
-  display: 'block',
-  variant: 'light',
+export const PROSPECT_STATUS_TITLES: Record<ProspectStatus, string> = {
+  inquired: 'Интересовался',
+  scheduled_a_showing: 'Назначен показ',
+  feedback_from_the_showing: 'Фидбек с показа',
+  request_to_the_owner: 'Запрос собственнику',
+  bargaining: 'Торг',
+  contract_discussion: 'Обсуждение договора',
+  document_preparation: 'Подготовка документов',
+  scheduled_signing: 'Назначено подписание',
+  deal: 'Сделка',
+  feedback_from_the_deal: 'Фидбек со сделки',
 };
 
-export const PROSPECT_STATUS_LABELS: Record<ProspectStatus, ReactNode> = {
-  inquired: (
-    <Badge
-      color='blue'
-      {...COMMON_BADGE_PROPS}
-    >
-      Интересовался
-    </Badge>
-  ),
-  scheduled_a_showing: (
-    <Badge
-      color='blue'
-      {...COMMON_BADGE_PROPS}
-    >
-      Назначен показ
-    </Badge>
-  ),
-  feedback_from_the_showing: (
-    <Badge
-      color='yellow'
-      {...COMMON_BADGE_PROPS}
-    >
-      Фидбек с показа
-    </Badge>
-  ),
-  request_to_the_owner: (
-    <Badge
-      color='green'
-      {...COMMON_BADGE_PROPS}
-    >
-      Запрос собственнику
-    </Badge>
-  ),
-  bargaining: (
-    <Badge
-      color='yellow'
-      {...COMMON_BADGE_PROPS}
-    >
-      Торг
-    </Badge>
-  ),
-  contract_discussion: (
-    <Badge
-      color='yellow'
-      {...COMMON_BADGE_PROPS}
-    >
-      Обсуждение договора
-    </Badge>
-  ),
-  document_preparation: (
-    <Badge
-      color='blue'
-      {...COMMON_BADGE_PROPS}
-    >
-      Подготовка документов
-    </Badge>
-  ),
-  scheduled_signing: (
-    <Badge
-      color='yellow'
-      {...COMMON_BADGE_PROPS}
-    >
-      Назначено подписание
-    </Badge>
-  ),
-  deal: (
-    <Badge
-      color='blue'
-      {...COMMON_BADGE_PROPS}
-    >
-      Сделка
-    </Badge>
-  ),
-  feedback_from_the_deal: (
-    <Badge
-      color='green'
-      {...COMMON_BADGE_PROPS}
-    >
-      Фидбек со сделки
-    </Badge>
-  ),
-};
+export const PROSPECT_STATUS_ORDER: ProspectStatus[] = [
+  'inquired',
+  'scheduled_a_showing',
+  'feedback_from_the_showing',
+  'request_to_the_owner',
+  'bargaining',
+  'contract_discussion',
+  'document_preparation',
+  'scheduled_signing',
+  'deal',
+  'feedback_from_the_deal',
+];
 
 export const CONTACT_ICONS: Record<keyof Prospect['contacts'], ReactNode> = {
   phone: <IconPhone size={16} />,

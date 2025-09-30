@@ -1,9 +1,10 @@
-import { Avatar, Divider, Grid, Group, Stack, Text, UnstyledButton } from '@mantine/core';
-import { prospectDataProvider, type Prospect } from '../../../data';
+import { Avatar, Badge, Divider, Drawer, Grid, Group, Stack, Text, UnstyledButton } from '@mantine/core';
+import { Timeline } from '@mantine/core';
+import { prospectDataProvider, type Prospect, type ProspectStatus } from '../../../data';
 import { useEffect, useState, type FC } from 'react';
 import React from 'react';
-import { CONTACT_ICONS, CONTACT_LABELS, CONTACT_LINKS, PROSPECT_STATUS_LABELS } from './consts';
-import { IconInfoCircle, IconUsersPlus } from '@tabler/icons-react';
+import { CONTACT_ICONS, CONTACT_LABELS, CONTACT_LINKS, PROSPECT_STATUS_ORDER, PROSPECT_STATUS_TITLES } from './consts';
+import { IconChevronDown, IconInfoCircle, IconUsersPlus } from '@tabler/icons-react';
 import { useNavigate } from 'react-router';
 
 type ProspectListProps = {
@@ -15,6 +16,8 @@ export const ProspectList: FC<ProspectListProps> = (props) => {
   const { prospectIds, propertyId } = props;
 
   const [prospects, setProspects] = useState<Prospect[]>([]);
+  const [modalOpened, setModalOpened] = useState(false);
+  const [activeProspect, setActiveProspect] = useState<Prospect | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -38,6 +41,22 @@ export const ProspectList: FC<ProspectListProps> = (props) => {
     );
   }
 
+  const openStatusModal = (prospect: Prospect) => {
+    setActiveProspect(prospect);
+    setModalOpened(true);
+  };
+
+  const handleSelectStatus = async (status: ProspectStatus) => {
+    if (!activeProspect) return;
+
+    const updated: Prospect = { ...activeProspect, status };
+    await prospectDataProvider.updateProspect(updated);
+
+    setProspects((prev) => prev.map((p) => (p.id === updated.id ? updated : p)));
+    setModalOpened(false);
+    setActiveProspect(null);
+  };
+
   const cards = prospects.map((prospect, index) => (
     <React.Fragment key={prospect.id}>
       <Stack gap='sm'>
@@ -59,7 +78,19 @@ export const ProspectList: FC<ProspectListProps> = (props) => {
               <Text size='sm'>Статус</Text>
             </Group>
           </Grid.Col>
-          <Grid.Col span={8}>{PROSPECT_STATUS_LABELS[prospect.status]}</Grid.Col>
+          <Grid.Col span={8}>
+            <UnstyledButton
+              display='flex'
+              onClick={() => openStatusModal(prospect)}
+            >
+              <Badge
+                rightSection={<IconChevronDown size={12} />}
+                variant='light'
+              >
+                {PROSPECT_STATUS_TITLES[prospect.status]}
+              </Badge>
+            </UnstyledButton>
+          </Grid.Col>
           {Object.entries(prospect.contacts).map(([key, value]) => (
             <React.Fragment key={key}>
               {value && (
@@ -90,5 +121,33 @@ export const ProspectList: FC<ProspectListProps> = (props) => {
     </React.Fragment>
   ));
 
-  return <Stack gap='md'>{cards}</Stack>;
+  return (
+    <>
+      <Stack gap='md'>{cards}</Stack>
+      <Drawer
+        opened={modalOpened}
+        onClose={() => {
+          setModalOpened(false);
+          setActiveProspect(null);
+        }}
+        position='bottom'
+        size='md'
+        title={'Изменение статуса'}
+        radius='md'
+      >
+        <Timeline
+          active={activeProspect ? PROSPECT_STATUS_ORDER.indexOf(activeProspect.status) : -1}
+          bulletSize={18}
+        >
+          {PROSPECT_STATUS_ORDER.map((status) => (
+            <Timeline.Item
+              key={status}
+              title={PROSPECT_STATUS_TITLES[status]}
+              onClick={() => handleSelectStatus(status)}
+            />
+          ))}
+        </Timeline>
+      </Drawer>
+    </>
+  );
 };
