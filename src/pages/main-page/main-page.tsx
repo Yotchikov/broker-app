@@ -74,7 +74,8 @@ export const MainPage: FC = () => {
             onChange={(value) => setDealType(value as 'all' | 'sale' | 'rent')}
           />
         </Stack>
-        {(dealType === 'all' || dealType === 'sale') && (
+        {((dealType === 'all' && properties.some((property) => property.dealType === 'sale')) ||
+          dealType === 'sale') && (
           <>
             <Title
               order={2}
@@ -91,7 +92,8 @@ export const MainPage: FC = () => {
             <PropertyList properties={properties.filter((property) => property.dealType === 'sale')} />
           </>
         )}
-        {(dealType === 'all' || dealType === 'rent') && (
+        {((dealType === 'all' && properties.some((property) => property.dealType === 'rent')) ||
+          dealType === 'rent') && (
           <>
             <Title
               order={2}

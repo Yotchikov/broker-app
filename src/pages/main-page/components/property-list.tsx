@@ -1,10 +1,9 @@
-import { Accordion, Divider, Stack, Text, UnstyledButton } from '@mantine/core';
+import { Accordion, Divider, Stack, Text } from '@mantine/core';
 import type { Property } from '../../../data/entities/property';
 import styles from '../main-page.module.css';
 import { PropertyListItem } from './property-list-item';
-import { IconHomePlus } from '@tabler/icons-react';
+import { IconMoodSad } from '@tabler/icons-react';
 import React from 'react';
-import { useNavigate } from 'react-router';
 
 type PropertyListProps = {
   properties: Property[];
@@ -13,20 +12,16 @@ type PropertyListProps = {
 export const PropertyList = (props: PropertyListProps) => {
   const { properties } = props;
 
-  const navigate = useNavigate();
-
   if (properties.length === 0) {
     return (
-      <UnstyledButton onClick={() => navigate('/properties/create')}>
-        <Stack
-          p='xl'
-          align='center'
-          gap='md'
-        >
-          <IconHomePlus size={48} />
-          <Text ta='center'>Добавьте объект</Text>
-        </Stack>
-      </UnstyledButton>
+      <Stack
+        p='xl'
+        align='center'
+        gap='md'
+      >
+        <IconMoodSad size={48} />
+        <Text ta='center'>Пока нет объектов</Text>
+      </Stack>
     );
   }
 
