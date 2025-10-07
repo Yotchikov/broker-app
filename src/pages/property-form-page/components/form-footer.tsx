@@ -14,7 +14,7 @@ export const FormFooter = () => {
       left={0}
       right={0}
       bg='var(--mantine-color-body)'
-      style={{ boxShadow: '0 -10px 10px var(--mantine-color-body)', zIndex: 1000 }}
+      style={{ boxShadow: '0 -10px 10px var(--mantine-color-body)', zIndex: 100 }}
     >
       {prevStep ? (
         <Button

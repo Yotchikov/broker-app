@@ -111,7 +111,7 @@ export const PropertyInfoForm = () => {
           bottom={76 * 2}
           left={16}
           right={16}
-          style={{ zIndex: 2000 }}
+          style={{ zIndex: 150 }}
         >
           {error}
         </Notification>

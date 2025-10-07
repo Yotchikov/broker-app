@@ -125,14 +125,19 @@ export const ProspectsInfoForm = () => {
               >
                 <Stack gap='sm'>
                   <Group justify='space-between'>
-                    <Title order={4}>Клиент {index + 1}</Title>
+                    <Title
+                      size='lg'
+                      order={4}
+                    >
+                      Клиент {index + 1}
+                    </Title>
                     <ActionIcon
                       color='red'
                       variant='transparent'
                       onClick={() => setDeleteTarget(index)}
                       loading={isLoading}
                     >
-                      <IconTrash size={16} />
+                      <IconTrash size={24} />
                     </ActionIcon>
                   </Group>
                   <TextInput
@@ -219,7 +224,7 @@ export const ProspectsInfoForm = () => {
             bottom={76 * 2}
             left={16}
             right={16}
-            style={{ zIndex: 2000 }}
+            style={{ zIndex: 150 }}
           >
             {error}
           </Notification>
