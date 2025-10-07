@@ -34,8 +34,11 @@ export const OwnerInfoMenu = (props: OwnerInfoMenuProps) => {
         >
           <Stack gap='md'>
             <Group onClick={() => navigate(`/properties/${propertyId}/edit?tab=owner`)}>
-              <IconPencil size={24} />
-              <Text size='xl'>Редактировать</Text>
+              <IconPencil
+                stroke={1.8}
+                size={24}
+              />
+              <Text size='lg'>Редактировать</Text>
             </Group>
           </Stack>
         </Drawer>

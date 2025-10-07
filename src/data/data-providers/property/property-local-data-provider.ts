@@ -62,7 +62,7 @@ export class PropertyLocalDataProviderImpl implements PropertyDataProvider {
     return property;
   };
 
-  updateProperty = async (property: Property): Promise<Property> => {
+  updateProperty = async (property: Partial<Property> & { id: string }): Promise<Property> => {
     const properties = this.getPropertiesFromStorage();
     const index = properties.findIndex((p) => p.id === property.id);
 
@@ -70,10 +70,10 @@ export class PropertyLocalDataProviderImpl implements PropertyDataProvider {
       throw new Error(`Property with id ${property.id} not found`);
     }
 
-    properties[index] = property;
+    properties[index] = { ...properties[index], ...property };
     this.savePropertiesToStorage(properties);
 
-    return property;
+    return { ...properties[index], ...property };
   };
 
   deletePropertyById = async (id: string): Promise<void> => {

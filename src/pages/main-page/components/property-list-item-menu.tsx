@@ -1,6 +1,16 @@
-import { ActionIcon, Drawer, Group, Text, Stack, useDrawersStack, Button } from '@mantine/core';
-import { IconDots, IconPencil, IconTrash } from '@tabler/icons-react';
-import { useState } from 'react';
+import {
+  ActionIcon,
+  Drawer,
+  Group,
+  Text,
+  Stack,
+  useDrawersStack,
+  Button,
+  Textarea,
+  type DrawerProps,
+} from '@mantine/core';
+import { IconDots, IconNote, IconPencil, IconTrash } from '@tabler/icons-react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { propertyDataProvider } from '../../../data';
 
@@ -11,7 +21,17 @@ type PropertyListItemMenuProps = {
 export const PropertyListItemMenu = (props: PropertyListItemMenuProps) => {
   const { propertyId } = props;
 
-  const stack = useDrawersStack(['actions', 'confirm-delete']);
+  const [note, setNote] = useState('');
+
+  useEffect(() => {
+    const fetchProperty = async () => {
+      const property = await propertyDataProvider.getPropertyById(propertyId);
+      setNote(property.note || '');
+    };
+    fetchProperty();
+  }, [propertyId]);
+
+  const stack = useDrawersStack(['actions', 'note', 'confirm-delete']);
 
   const [isDeleting, setIsDeleting] = useState(false);
 
@@ -27,6 +47,19 @@ export const PropertyListItemMenu = (props: PropertyListItemMenuProps) => {
     }
   };
 
+  const handleNoteChange = async (note: string) => {
+    setNote(note);
+    await propertyDataProvider.updateProperty({ id: propertyId, note });
+  };
+
+  const commonDrawerProps: Partial<DrawerProps> = {
+    position: 'bottom',
+    styles: { content: { height: 'auto' } },
+    offset: 8,
+    radius: 'md',
+    closeButtonProps: { size: 'lg' },
+  };
+
   return (
     <>
       <ActionIcon
@@ -39,35 +72,69 @@ export const PropertyListItemMenu = (props: PropertyListItemMenuProps) => {
       <Drawer.Stack>
         <Drawer
           {...stack.register('actions')}
-          position='bottom'
-          styles={{ content: { height: 'auto' } }}
-          offset={8}
-          radius='md'
-          closeButtonProps={{
-            size: 'lg',
-          }}
+          {...commonDrawerProps}
         >
           <Stack gap='md'>
+            <Group onClick={() => stack.open('note')}>
+              <IconNote
+                stroke={1.8}
+                size={24}
+              />
+              <Text size='lg'>Заметка</Text>
+            </Group>
             <Group onClick={() => navigate(`/properties/${propertyId}/edit`)}>
-              <IconPencil size={24} />
-              <Text size='xl'>Редактировать</Text>
+              <IconPencil
+                stroke={1.8}
+                size={24}
+              />
+              <Text size='lg'>Редактировать</Text>
             </Group>
             <Group
               c='red'
               onClick={() => stack.open('confirm-delete')}
             >
-              <IconTrash size={24} />
-              <Text size='xl'>Удалить</Text>
+              <IconTrash
+                stroke={1.8}
+                size={24}
+              />
+              <Text size='lg'>Удалить</Text>
             </Group>
           </Stack>
         </Drawer>
         <Drawer
+          {...stack.register('note')}
+          {...commonDrawerProps}
+          title={
+            <Text
+              size='xl'
+              fw='bold'
+            >
+              Заметка
+            </Text>
+          }
+        >
+          <Textarea
+            variant='unstyled'
+            placeholder='Любая важная информация'
+            minRows={6}
+            maxRows={10}
+            autosize
+            size='md'
+            value={note}
+            onChange={(ev) => handleNoteChange(ev.currentTarget.value)}
+          />
+        </Drawer>
+        <Drawer
           {...stack.register('confirm-delete')}
-          position='bottom'
-          title='Удалить объект?'
-          styles={{ content: { height: 'auto' } }}
-          offset={8}
-          radius='md'
+          {...commonDrawerProps}
+          title={
+            <Text
+              size='xl'
+              fw='bold'
+            >
+              Удалить объект?
+            </Text>
+          }
         >
           <Stack gap='md'>
             <Text>Вы уверены? Это действие нельзя отменить.</Text>

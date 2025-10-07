@@ -21,4 +21,5 @@ export type Prospect = BaseEntity & {
   };
   avatar?: string;
   status: ProspectStatus;
+  note?: string;
 };

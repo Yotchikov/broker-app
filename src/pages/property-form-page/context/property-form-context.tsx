@@ -149,7 +149,7 @@ export const PropertyFormProvider: FC<PropertyFormProviderProps> = ({ children }
   const addProspect = useCallback((prospect: PropertyFormData['prospects'][0]) => {
     setFormData((prev) => ({
       ...prev,
-      prospects: [...prev.prospects, { ...prospect, id: crypto.randomUUID() }],
+      prospects: [{ ...prospect, id: crypto.randomUUID() }, ...prev.prospects],
     }));
   }, []);
 
@@ -252,7 +252,12 @@ export const PropertyFormProvider: FC<PropertyFormProviderProps> = ({ children }
         await ownerDataProvider.updateOwner(owner);
 
         for (const prospect of prospects) {
-          await prospectDataProvider.updateProspect(prospect);
+          try {
+            await prospectDataProvider.getProspectById(prospect.id);
+            await prospectDataProvider.updateProspect(prospect);
+          } catch {
+            await prospectDataProvider.createProspect(prospect);
+          }
         }
 
         await propertyDataProvider.updateProperty(property);

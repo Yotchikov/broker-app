@@ -34,12 +34,18 @@ export const ProspectListMenu = (props: ProspectListMenuProps) => {
         >
           <Stack gap='md'>
             <Group onClick={() => navigate(`/properties/${propertyId}/edit?tab=prospects`)}>
-              <IconPlus size={24} />
-              <Text size='xl'>Добавить</Text>
+              <IconPlus
+                stroke={1.8}
+                size={24}
+              />
+              <Text size='lg'>Добавить</Text>
             </Group>
             <Group onClick={() => navigate(`/properties/${propertyId}/edit?tab=prospects`)}>
-              <IconPencil size={24} />
-              <Text size='xl'>Редактировать</Text>
+              <IconPencil
+                stroke={1.8}
+                size={24}
+              />
+              <Text size='lg'>Редактировать</Text>
             </Group>
           </Stack>
         </Drawer>
