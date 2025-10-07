@@ -1,5 +1,5 @@
-import { Container, Group, Stack, Switch, Text, Title, useMantineColorScheme } from '@mantine/core';
-import { IconMoon } from '@tabler/icons-react';
+import { Alert, Container, Group, Stack, Switch, Text, Title, useMantineColorScheme } from '@mantine/core';
+import { IconInfoCircle, IconMoon } from '@tabler/icons-react';
 import type { FC } from 'react';
 
 export const SettingsPage: FC = () => {
@@ -24,6 +24,17 @@ export const SettingsPage: FC = () => {
             onChange={() => setColorScheme(colorScheme === 'dark' ? 'light' : 'dark')}
           />
         </Group>
+        <Alert
+          variant='light'
+          color='blue'
+          title='Данное приложение является MVP'
+          icon={<IconInfoCircle size={16} />}
+        >
+          Приложение находится в стадии MVP. Некоторые функции могут быть недоступны или работать некорректно.
+          <br />
+          По всем вопросам можно писать в Telegram <a href='https://t.me/shkuratov_official'>Грише</a> и{' '}
+          <a href='https://t.me/yotchikov'>Антону</a>.
+        </Alert>
       </Stack>
     </Container>
   );
