@@ -28,11 +28,14 @@ export const OwnerInfoMenu = (props: OwnerInfoMenuProps) => {
           styles={{ content: { height: 'auto' } }}
           offset={8}
           radius='md'
+          closeButtonProps={{
+            size: 'lg',
+          }}
         >
           <Stack gap='md'>
             <Group onClick={() => navigate(`/properties/${propertyId}/edit?tab=owner`)}>
-              <IconPencil size={16} />
-              <Text>Редактировать</Text>
+              <IconPencil size={24} />
+              <Text size='xl'>Редактировать</Text>
             </Group>
           </Stack>
         </Drawer>

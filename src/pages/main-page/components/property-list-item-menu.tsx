@@ -43,18 +43,21 @@ export const PropertyListItemMenu = (props: PropertyListItemMenuProps) => {
           styles={{ content: { height: 'auto' } }}
           offset={8}
           radius='md'
+          closeButtonProps={{
+            size: 'lg',
+          }}
         >
           <Stack gap='md'>
             <Group onClick={() => navigate(`/properties/${propertyId}/edit`)}>
-              <IconPencil size={16} />
-              <Text>Редактировать</Text>
+              <IconPencil size={24} />
+              <Text size='xl'>Редактировать</Text>
             </Group>
             <Group
               c='red'
               onClick={() => stack.open('confirm-delete')}
             >
-              <IconTrash size={16} />
-              <Text>Удалить</Text>
+              <IconTrash size={24} />
+              <Text size='xl'>Удалить</Text>
             </Group>
           </Stack>
         </Drawer>
