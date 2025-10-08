@@ -1,6 +1,6 @@
 import { type FC } from 'react';
 import type { Property } from '../../../data/entities/property';
-import { Accordion, Group, Avatar, Stack, Space, Text } from '@mantine/core';
+import { Accordion, Group, Avatar, Stack, Space, Text, Divider } from '@mantine/core';
 import { IconUser, IconUsers } from '@tabler/icons-react';
 import { Price } from '../../../app/components';
 import { OwnerInfo } from './owner-info';
@@ -41,7 +41,12 @@ export const PropertyListItem: FC<PropertyListItemProps> = (props) => {
                 color='initials'
               />
               <Stack gap={0}>
-                <Text size='lg'>{property.name}</Text>
+                <Text
+                  fw='bold'
+                  size='lg'
+                >
+                  {property.name}
+                </Text>
                 {property.price && (
                   <Text
                     size='sm'
@@ -63,7 +68,7 @@ export const PropertyListItem: FC<PropertyListItemProps> = (props) => {
             area={property.area}
             floor={property.floor}
           />
-          <Space h='md' />
+          <Space h='xs' />
           <Accordion
             multiple
             chevronPosition='left'
@@ -78,8 +83,12 @@ export const PropertyListItem: FC<PropertyListItemProps> = (props) => {
                 >
                   <Accordion.Control>
                     <Group gap='xs'>
-                      <IconUser size={16} />
-                      Собственник
+                      <IconUser
+                        stroke={1.8}
+                        color='gray'
+                        size={24}
+                      />
+                      <Text size='lg'>Собственник</Text>
                     </Group>
                   </Accordion.Control>
                   <OwnerInfoMenu propertyId={property.id} />
@@ -89,6 +98,7 @@ export const PropertyListItem: FC<PropertyListItemProps> = (props) => {
                 </Accordion.Panel>
               </Accordion.Item>
             )}
+            <Divider ml={82} />
             <Accordion.Item value='prospects'>
               <Group
                 gap={0}
@@ -99,8 +109,18 @@ export const PropertyListItem: FC<PropertyListItemProps> = (props) => {
                     gap='xs'
                     wrap='nowrap'
                   >
-                    <IconUsers size={16} />
-                    Клиенты <Text c='dimmed'>{property.prospectIds.length}</Text>
+                    <IconUsers
+                      stroke={1.8}
+                      color='gray'
+                      size={24}
+                    />
+                    <Text size='lg'>Клиенты</Text>{' '}
+                    <Text
+                      size='lg'
+                      c='dimmed'
+                    >
+                      {property.prospectIds.length}
+                    </Text>
                   </Group>
                 </Accordion.Control>
                 <ProspectListMenu propertyId={property.id} />

@@ -104,7 +104,10 @@ export const ProspectsInfoForm = () => {
             onClick={handleAddProspect}
             loading={isLoading}
           >
-            <IconPlus size={24} />
+            <IconPlus
+              stroke={1.8}
+              size={24}
+            />
           </ActionIcon>
         </Group>
 
@@ -137,7 +140,10 @@ export const ProspectsInfoForm = () => {
                       onClick={() => setDeleteTarget(index)}
                       loading={isLoading}
                     >
-                      <IconTrash size={24} />
+                      <IconTrash
+                        stroke={1.8}
+                        size={24}
+                      />
                     </ActionIcon>
                   </Group>
                   <TextInput

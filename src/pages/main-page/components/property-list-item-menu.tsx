@@ -8,6 +8,7 @@ import {
   Button,
   Textarea,
   type DrawerProps,
+  Divider,
 } from '@mantine/core';
 import { IconDots, IconNote, IconPencil, IconTrash } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
@@ -67,28 +68,35 @@ export const PropertyListItemMenu = (props: PropertyListItemMenuProps) => {
         color='default'
         onClick={() => stack.open('actions')}
       >
-        <IconDots size={16} />
+        <IconDots
+          stroke={1.8}
+          size={20}
+        />
       </ActionIcon>
       <Drawer.Stack>
         <Drawer
           {...stack.register('actions')}
           {...commonDrawerProps}
         >
-          <Stack gap='md'>
+          <Stack gap={'xs'}>
             <Group onClick={() => stack.open('note')}>
               <IconNote
                 stroke={1.8}
+                color='gray'
                 size={24}
               />
               <Text size='lg'>Заметка</Text>
             </Group>
+            <Divider ml={40} />
             <Group onClick={() => navigate(`/properties/${propertyId}/edit`)}>
               <IconPencil
                 stroke={1.8}
+                color='gray'
                 size={24}
               />
               <Text size='lg'>Редактировать</Text>
             </Group>
+            <Divider ml={40} />
             <Group
               c='red'
               onClick={() => stack.open('confirm-delete')}
@@ -115,9 +123,9 @@ export const PropertyListItemMenu = (props: PropertyListItemMenuProps) => {
         >
           <Textarea
             variant='unstyled'
-            placeholder='Любая важная информация'
-            minRows={6}
-            maxRows={10}
+            placeholder='Любая важная информация...'
+            minRows={15}
+            maxRows={15}
             autosize
             size='md'
             value={note}

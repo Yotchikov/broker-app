@@ -19,7 +19,10 @@ export const OwnerInfoMenu = (props: OwnerInfoMenuProps) => {
         color='default'
         onClick={() => stack.open('actions')}
       >
-        <IconDots size={16} />
+        <IconDots
+          stroke={1.8}
+          size={20}
+        />
       </ActionIcon>
       <Drawer.Stack>
         <Drawer
@@ -37,6 +40,7 @@ export const OwnerInfoMenu = (props: OwnerInfoMenuProps) => {
               <IconPencil
                 stroke={1.8}
                 size={24}
+                color='gray'
               />
               <Text size='lg'>Редактировать</Text>
             </Group>

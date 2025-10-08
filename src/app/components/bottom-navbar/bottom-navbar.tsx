@@ -63,6 +63,7 @@ export const BottomNavbar = () => {
             <item.IconCurrent
               size={28}
               stroke={1.8}
+              color='var(--mantine-primary-color-filled)'
             />
           ) : (
             <item.Icon

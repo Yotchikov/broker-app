@@ -1,10 +1,10 @@
-import { Avatar, Badge, Divider, Drawer, Grid, Group, Stack, Text, UnstyledButton } from '@mantine/core';
+import { Avatar, Badge, Button, Divider, Drawer, Grid, Group, Stack, Text, UnstyledButton } from '@mantine/core';
 import { Timeline } from '@mantine/core';
 import { prospectDataProvider, type Prospect, type ProspectStatus } from '../../../data';
 import { useEffect, useState, type FC } from 'react';
 import React from 'react';
 import { CONTACT_ICONS, CONTACT_LABELS, CONTACT_LINKS, PROSPECT_STATUS_ORDER, PROSPECT_STATUS_TITLES } from './consts';
-import { IconChevronDown, IconInfoCircle, IconUsersPlus } from '@tabler/icons-react';
+import { IconChevronDown, IconInfoCircle, IconMoodSad, IconPlus, IconUsersPlus } from '@tabler/icons-react';
 import { useNavigate } from 'react-router';
 
 type ProspectListProps = {
@@ -26,18 +26,23 @@ export const ProspectList: FC<ProspectListProps> = (props) => {
 
   if (prospects.length === 0) {
     return (
-      <Group justify='center'>
-        <UnstyledButton onClick={() => navigate(`/properties/${propertyId}/edit?tab=prospects`)}>
-          <Stack
-            p='xl'
-            align='center'
-            gap='md'
-          >
-            <IconUsersPlus size={48} />
-            <Text ta='center'>Добавьте клиента</Text>
-          </Stack>
-        </UnstyledButton>
-      </Group>
+      <Stack
+        p='xl'
+        align='center'
+        gap='md'
+        c='dimmed'
+      >
+        <IconMoodSad size={48} />
+        <Text ta='center'>Пока нет клиентов</Text>
+        <Button
+          size='md'
+          radius='xl'
+          leftSection={<IconPlus size={16} />}
+          onClick={() => navigate(`/properties/${propertyId}/edit?tab=prospects`)}
+        >
+          Добавить
+        </Button>
+      </Stack>
     );
   }
 

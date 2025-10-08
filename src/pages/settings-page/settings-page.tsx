@@ -1,4 +1,4 @@
-import { Alert, Container, Group, Stack, Switch, Text, Title, useMantineColorScheme } from '@mantine/core';
+import { Blockquote, Container, Group, Stack, Switch, Text, Title, useMantineColorScheme } from '@mantine/core';
 import { IconInfoCircle, IconMoon } from '@tabler/icons-react';
 import type { FC } from 'react';
 
@@ -13,6 +13,20 @@ export const SettingsPage: FC = () => {
         gap='md'
       >
         <Title order={2}>Настройки</Title>
+        <Blockquote
+          variant='light'
+          color='blue'
+          icon={<IconInfoCircle />}
+        >
+          <Stack gap='md'>
+            <Title order={5}>Вы пользуетесь MVP</Title>
+            <Text size='sm'>Некоторые функции могут быть недоступны или работать некорректно.</Text>
+            <Text size='sm'>
+              По всем вопросам можно писать в Telegram <a href='https://t.me/shkuratov_official'>Грише</a> и{' '}
+              <a href='https://t.me/yotchikov'>Антону</a>.
+            </Text>
+          </Stack>
+        </Blockquote>
         <Group justify='space-between'>
           <Group>
             <IconMoon size={16} />
@@ -24,17 +38,6 @@ export const SettingsPage: FC = () => {
             onChange={() => setColorScheme(colorScheme === 'dark' ? 'light' : 'dark')}
           />
         </Group>
-        <Alert
-          variant='light'
-          color='blue'
-          title='Данное приложение является MVP'
-          icon={<IconInfoCircle size={16} />}
-        >
-          Приложение находится в стадии MVP. Некоторые функции могут быть недоступны или работать некорректно.
-          <br />
-          По всем вопросам можно писать в Telegram <a href='https://t.me/shkuratov_official'>Грише</a> и{' '}
-          <a href='https://t.me/yotchikov'>Антону</a>.
-        </Alert>
       </Stack>
     </Container>
   );

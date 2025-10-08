@@ -1,7 +1,7 @@
 import { useEffect, useState, type FC } from 'react';
 import { ownerDataProvider, type Owner } from '../../../data';
-import { Group, Text, Stack, Grid, Avatar } from '@mantine/core';
-import { CONTACT_ICONS, CONTACT_LABELS, CONTACT_LINKS } from './consts';
+import { Text, Grid, Avatar, Group } from '@mantine/core';
+import { CONTACT_ICONS, CONTACT_LINKS } from './consts';
 import React from 'react';
 
 type OwnerInfoProps = {
@@ -20,44 +20,47 @@ export const OwnerInfo: FC<OwnerInfoProps> = ({ ownerId }) => {
   }
 
   return (
-    <Stack gap='sm'>
-      <Group
-        gap='sm'
-        align='center'
-      >
+    <Grid
+      pl={32}
+      align='center'
+      gutter='xs'
+    >
+      <Grid.Col span={2}>
         <Avatar
           radius='xl'
           name={owner.name}
           color='initials'
         />
+      </Grid.Col>
+      <Grid.Col span={10}>
         <Text size='md'>{owner.name}</Text>
-      </Group>
-      <Grid pl={8}>
-        {Object.entries(owner.contacts).map(([key, value]) => (
-          <React.Fragment key={key}>
-            {value && (
-              <>
-                <Grid.Col span={4}>
-                  <Group gap='xs'>
-                    {CONTACT_ICONS[key as keyof Owner['contacts']]}
-                    <Text size='sm'>{CONTACT_LABELS[key as keyof Owner['contacts']]}</Text>
-                  </Group>
-                </Grid.Col>
-                <Grid.Col span={8}>
-                  <a
-                    href={`${CONTACT_LINKS[key as keyof Owner['contacts']]}${value}`}
-                    key={key}
-                    target='_blank'
-                    style={{ textDecoration: 'none', color: 'inherit' }}
-                  >
-                    <Text size='sm'>{value}</Text>
-                  </a>
-                </Grid.Col>
-              </>
-            )}
-          </React.Fragment>
-        ))}
-      </Grid>
-    </Stack>
+      </Grid.Col>
+      {Object.entries(owner.contacts).map(([key, value]) => (
+        <React.Fragment key={key}>
+          {value && (
+            <>
+              <Grid.Col span={2}>
+                <Group
+                  justify='flex-end'
+                  align='center'
+                >
+                  {CONTACT_ICONS[key as keyof Owner['contacts']]}
+                </Group>
+              </Grid.Col>
+              <Grid.Col span={10}>
+                <a
+                  href={`${CONTACT_LINKS[key as keyof Owner['contacts']]}${value}`}
+                  key={key}
+                  target='_blank'
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                >
+                  <Text size='md'>{value}</Text>
+                </a>
+              </Grid.Col>
+            </>
+          )}
+        </React.Fragment>
+      ))}
+    </Grid>
   );
 };

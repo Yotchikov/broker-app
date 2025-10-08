@@ -1,4 +1,4 @@
-import { ActionIcon, Drawer, Group, Stack, Text, useDrawersStack } from '@mantine/core';
+import { ActionIcon, Divider, Drawer, Group, Stack, Text, useDrawersStack } from '@mantine/core';
 import { IconDots, IconPencil, IconPlus } from '@tabler/icons-react';
 import { useNavigate } from 'react-router';
 
@@ -19,7 +19,10 @@ export const ProspectListMenu = (props: ProspectListMenuProps) => {
         color='default'
         onClick={() => stack.open('actions')}
       >
-        <IconDots size={16} />
+        <IconDots
+          stroke={1.8}
+          size={20}
+        />
       </ActionIcon>
       <Drawer.Stack>
         <Drawer
@@ -32,17 +35,20 @@ export const ProspectListMenu = (props: ProspectListMenuProps) => {
             size: 'lg',
           }}
         >
-          <Stack gap='md'>
+          <Stack gap='xs'>
             <Group onClick={() => navigate(`/properties/${propertyId}/edit?tab=prospects`)}>
               <IconPlus
                 stroke={1.8}
+                color='gray'
                 size={24}
               />
-              <Text size='lg'>Добавить</Text>
+              <Text size='lg'>Добавить клиента</Text>
             </Group>
+            <Divider ml={40} />
             <Group onClick={() => navigate(`/properties/${propertyId}/edit?tab=prospects`)}>
               <IconPencil
                 stroke={1.8}
+                color='gray'
                 size={24}
               />
               <Text size='lg'>Редактировать</Text>
