@@ -40,7 +40,7 @@ export const OwnerInfoMenu = (props: OwnerInfoMenuProps) => {
               <IconPencil
                 stroke={1.8}
                 size={24}
-                color='gray'
+                color='var(--mantine-color-dimmed)'
               />
               <Text size='lg'>Редактировать</Text>
             </Group>

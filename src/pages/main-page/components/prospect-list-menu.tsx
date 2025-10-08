@@ -39,7 +39,7 @@ export const ProspectListMenu = (props: ProspectListMenuProps) => {
             <Group onClick={() => navigate(`/properties/${propertyId}/edit?tab=prospects`)}>
               <IconPlus
                 stroke={1.8}
-                color='gray'
+                color='var(--mantine-color-dimmed)'
                 size={24}
               />
               <Text size='lg'>Добавить клиента</Text>
@@ -48,7 +48,7 @@ export const ProspectListMenu = (props: ProspectListMenuProps) => {
             <Group onClick={() => navigate(`/properties/${propertyId}/edit?tab=prospects`)}>
               <IconPencil
                 stroke={1.8}
-                color='gray'
+                color='var(--mantine-color-dimmed)'
                 size={24}
               />
               <Text size='lg'>Редактировать</Text>

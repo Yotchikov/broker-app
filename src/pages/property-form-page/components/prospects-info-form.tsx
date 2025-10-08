@@ -76,7 +76,7 @@ export const ProspectsInfoForm = () => {
           </Text>
           <Group justify='flex-end'>
             <Button
-              color='gray'
+              color='var(--mantine-color-dimmed)'
               variant='transparent'
               onClick={() => setDeleteTarget(null)}
               disabled={isDeleting}

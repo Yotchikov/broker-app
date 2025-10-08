@@ -82,7 +82,7 @@ export const PropertyListItemMenu = (props: PropertyListItemMenuProps) => {
             <Group onClick={() => stack.open('note')}>
               <IconNote
                 stroke={1.8}
-                color='gray'
+                color='var(--mantine-color-dimmed)'
                 size={24}
               />
               <Text size='lg'>Заметка</Text>
@@ -91,7 +91,7 @@ export const PropertyListItemMenu = (props: PropertyListItemMenuProps) => {
             <Group onClick={() => navigate(`/properties/${propertyId}/edit`)}>
               <IconPencil
                 stroke={1.8}
-                color='gray'
+                color='var(--mantine-color-dimmed)'
                 size={24}
               />
               <Text size='lg'>Редактировать</Text>

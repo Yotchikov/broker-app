@@ -85,7 +85,7 @@ export const PropertyListItem: FC<PropertyListItemProps> = (props) => {
                     <Group gap='xs'>
                       <IconUser
                         stroke={1.8}
-                        color='gray'
+                        color='var(--mantine-color-dimmed)'
                         size={24}
                       />
                       <Text size='lg'>Собственник</Text>
@@ -111,7 +111,7 @@ export const PropertyListItem: FC<PropertyListItemProps> = (props) => {
                   >
                     <IconUsers
                       stroke={1.8}
-                      color='gray'
+                      color='var(--mantine-color-dimmed)'
                       size={24}
                     />
                     <Text size='lg'>Клиенты</Text>{' '}

@@ -31,25 +31,25 @@ export const PROSPECT_STATUS_ORDER: ProspectStatus[] = [
 export const CONTACT_ICONS: Record<keyof Prospect['contacts'], ReactNode> = {
   phone: (
     <IconPhone
-      color='gray'
+      color='var(--mantine-color-dimmed)'
       size={20}
     />
   ),
   email: (
     <IconAt
-      color='gray'
+      color='var(--mantine-color-dimmed)'
       size={20}
     />
   ),
   telegram: (
     <IconBrandTelegram
-      color='gray'
+      color='var(--mantine-color-dimmed)'
       size={20}
     />
   ),
   whatsapp: (
     <IconBrandWhatsapp
-      color='gray'
+      color='var(--mantine-color-dimmed)'
       size={20}
     />
   ),

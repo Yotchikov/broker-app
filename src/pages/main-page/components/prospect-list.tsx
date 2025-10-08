@@ -4,7 +4,7 @@ import { prospectDataProvider, type Prospect, type ProspectStatus } from '../../
 import { useEffect, useState, type FC } from 'react';
 import React from 'react';
 import { CONTACT_ICONS, CONTACT_LABELS, CONTACT_LINKS, PROSPECT_STATUS_ORDER, PROSPECT_STATUS_TITLES } from './consts';
-import { IconChevronDown, IconInfoCircle, IconMoodSad, IconPlus, IconUsersPlus } from '@tabler/icons-react';
+import { IconChevronDown, IconInfoCircle, IconMoodSad, IconPlus } from '@tabler/icons-react';
 import { useNavigate } from 'react-router';
 
 type ProspectListProps = {
