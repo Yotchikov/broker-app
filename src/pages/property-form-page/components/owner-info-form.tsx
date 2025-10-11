@@ -2,12 +2,18 @@ import { usePropertyForm } from '../context';
 import { Stack, TextInput, Title, Notification } from '@mantine/core';
 import { IconBrandTelegram, IconBrandWhatsapp, IconMail, IconPhone } from '@tabler/icons-react';
 
-export const OwnerInfoForm = () => {
+type OwnerInfoFormProps = {
+  withTitle?: boolean;
+};
+
+export const OwnerInfoForm = (props: OwnerInfoFormProps) => {
+  const { withTitle = true } = props;
+
   const { formData, updateOwnerInfo, error, setError } = usePropertyForm();
 
   return (
     <Stack gap='md'>
-      <Title order={3}>Собственник</Title>
+      {withTitle && <Title order={3}>Собственник</Title>}
       <TextInput
         size='md'
         variant='filled'
@@ -19,6 +25,7 @@ export const OwnerInfoForm = () => {
       />
       <Title order={4}>Контакты</Title>
       <TextInput
+        type='tel'
         size='md'
         variant='filled'
         placeholder='+7 (999) 123-45-67'
@@ -27,15 +34,16 @@ export const OwnerInfoForm = () => {
         onChange={(ev) => updateOwnerInfo({ contacts: { ...formData.owner.contacts, phone: ev.currentTarget.value } })}
       />
       <TextInput
+        type='email'
         size='md'
         variant='filled'
         placeholder='email@example.com'
-        type='email'
         leftSection={<IconMail size={16} />}
         value={formData.owner.contacts.email}
         onChange={(ev) => updateOwnerInfo({ contacts: { ...formData.owner.contacts, email: ev.currentTarget.value } })}
       />
       <TextInput
+        type='text'
         size='md'
         variant='filled'
         leftSection={<IconBrandTelegram size={16} />}
@@ -46,6 +54,7 @@ export const OwnerInfoForm = () => {
         }
       />
       <TextInput
+        type='tel'
         size='md'
         variant='filled'
         leftSection={<IconBrandWhatsapp size={16} />}

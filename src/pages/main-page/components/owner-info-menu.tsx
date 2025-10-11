@@ -54,7 +54,7 @@ export const OwnerInfoMenu = () => {
           }
         >
           <Stack gap='md'>
-            <OwnerInfoForm />
+            <OwnerInfoForm withTitle={false} />
             <Button
               size='md'
               radius='xl'
