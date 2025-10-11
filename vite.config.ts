@@ -15,12 +15,6 @@ export default defineConfig({
         name: 'Broker App',
         short_name: 'Broker',
         description: 'A real estate broker application for managing properties and prospects',
-        theme_color: '#2563eb',
-        background_color: '#ffffff',
-        display: 'standalone',
-        orientation: 'portrait-primary',
-        scope: '/',
-        start_url: '/',
         icons: [
           {
             src: '/icons/icon-72x72.png',
