@@ -1,7 +1,13 @@
 import { usePropertyForm } from '../context';
 import { Group, NumberInput, SegmentedControl, Stack, TextInput, Title, Notification } from '@mantine/core';
 
-export const PropertyInfoForm = () => {
+type PropertyInfoFormProps = {
+  withTitle?: boolean;
+};
+
+export const PropertyInfoForm = (props: PropertyInfoFormProps) => {
+  const { withTitle = true } = props;
+
   const { formData, updatePropertyInfo, error, setError } = usePropertyForm();
 
   const dealTypes = [
@@ -11,7 +17,7 @@ export const PropertyInfoForm = () => {
 
   return (
     <Stack gap='md'>
-      <Title order={3}>Объект</Title>
+      {withTitle && <Title order={3}>Объект</Title>}
       <TextInput
         label='Название'
         variant='filled'

@@ -14,6 +14,8 @@ import { IconDots, IconNote, IconPencil, IconTrash } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { propertyDataProvider } from '../../../data';
+import { usePropertyForm } from '../../property-form-page/context';
+import { PropertyInfoForm } from '../../property-form-page/components';
 
 type PropertyListItemMenuProps = {
   propertyId: string;
@@ -32,11 +34,13 @@ export const PropertyListItemMenu = (props: PropertyListItemMenuProps) => {
     fetchProperty();
   }, [propertyId]);
 
-  const stack = useDrawersStack(['actions', 'note', 'confirm-delete']);
+  const stack = useDrawersStack(['actions', 'note', 'edit', 'confirm-delete']);
 
   const [isDeleting, setIsDeleting] = useState(false);
 
   const navigate = useNavigate();
+
+  const { submitForm } = usePropertyForm();
 
   const handleConfirmDelete = async () => {
     try {
@@ -51,6 +55,11 @@ export const PropertyListItemMenu = (props: PropertyListItemMenuProps) => {
   const handleNoteChange = async (note: string) => {
     setNote(note);
     await propertyDataProvider.updateProperty({ id: propertyId, note });
+  };
+
+  const handleEdit = async () => {
+    await submitForm();
+    stack.close('edit');
   };
 
   const commonDrawerProps: Partial<DrawerProps> = {
@@ -85,10 +94,10 @@ export const PropertyListItemMenu = (props: PropertyListItemMenuProps) => {
                 color='var(--mantine-color-dimmed)'
                 size={24}
               />
-              <Text size='lg'>Заметка</Text>
+              <Text size='lg'>Написать заметку</Text>
             </Group>
             <Divider ml={40} />
-            <Group onClick={() => navigate(`/properties/${propertyId}/edit`)}>
+            <Group onClick={() => stack.open('edit')}>
               <IconPencil
                 stroke={1.8}
                 color='var(--mantine-color-dimmed)'
@@ -117,7 +126,7 @@ export const PropertyListItemMenu = (props: PropertyListItemMenuProps) => {
               size='xl'
               fw='bold'
             >
-              Заметка
+              Написать заметку
             </Text>
           }
         >
@@ -162,6 +171,29 @@ export const PropertyListItemMenu = (props: PropertyListItemMenuProps) => {
                 Удалить
               </Button>
             </Group>
+          </Stack>
+        </Drawer>
+        <Drawer
+          {...stack.register('edit')}
+          {...commonDrawerProps}
+          title={
+            <Text
+              size='xl'
+              fw='bold'
+            >
+              Редактировать объект
+            </Text>
+          }
+        >
+          <Stack gap='md'>
+            <PropertyInfoForm withTitle={false} />
+            <Button
+              size='md'
+              radius='xl'
+              onClick={handleEdit}
+            >
+              Сохранить
+            </Button>
           </Stack>
         </Drawer>
       </Drawer.Stack>

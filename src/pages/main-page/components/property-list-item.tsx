@@ -10,6 +10,7 @@ import styles from '../main-page.module.css';
 import { PropertyListItemMenu } from './property-list-item-menu';
 import { OwnerInfoMenu } from './owner-info-menu';
 import { ProspectListMenu } from './prospect-list-menu';
+import { PropertyFormProvider } from '../../property-form-page/context';
 
 type PropertyListItemProps = {
   property: Property;
@@ -61,7 +62,9 @@ export const PropertyListItem: FC<PropertyListItemProps> = (props) => {
               </Stack>
             </Group>
           </Accordion.Control>
-          <PropertyListItemMenu propertyId={property.id} />
+          <PropertyFormProvider propertyId={property.id}>
+            <PropertyListItemMenu propertyId={property.id} />
+          </PropertyFormProvider>
         </Group>
         <Accordion.Panel>
           <PropertyInfo

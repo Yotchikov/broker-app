@@ -7,13 +7,16 @@ import { PropertyFormContext } from './hooks';
 
 type PropertyFormProviderProps = {
   children: ReactNode;
+  propertyId?: string;
 };
 
-export const PropertyFormProvider: FC<PropertyFormProviderProps> = ({ children }) => {
+export const PropertyFormProvider: FC<PropertyFormProviderProps> = (props) => {
+  const { children, propertyId } = props;
+
   const navigate = useNavigate();
   const params = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
-  const isEditMode = Boolean(params?.id);
+  const isEditMode = Boolean(propertyId || params?.id);
   const stepsCount = 3;
 
   // Map tab query parameter to step number
@@ -83,7 +86,7 @@ export const PropertyFormProvider: FC<PropertyFormProviderProps> = ({ children }
     const loadExistingData = async () => {
       try {
         setIsLoading(true);
-        const property = await propertyDataProvider.getPropertyById(params.id as string);
+        const property = await propertyDataProvider.getPropertyById(propertyId || (params.id as string));
         const owner = await ownerDataProvider.getOwnerById(property.ownerId as string);
         const prospects = await Promise.all(property.prospectIds.map((id) => prospectDataProvider.getProspectById(id)));
 
@@ -136,7 +139,7 @@ export const PropertyFormProvider: FC<PropertyFormProviderProps> = ({ children }
     };
 
     loadExistingData();
-  }, [isEditMode, params?.id]);
+  }, [isEditMode, propertyId, params?.id]);
 
   const updatePropertyInfo = useCallback((data: Partial<PropertyFormData['property']>) => {
     setFormData((prev) => ({ ...prev, property: { ...prev.property, ...data } }));
@@ -226,7 +229,7 @@ export const PropertyFormProvider: FC<PropertyFormProviderProps> = ({ children }
 
       // Create property
       const property: Property = {
-        id: isEditMode && params?.id ? params.id : crypto.randomUUID(),
+        id: isEditMode && (propertyId || params?.id) ? propertyId || (params.id as string) : crypto.randomUUID(),
         name: formData.property.name.trim(),
         dealType: formData.property.dealType,
         ownerId: owner.id,
@@ -277,7 +280,7 @@ export const PropertyFormProvider: FC<PropertyFormProviderProps> = ({ children }
     } finally {
       setIsLoading(false);
     }
-  }, [formData, isEditMode, params?.id, navigate]);
+  }, [formData, isEditMode, propertyId, params?.id, navigate]);
 
   const contextValue: PropertyFormContextValue = useMemo(
     () => ({
