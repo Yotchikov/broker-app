@@ -2,7 +2,9 @@ import '@mantine/core/styles.css';
 
 import { createTheme, MantineProvider } from '@mantine/core';
 import { RouterProvider } from 'react-router';
+import { useState } from 'react';
 import { router } from './router';
+import { SplashScreen } from './components';
 
 const theme = createTheme({
   fontFamily: 'Manrope, sans-serif',
@@ -23,8 +25,15 @@ const theme = createTheme({
 });
 
 export const App = () => {
+  const [showSplash, setShowSplash] = useState(true);
+
+  const handleSplashComplete = () => {
+    setShowSplash(false);
+  };
+
   return (
     <MantineProvider theme={theme}>
+      {showSplash && <SplashScreen onComplete={handleSplashComplete} />}
       <RouterProvider router={router} />
     </MantineProvider>
   );
