@@ -1,20 +1,14 @@
-import { useEffect, useState, type FC } from 'react';
-import { ownerDataProvider, type Owner } from '../../../data';
+import { type FC } from 'react';
+import { type Owner } from '../../../data';
 import { Text, Grid, Avatar, Group } from '@mantine/core';
 import { CONTACT_ICONS, CONTACT_LINKS } from './consts';
 import React from 'react';
 
 type OwnerInfoProps = {
-  ownerId: string;
+  owner: Owner | null;
 };
 
-export const OwnerInfo: FC<OwnerInfoProps> = ({ ownerId }) => {
-  const [owner, setOwner] = useState<Owner | null>(null);
-
-  useEffect(() => {
-    ownerDataProvider.getOwnerById(ownerId).then(setOwner);
-  }, [ownerId]);
-
+export const OwnerInfo: FC<OwnerInfoProps> = ({ owner }) => {
   if (!owner) {
     return null;
   }

@@ -1,6 +1,7 @@
 import { IconPhone, IconAt, IconBrandTelegram, IconBrandWhatsapp } from '@tabler/icons-react';
 import type { ReactNode } from 'react';
 import type { ProspectStatus, Prospect } from '../../../data';
+import type { DrawerProps } from '@mantine/core';
 
 export const PROSPECT_STATUS_TITLES: Record<ProspectStatus, string> = {
   inquired: 'Интересовался',
@@ -67,4 +68,12 @@ export const CONTACT_LINKS: Record<keyof Prospect['contacts'], string> = {
   email: 'mailto:',
   telegram: 'https://t.me/',
   whatsapp: 'https://wa.me/',
+};
+
+export const COMMON_DRAWER_PROPS: Partial<DrawerProps> = {
+  position: 'bottom',
+  styles: { content: { height: 'auto' } },
+  offset: 8,
+  radius: 'md',
+  closeButtonProps: { size: 'lg' },
 };

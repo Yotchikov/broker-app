@@ -1,21 +1,11 @@
-import {
-  ActionIcon,
-  Drawer,
-  Group,
-  Text,
-  Stack,
-  useDrawersStack,
-  Button,
-  Textarea,
-  type DrawerProps,
-  Divider,
-} from '@mantine/core';
+import { ActionIcon, Drawer, Group, Text, Stack, useDrawersStack, Button, Textarea, Divider } from '@mantine/core';
 import { IconDots, IconNote, IconPencil, IconTrash } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { propertyDataProvider } from '../../../data';
 import { usePropertyForm } from '../../property-form-page/context';
 import { PropertyInfoForm } from '../../property-form-page/components';
+import { COMMON_DRAWER_PROPS } from './consts';
 
 type PropertyListItemMenuProps = {
   propertyId: string;
@@ -62,14 +52,6 @@ export const PropertyListItemMenu = (props: PropertyListItemMenuProps) => {
     stack.close('edit');
   };
 
-  const commonDrawerProps: Partial<DrawerProps> = {
-    position: 'bottom',
-    styles: { content: { height: 'auto' } },
-    offset: 8,
-    radius: 'md',
-    closeButtonProps: { size: 'lg' },
-  };
-
   return (
     <>
       <ActionIcon
@@ -85,7 +67,7 @@ export const PropertyListItemMenu = (props: PropertyListItemMenuProps) => {
       <Drawer.Stack>
         <Drawer
           {...stack.register('actions')}
-          {...commonDrawerProps}
+          {...COMMON_DRAWER_PROPS}
         >
           <Stack gap={'xs'}>
             <Group onClick={() => stack.open('note')}>
@@ -120,7 +102,7 @@ export const PropertyListItemMenu = (props: PropertyListItemMenuProps) => {
         </Drawer>
         <Drawer
           {...stack.register('note')}
-          {...commonDrawerProps}
+          {...COMMON_DRAWER_PROPS}
           title={
             <Text
               size='xl'
@@ -143,7 +125,7 @@ export const PropertyListItemMenu = (props: PropertyListItemMenuProps) => {
         </Drawer>
         <Drawer
           {...stack.register('confirm-delete')}
-          {...commonDrawerProps}
+          {...COMMON_DRAWER_PROPS}
           title={
             <Text
               size='xl'
@@ -157,6 +139,8 @@ export const PropertyListItemMenu = (props: PropertyListItemMenuProps) => {
             <Text>Вы уверены? Это действие нельзя отменить.</Text>
             <Group justify='flex-end'>
               <Button
+                size='md'
+                radius='xl'
                 variant='default'
                 onClick={() => stack.close('confirm-delete')}
                 disabled={isDeleting}
@@ -165,6 +149,8 @@ export const PropertyListItemMenu = (props: PropertyListItemMenuProps) => {
               </Button>
               <Button
                 color='red'
+                size='md'
+                radius='xl'
                 onClick={handleConfirmDelete}
                 loading={isDeleting}
               >
@@ -175,7 +161,7 @@ export const PropertyListItemMenu = (props: PropertyListItemMenuProps) => {
         </Drawer>
         <Drawer
           {...stack.register('edit')}
-          {...commonDrawerProps}
+          {...COMMON_DRAWER_PROPS}
           title={
             <Text
               size='xl'

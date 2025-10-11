@@ -1,4 +1,4 @@
-import { type FC } from 'react';
+import { useEffect, useState, type FC } from 'react';
 import type { Property } from '../../../data/entities/property';
 import { Accordion, Group, Avatar, Stack, Space, Text, Divider } from '@mantine/core';
 import { IconUser, IconUsers } from '@tabler/icons-react';
@@ -11,6 +11,7 @@ import { PropertyListItemMenu } from './property-list-item-menu';
 import { OwnerInfoMenu } from './owner-info-menu';
 import { ProspectListMenu } from './prospect-list-menu';
 import { PropertyFormProvider } from '../../property-form-page/context';
+import { ownerDataProvider, prospectDataProvider, type Owner, type Prospect } from '../../../data';
 
 type PropertyListItemProps = {
   property: Property;
@@ -18,6 +19,18 @@ type PropertyListItemProps = {
 
 export const PropertyListItem: FC<PropertyListItemProps> = (props) => {
   const { property } = props;
+
+  const [owner, setOwner] = useState<Owner | null>(null);
+  const [prospects, setProspects] = useState<Prospect[]>([]);
+
+  useEffect(() => {
+    if (property.ownerId) {
+      ownerDataProvider.getOwnerById(property.ownerId).then(setOwner);
+    }
+    Promise.all(property.prospectIds.map((prospectId) => prospectDataProvider.getProspectById(prospectId))).then(
+      setProspects,
+    );
+  }, [property]);
 
   return (
     <>
@@ -94,10 +107,12 @@ export const PropertyListItem: FC<PropertyListItemProps> = (props) => {
                       <Text size='lg'>Собственник</Text>
                     </Group>
                   </Accordion.Control>
-                  <OwnerInfoMenu propertyId={property.id} />
+                  <PropertyFormProvider propertyId={property.id}>
+                    <OwnerInfoMenu />
+                  </PropertyFormProvider>
                 </Group>
                 <Accordion.Panel>
-                  <OwnerInfo ownerId={property.ownerId} />
+                  <OwnerInfo owner={owner} />
                 </Accordion.Panel>
               </Accordion.Item>
             )}
@@ -130,7 +145,7 @@ export const PropertyListItem: FC<PropertyListItemProps> = (props) => {
               </Group>
               <Accordion.Panel>
                 <ProspectList
-                  prospectIds={property.prospectIds}
+                  prospects={prospects}
                   propertyId={property.id}
                 />
               </Accordion.Panel>

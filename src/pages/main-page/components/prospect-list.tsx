@@ -1,7 +1,7 @@
 import { Avatar, Badge, Button, Divider, Drawer, Grid, Group, Stack, Text, UnstyledButton } from '@mantine/core';
 import { Timeline } from '@mantine/core';
 import { prospectDataProvider, type Prospect, type ProspectStatus } from '../../../data';
-import { useEffect, useState, type FC } from 'react';
+import { useState, type FC } from 'react';
 import React from 'react';
 import { CONTACT_ICONS, CONTACT_LABELS, CONTACT_LINKS, PROSPECT_STATUS_ORDER, PROSPECT_STATUS_TITLES } from './consts';
 import { IconChevronDown, IconInfoCircle, IconMoodSad, IconPlus } from '@tabler/icons-react';
@@ -9,20 +9,15 @@ import { useNavigate } from 'react-router';
 
 type ProspectListProps = {
   propertyId: string;
-  prospectIds: string[];
+  prospects: Prospect[];
 };
 
 export const ProspectList: FC<ProspectListProps> = (props) => {
-  const { prospectIds, propertyId } = props;
+  const { prospects, propertyId } = props;
 
-  const [prospects, setProspects] = useState<Prospect[]>([]);
   const [modalOpened, setModalOpened] = useState(false);
   const [activeProspect, setActiveProspect] = useState<Prospect | null>(null);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    Promise.all(prospectIds.map((prospectId) => prospectDataProvider.getProspectById(prospectId))).then(setProspects);
-  }, [prospectIds]);
 
   if (prospects.length === 0) {
     return (
@@ -57,7 +52,6 @@ export const ProspectList: FC<ProspectListProps> = (props) => {
     const updated: Prospect = { ...activeProspect, status };
     await prospectDataProvider.updateProspect(updated);
 
-    setProspects((prev) => prev.map((p) => (p.id === updated.id ? updated : p)));
     setModalOpened(false);
     setActiveProspect(null);
   };
