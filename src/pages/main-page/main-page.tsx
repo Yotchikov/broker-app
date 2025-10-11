@@ -1,11 +1,12 @@
 import type { FC } from 'react';
-import { Box, Container, Input, SegmentedControl, Stack, Title, UnstyledButton, Text } from '@mantine/core';
-import { IconHomePlus, IconSearch } from '@tabler/icons-react';
+import { Box, Container, Input, SegmentedControl, Stack, Title, Text, Button, Space } from '@mantine/core';
+import { IconPlus, IconSearch } from '@tabler/icons-react';
 import { PropertyList } from './components/property-list';
 import { useLoaderData, useNavigate } from 'react-router';
 import { useState } from 'react';
 import type { Property } from '../../data/entities/property';
 import { TOP_NAVBAR_HEIGHT } from '../../app/components';
+import Logo from '../../../public/images/logo.svg?react';
 
 export const MainPage: FC = () => {
   const { properties } = useLoaderData<{ properties: Property[] }>();
@@ -27,17 +28,34 @@ export const MainPage: FC = () => {
           w='100%'
           h='100%'
         >
-          <UnstyledButton onClick={() => navigate('/properties/create')}>
-            <Stack align='center'>
-              <IconHomePlus size={48} />
-              <Text
-                size='lg'
-                ta='center'
-              >
-                Добавьте свой первый объект
-              </Text>
-            </Stack>
-          </UnstyledButton>
+          <Stack align='center'>
+            <Logo
+              style={{
+                maxWidth: 200,
+                width: 'auto',
+                height: 'auto',
+              }}
+            />
+            <Text
+              size='xl'
+              ta='center'
+            >
+              Приложение для управления
+              <br />
+              объектами недвижимости,
+              <br />
+              собственниками и клиентами
+            </Text>
+            <Space h='md' />
+            <Button
+              leftSection={<IconPlus size={16} />}
+              size='lg'
+              radius='xl'
+              onClick={() => navigate('/properties/create')}
+            >
+              Добавьте первый объект
+            </Button>
+          </Stack>
         </Stack>
       </Container>
     );
