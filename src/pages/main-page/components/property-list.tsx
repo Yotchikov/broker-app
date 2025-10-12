@@ -20,11 +20,16 @@ export const PropertyList = (props: PropertyListProps) => {
       <Stack
         p='xl'
         align='center'
-        gap='md'
+        gap='xl'
         c='dimmed'
       >
-        <IconMoodSad size={48} />
-        <Text ta='center'>Пока нет объектов</Text>
+        <Stack
+          align='center'
+          gap='xs'
+        >
+          <IconMoodSad size={48} />
+          <Text ta='center'>Пока нет объектов</Text>
+        </Stack>
         <Button
           leftSection={<IconPlus size={16} />}
           size='md'

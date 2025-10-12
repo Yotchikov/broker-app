@@ -1,16 +1,34 @@
-import { ActionIcon, Divider, Drawer, Group, Stack, Text, useDrawersStack } from '@mantine/core';
-import { IconDots, IconPencil, IconPlus } from '@tabler/icons-react';
-import { useNavigate } from 'react-router';
+import { ActionIcon, Button, Drawer, Group, Stack, Text, useDrawersStack } from '@mantine/core';
+import { IconDots, IconPlus } from '@tabler/icons-react';
+import { COMMON_DRAWER_PROPS } from './consts';
+import { ProspectInfoForm } from '../../property-form-page/components/prospect-info-form';
+import { usePropertyForm } from '../../property-form-page/context';
 
-type ProspectListMenuProps = {
-  propertyId: string;
-};
+export const ProspectListMenu = () => {
+  const { formData, addProspect, updateProspect, submitForm, clearForm } = usePropertyForm();
 
-export const ProspectListMenu = (props: ProspectListMenuProps) => {
-  const { propertyId } = props;
+  const stack = useDrawersStack(['actions', 'add']);
 
-  const stack = useDrawersStack(['actions']);
-  const navigate = useNavigate();
+  const handleOpenAddProspectDrawer = () => {
+    addProspect({
+      id: crypto.randomUUID(),
+      name: '',
+      status: 'inquired',
+      contacts: {},
+    });
+
+    stack.open('add');
+  };
+
+  const handleSaveProspect = () => {
+    submitForm();
+    stack.close('add');
+  };
+
+  const handleCloseAddProspectDrawer = () => {
+    clearForm();
+    stack.close('add');
+  };
 
   return (
     <>
@@ -36,7 +54,7 @@ export const ProspectListMenu = (props: ProspectListMenuProps) => {
           }}
         >
           <Stack gap='xs'>
-            <Group onClick={() => navigate(`/properties/${propertyId}/edit?tab=prospects`)}>
+            <Group onClick={handleOpenAddProspectDrawer}>
               <IconPlus
                 stroke={1.8}
                 color='var(--mantine-color-dimmed)'
@@ -44,15 +62,33 @@ export const ProspectListMenu = (props: ProspectListMenuProps) => {
               />
               <Text size='lg'>Добавить клиента</Text>
             </Group>
-            <Divider ml={40} />
-            <Group onClick={() => navigate(`/properties/${propertyId}/edit?tab=prospects`)}>
-              <IconPencil
-                stroke={1.8}
-                color='var(--mantine-color-dimmed)'
-                size={24}
-              />
-              <Text size='lg'>Редактировать</Text>
-            </Group>
+          </Stack>
+        </Drawer>
+        <Drawer
+          {...stack.register('add')}
+          {...COMMON_DRAWER_PROPS}
+          title={
+            <Text
+              size='xl'
+              fw='bold'
+            >
+              Добавить клиента
+            </Text>
+          }
+          onClose={handleCloseAddProspectDrawer}
+        >
+          <Stack gap='md'>
+            <ProspectInfoForm
+              prospect={formData.prospects[0]}
+              handleUpdateProspect={(field, value) => updateProspect(0, { [field]: value })}
+            />
+            <Button
+              size='md'
+              radius='xl'
+              onClick={handleSaveProspect}
+            >
+              Сохранить
+            </Button>
           </Stack>
         </Drawer>
       </Drawer.Stack>

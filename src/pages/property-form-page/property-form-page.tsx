@@ -2,7 +2,7 @@ import type { FC } from 'react';
 import { useParams } from 'react-router';
 import { Container, Space, Stack, Stepper, Title } from '@mantine/core';
 import { IconBuilding, IconUser, IconUsers } from '@tabler/icons-react';
-import { OwnerInfoForm, PropertyInfoForm, ProspectsInfoForm, FormFooter } from './components';
+import { OwnerInfoForm, PropertyInfoForm, ProspectListInfoForm, FormFooter } from './components';
 import { PropertyFormProvider, usePropertyForm } from './context';
 
 const PropertyFormContent: FC = () => {
@@ -35,7 +35,7 @@ const PropertyFormContent: FC = () => {
               <OwnerInfoForm />
             </Stepper.Step>
             <Stepper.Step icon={<IconUsers size={16} />}>
-              <ProspectsInfoForm />
+              <ProspectListInfoForm />
             </Stepper.Step>
           </Stepper>
         </Stack>

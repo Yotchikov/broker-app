@@ -1,10 +1,16 @@
-import { Avatar, Badge, Button, Divider, Drawer, Grid, Group, Stack, Text, UnstyledButton } from '@mantine/core';
+import { ActionIcon, Avatar, Badge, Button, Divider, Drawer, Group, Stack, Text, UnstyledButton } from '@mantine/core';
 import { Timeline } from '@mantine/core';
 import { prospectDataProvider, type Prospect, type ProspectStatus } from '../../../data';
 import { useState, type FC } from 'react';
 import React from 'react';
-import { CONTACT_ICONS, CONTACT_LABELS, CONTACT_LINKS, PROSPECT_STATUS_ORDER, PROSPECT_STATUS_TITLES } from './consts';
-import { IconChevronDown, IconInfoCircle, IconMoodSad, IconPlus } from '@tabler/icons-react';
+import {
+  COMMON_DRAWER_PROPS,
+  CONTACT_ICONS,
+  CONTACT_LINKS,
+  PROSPECT_STATUS_ORDER,
+  PROSPECT_STATUS_TITLES,
+} from './consts';
+import { IconChevronDown, IconDots, IconInfoCircle, IconMoodSad, IconPlus } from '@tabler/icons-react';
 import { useNavigate } from 'react-router';
 
 type ProspectListProps = {
@@ -24,11 +30,16 @@ export const ProspectList: FC<ProspectListProps> = (props) => {
       <Stack
         p='xl'
         align='center'
-        gap='md'
+        gap='xl'
         c='dimmed'
       >
-        <IconMoodSad size={48} />
-        <Text ta='center'>Пока нет клиентов</Text>
+        <Stack
+          align='center'
+          gap='xs'
+        >
+          <IconMoodSad size={48} />
+          <Text ta='center'>Пока нет клиентов</Text>
+        </Stack>
         <Button
           size='md'
           radius='xl'
@@ -58,65 +69,82 @@ export const ProspectList: FC<ProspectListProps> = (props) => {
 
   const cards = prospects.map((prospect, index) => (
     <React.Fragment key={prospect.id}>
-      <Stack gap='sm'>
+      <Stack
+        gap='md'
+        pl={32}
+      >
         <Group
           gap='sm'
           align='center'
+          justify='space-between'
         >
-          <Avatar
-            radius='xl'
-            name={prospect.name}
-            color='initials'
-          />
-          {prospect.name}
+          <Group
+            gap='sm'
+            align='center'
+          >
+            <Avatar
+              radius='xl'
+              size={36}
+              name={prospect.name}
+              color='initials'
+            />
+            <Text size='md'>{prospect.name}</Text>
+          </Group>
+          <ActionIcon
+            variant='transparent'
+            color='default'
+            onClick={() => navigate(`/properties/${propertyId}/edit?tab=prospects`)}
+          >
+            <IconDots
+              stroke={1.8}
+              size={20}
+            />
+          </ActionIcon>
         </Group>
-        <Grid pl={8}>
-          <Grid.Col span={4}>
-            <Group gap='xs'>
-              <IconInfoCircle size={16} />
-              <Text size='sm'>Статус</Text>
-            </Group>
-          </Grid.Col>
-          <Grid.Col span={8}>
-            <UnstyledButton
-              display='flex'
-              onClick={() => openStatusModal(prospect)}
+        <Group
+          gap='md'
+          align='center'
+        >
+          <IconInfoCircle
+            stroke={1.8}
+            size={20}
+            color='var(--mantine-color-dimmed)'
+          />
+          <UnstyledButton
+            display='flex'
+            onClick={() => openStatusModal(prospect)}
+          >
+            <Badge
+              rightSection={<IconChevronDown size={12} />}
+              variant='light'
+              size='md'
             >
-              <Badge
-                rightSection={<IconChevronDown size={12} />}
-                variant='light'
+              {PROSPECT_STATUS_TITLES[prospect.status]}
+            </Badge>
+          </UnstyledButton>
+        </Group>
+        {Object.entries(prospect.contacts).map(([key, value]) => (
+          <React.Fragment key={key}>
+            {value && (
+              <Group
+                gap='md'
+                align='center'
               >
-                {PROSPECT_STATUS_TITLES[prospect.status]}
-              </Badge>
-            </UnstyledButton>
-          </Grid.Col>
-          {Object.entries(prospect.contacts).map(([key, value]) => (
-            <React.Fragment key={key}>
-              {value && (
-                <>
-                  <Grid.Col span={4}>
-                    <Group gap='xs'>
-                      {CONTACT_ICONS[key as keyof Prospect['contacts']]}
-                      <Text size='sm'>{CONTACT_LABELS[key as keyof Prospect['contacts']]}</Text>
-                    </Group>
-                  </Grid.Col>
-                  <Grid.Col span={8}>
-                    <a
-                      href={`${CONTACT_LINKS[key as keyof Prospect['contacts']]}${value}`}
-                      key={key}
-                      target='_blank'
-                      style={{ textDecoration: 'none', color: 'inherit' }}
-                    >
-                      <Text size='sm'>{value}</Text>
-                    </a>
-                  </Grid.Col>
-                </>
-              )}
-            </React.Fragment>
-          ))}
-        </Grid>
+                {CONTACT_ICONS[key as keyof Prospect['contacts']]}
+                <a
+                  href={`${CONTACT_LINKS[key as keyof Prospect['contacts']]}${value}`}
+                  key={key}
+                  target='_blank'
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                >
+                  <Text size='md'>{value}</Text>
+                </a>
+              </Group>
+            )}
+          </React.Fragment>
+        ))}
       </Stack>
-      {index !== prospects.length - 1 && <Divider />}
+      {index !== prospects.length - 1 && <Divider ml={68} />}
     </React.Fragment>
   ));
 
@@ -124,15 +152,20 @@ export const ProspectList: FC<ProspectListProps> = (props) => {
     <>
       <Stack gap='md'>{cards}</Stack>
       <Drawer
+        {...COMMON_DRAWER_PROPS}
         opened={modalOpened}
         onClose={() => {
           setModalOpened(false);
           setActiveProspect(null);
         }}
-        position='bottom'
-        size='md'
-        title={'Изменение статуса'}
-        radius='md'
+        title={
+          <Text
+            size='xl'
+            fw='bold'
+          >
+            Изменить статус
+          </Text>
+        }
       >
         <Timeline
           active={activeProspect ? PROSPECT_STATUS_ORDER.indexOf(activeProspect.status) : -1}

@@ -1,7 +1,7 @@
 import { useEffect, useState, type FC } from 'react';
 import type { Property } from '../../../data/entities/property';
 import { Accordion, Group, Avatar, Stack, Space, Text, Divider } from '@mantine/core';
-import { IconUser, IconUsers } from '@tabler/icons-react';
+import { IconBuilding, IconUser, IconUsers } from '@tabler/icons-react';
 import { Price } from '../../../app/components';
 import { OwnerInfo } from './owner-info';
 import { PropertyInfo } from './property-info';
@@ -53,7 +53,12 @@ export const PropertyListItem: FC<PropertyListItemProps> = (props) => {
                 radius='xl'
                 name={property.name}
                 color='initials'
-              />
+              >
+                <IconBuilding
+                  stroke={1.8}
+                  size={24}
+                />
+              </Avatar>
               <Stack gap={0}>
                 <Text
                   fw='bold'
@@ -98,13 +103,35 @@ export const PropertyListItem: FC<PropertyListItemProps> = (props) => {
                   wrap='nowrap'
                 >
                   <Accordion.Control>
-                    <Group gap='xs'>
-                      <IconUser
-                        stroke={1.8}
-                        color='var(--mantine-color-dimmed)'
-                        size={24}
-                      />
-                      <Text size='lg'>Собственник</Text>
+                    <Group
+                      align='center'
+                      gap='xs'
+                    >
+                      <Avatar
+                        size={48}
+                        radius='xl'
+                        name={owner?.name}
+                        color='initials'
+                      >
+                        <IconUser
+                          stroke={1.8}
+                          size={24}
+                        />
+                      </Avatar>
+                      <Stack gap={0}>
+                        <Text
+                          fw='bold'
+                          size='lg'
+                        >
+                          {owner?.name}
+                        </Text>
+                        <Text
+                          size='sm'
+                          c='dimmed'
+                        >
+                          Собственник
+                        </Text>
+                      </Stack>
                     </Group>
                   </Accordion.Control>
                   <PropertyFormProvider propertyId={property.id}>
@@ -116,7 +143,7 @@ export const PropertyListItem: FC<PropertyListItemProps> = (props) => {
                 </Accordion.Panel>
               </Accordion.Item>
             )}
-            <Divider ml={82} />
+            <Divider ml={106} />
             <Accordion.Item value='prospects'>
               <Group
                 gap={0}
@@ -124,24 +151,33 @@ export const PropertyListItem: FC<PropertyListItemProps> = (props) => {
               >
                 <Accordion.Control>
                   <Group
+                    align='center'
                     gap='xs'
-                    wrap='nowrap'
                   >
-                    <IconUsers
-                      stroke={1.8}
-                      color='var(--mantine-color-dimmed)'
-                      size={24}
-                    />
-                    <Text size='lg'>Клиенты</Text>{' '}
-                    <Text
-                      size='lg'
-                      c='dimmed'
+                    <Avatar
+                      size={48}
+                      radius='xl'
+                      color='initials'
+                      name={`Клиенты ${property.name}`}
                     >
-                      {property.prospectIds.length}
-                    </Text>
+                      <IconUsers
+                        stroke={1.8}
+                        size={24}
+                      />
+                    </Avatar>
+                    <Stack gap={0}>
+                      <Text
+                        fw='bold'
+                        size='lg'
+                      >
+                        {property.prospectIds.length} клиентов
+                      </Text>
+                    </Stack>
                   </Group>
                 </Accordion.Control>
-                <ProspectListMenu propertyId={property.id} />
+                <PropertyFormProvider propertyId={property.id}>
+                  <ProspectListMenu />
+                </PropertyFormProvider>
               </Group>
               <Accordion.Panel>
                 <ProspectList

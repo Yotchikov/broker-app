@@ -55,6 +55,61 @@ export const PropertyFormProvider: FC<PropertyFormProviderProps> = (props) => {
     prospects: [],
   });
 
+  const loadExistingData = async () => {
+    try {
+      setIsLoading(true);
+      const property = await propertyDataProvider.getPropertyById(propertyId || (params.id as string));
+      const owner = await ownerDataProvider.getOwnerById(property.ownerId as string);
+      const prospects = await Promise.all(property.prospectIds.map((id) => prospectDataProvider.getProspectById(id)));
+
+      setFormData((prev) => ({
+        ...prev,
+        property: {
+          ...prev.property,
+          id: property.id,
+          name: property.name ?? '',
+          dealType: property.dealType,
+          price: {
+            ...prev.property.price,
+            amount: property.price?.amount ? property.price.amount / 100 : 0,
+            currency: property.price?.currency ?? 'RUB',
+          },
+          floor: {
+            ...prev.property.floor,
+            number: property.floor?.number ?? 0,
+            total: property.floor?.total ?? 0,
+          },
+          area: property.area ? property.area / 100 : 0,
+        },
+        owner: {
+          ...prev.owner,
+          id: owner?.id ?? crypto.randomUUID(),
+          name: owner?.name ?? '',
+          avatar: owner?.avatar ?? '',
+          contacts: owner?.contacts ?? {},
+        },
+        prospects: prospects.map((prospect) => ({
+          ...prospect,
+          id: prospect.id ?? crypto.randomUUID(),
+          name: prospect.name ?? '',
+          contacts: {
+            ...prospect.contacts,
+            phone: prospect.contacts.phone ?? '',
+            email: prospect.contacts.email ?? '',
+            telegram: prospect.contacts.telegram ?? '',
+            whatsapp: prospect.contacts.whatsapp ?? '',
+          },
+          avatar: prospect.avatar ?? '',
+          status: prospect.status,
+        })),
+      }));
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Не удалось загрузить объект');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const [currentStep, setCurrentStep] = useState(initialStep);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -82,61 +137,6 @@ export const PropertyFormProvider: FC<PropertyFormProviderProps> = (props) => {
   // Load existing data in edit mode
   useEffect(() => {
     if (!isEditMode) return;
-
-    const loadExistingData = async () => {
-      try {
-        setIsLoading(true);
-        const property = await propertyDataProvider.getPropertyById(propertyId || (params.id as string));
-        const owner = await ownerDataProvider.getOwnerById(property.ownerId as string);
-        const prospects = await Promise.all(property.prospectIds.map((id) => prospectDataProvider.getProspectById(id)));
-
-        setFormData((prev) => ({
-          ...prev,
-          property: {
-            ...prev.property,
-            id: property.id,
-            name: property.name ?? '',
-            dealType: property.dealType,
-            price: {
-              ...prev.property.price,
-              amount: property.price?.amount ? property.price.amount / 100 : 0,
-              currency: property.price?.currency ?? 'RUB',
-            },
-            floor: {
-              ...prev.property.floor,
-              number: property.floor?.number ?? 0,
-              total: property.floor?.total ?? 0,
-            },
-            area: property.area ? property.area / 100 : 0,
-          },
-          owner: {
-            ...prev.owner,
-            id: owner?.id ?? crypto.randomUUID(),
-            name: owner?.name ?? '',
-            avatar: owner?.avatar ?? '',
-            contacts: owner?.contacts ?? {},
-          },
-          prospects: prospects.map((prospect) => ({
-            ...prospect,
-            id: prospect.id ?? crypto.randomUUID(),
-            name: prospect.name ?? '',
-            contacts: {
-              ...prospect.contacts,
-              phone: prospect.contacts.phone ?? '',
-              email: prospect.contacts.email ?? '',
-              telegram: prospect.contacts.telegram ?? '',
-              whatsapp: prospect.contacts.whatsapp ?? '',
-            },
-            avatar: prospect.avatar ?? '',
-            status: prospect.status,
-          })),
-        }));
-      } catch (e) {
-        setError(e instanceof Error ? e.message : 'Не удалось загрузить объект');
-      } finally {
-        setIsLoading(false);
-      }
-    };
 
     loadExistingData();
   }, [isEditMode, propertyId, params?.id]);
@@ -281,6 +281,31 @@ export const PropertyFormProvider: FC<PropertyFormProviderProps> = (props) => {
     }
   }, [formData, isEditMode, propertyId, params?.id, navigate]);
 
+  const clearForm = useCallback(() => {
+    if (isEditMode) {
+      loadExistingData();
+    } else {
+      setFormData({
+        // Property info
+        property: {
+          id: crypto.randomUUID(),
+          name: '',
+          dealType: 'sale',
+        },
+
+        // Owner info
+        owner: {
+          id: crypto.randomUUID(),
+          name: '',
+          contacts: {},
+        },
+
+        // Prospects info
+        prospects: [],
+      });
+    }
+  }, []);
+
   const contextValue: PropertyFormContextValue = useMemo(
     () => ({
       formData,
@@ -297,6 +322,7 @@ export const PropertyFormProvider: FC<PropertyFormProviderProps> = (props) => {
       nextStep,
       prevStep,
       submitForm,
+      clearForm,
       setError,
     }),
     [
@@ -314,6 +340,7 @@ export const PropertyFormProvider: FC<PropertyFormProviderProps> = (props) => {
       nextStep,
       prevStep,
       submitForm,
+      clearForm,
       setError,
     ],
   );

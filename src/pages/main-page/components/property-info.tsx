@@ -14,12 +14,21 @@ export const PropertyInfo: FC<PropertyInfoProps> = (props) => {
         <>
           <Grid.Col span={4}>
             <Group gap='xs'>
-              <IconShape size={16} />
-              <Text size='sm'>Площадь</Text>
+              <IconShape
+                color='var(--mantine-color-dimmed)'
+                stroke={1.8}
+                size={20}
+              />
+              <Text
+                c='dimmed'
+                size='md'
+              >
+                Площадь
+              </Text>
             </Group>
           </Grid.Col>
           <Grid.Col span={8}>
-            <Text size='sm'>{area / 100} м²</Text>
+            <Text size='md'>{area / 100} м²</Text>
           </Grid.Col>
         </>
       )}
@@ -27,12 +36,21 @@ export const PropertyInfo: FC<PropertyInfoProps> = (props) => {
         <>
           <Grid.Col span={4}>
             <Group gap='xs'>
-              <IconBuilding size={16} />
-              <Text size='sm'>Этаж</Text>
+              <IconBuilding
+                color='var(--mantine-color-dimmed)'
+                stroke={1.8}
+                size={20}
+              />
+              <Text
+                c='dimmed'
+                size='md'
+              >
+                Этаж
+              </Text>
             </Group>
           </Grid.Col>
           <Grid.Col span={8}>
-            <Text size='sm'>
+            <Text size='md'>
               {floor.number} из {floor.total}
             </Text>
           </Grid.Col>

@@ -28,5 +28,6 @@ export type PropertyFormContextValue = {
 
   // Form submission
   submitForm: () => Promise<void>;
+  clearForm: () => void;
   setError: (error: string | null) => void;
 };

@@ -1,6 +1,6 @@
 import { type FC } from 'react';
 import { type Owner } from '../../../data';
-import { Text, Grid, Avatar, Group } from '@mantine/core';
+import { Text, Group, Stack } from '@mantine/core';
 import { CONTACT_ICONS, CONTACT_LINKS } from './consts';
 import React from 'react';
 
@@ -14,34 +14,19 @@ export const OwnerInfo: FC<OwnerInfoProps> = ({ owner }) => {
   }
 
   return (
-    <Grid
+    <Stack
       pl={32}
-      align='center'
-      gutter='xs'
+      gap={'md'}
     >
-      <Grid.Col span={2}>
-        <Avatar
-          radius='xl'
-          name={owner.name}
-          color='initials'
-        />
-      </Grid.Col>
-      <Grid.Col span={10}>
-        <Text size='md'>{owner.name}</Text>
-      </Grid.Col>
       {Object.entries(owner.contacts).map(([key, value]) => (
         <React.Fragment key={key}>
           {value && (
             <>
-              <Grid.Col span={2}>
-                <Group
-                  justify='flex-end'
-                  align='center'
-                >
-                  {CONTACT_ICONS[key as keyof Owner['contacts']]}
-                </Group>
-              </Grid.Col>
-              <Grid.Col span={10}>
+              <Group
+                align='center'
+                gap='md'
+              >
+                {CONTACT_ICONS[key as keyof Owner['contacts']]}
                 <a
                   href={`${CONTACT_LINKS[key as keyof Owner['contacts']]}${value}`}
                   key={key}
@@ -50,11 +35,11 @@ export const OwnerInfo: FC<OwnerInfoProps> = ({ owner }) => {
                 >
                   <Text size='md'>{value}</Text>
                 </a>
-              </Grid.Col>
+              </Group>
             </>
           )}
         </React.Fragment>
       ))}
-    </Grid>
+    </Stack>
   );
 };

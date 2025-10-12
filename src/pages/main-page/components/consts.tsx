@@ -32,35 +32,32 @@ export const PROSPECT_STATUS_ORDER: ProspectStatus[] = [
 export const CONTACT_ICONS: Record<keyof Prospect['contacts'], ReactNode> = {
   phone: (
     <IconPhone
+      stroke={1.8}
       color='var(--mantine-color-dimmed)'
       size={20}
     />
   ),
   email: (
     <IconAt
+      stroke={1.8}
       color='var(--mantine-color-dimmed)'
       size={20}
     />
   ),
   telegram: (
     <IconBrandTelegram
+      stroke={1.8}
       color='var(--mantine-color-dimmed)'
       size={20}
     />
   ),
   whatsapp: (
     <IconBrandWhatsapp
+      stroke={1.8}
       color='var(--mantine-color-dimmed)'
       size={20}
     />
   ),
-};
-
-export const CONTACT_LABELS: Record<keyof Prospect['contacts'], string> = {
-  phone: 'Телефон',
-  email: 'Email',
-  telegram: 'Telegram',
-  whatsapp: 'WhatsApp',
 };
 
 export const CONTACT_LINKS: Record<keyof Prospect['contacts'], string> = {
