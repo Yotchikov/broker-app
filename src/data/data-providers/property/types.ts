@@ -6,4 +6,5 @@ export interface PropertyDataProvider {
   createProperty: (property: Property) => Promise<Property>;
   updateProperty: (property: Property) => Promise<Property>;
   deletePropertyById: (id: string) => Promise<void>;
+  deletePropertyProspectById: (id: string) => Promise<void>;
 }

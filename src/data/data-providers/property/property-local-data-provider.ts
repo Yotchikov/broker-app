@@ -1,8 +1,18 @@
 import type { Property } from '../../entities';
+import type { OwnerDataProvider } from '../owner/types';
+import type { ProspectDataProvider } from '../prospect/types';
 import type { PropertyDataProvider } from './types';
 
 export class PropertyLocalDataProviderImpl implements PropertyDataProvider {
   private readonly storageKey = 'broker_app_db';
+
+  constructor(
+    private readonly _ownerDataProvider: OwnerDataProvider,
+    private readonly _prospectDataProvider: ProspectDataProvider,
+  ) {
+    this._ownerDataProvider = _ownerDataProvider;
+    this._prospectDataProvider = _prospectDataProvider;
+  }
 
   private getPropertiesFromStorage(): Property[] {
     try {
@@ -78,12 +88,33 @@ export class PropertyLocalDataProviderImpl implements PropertyDataProvider {
 
   deletePropertyById = async (id: string): Promise<void> => {
     const properties = this.getPropertiesFromStorage();
-    const filteredProperties = properties.filter((property) => property.id !== id);
+    const property = properties.find((property) => property.id === id);
 
-    if (properties.length === filteredProperties.length) {
+    if (!property) {
       throw new Error(`Property with id ${id} not found`);
     }
 
+    this._ownerDataProvider.deleteOwnerById(property.ownerId!);
+
+    for (const prospectId of property.prospectIds) {
+      this._prospectDataProvider.deleteProspectById(prospectId);
+    }
+
+    const filteredProperties = properties.filter((property) => property.id !== id);
+
     this.savePropertiesToStorage(filteredProperties);
+  };
+
+  deletePropertyProspectById = async (id: string): Promise<void> => {
+    const properties = this.getPropertiesFromStorage();
+    const index = properties.findIndex((p) => p.prospectIds.includes(id));
+
+    if (index !== -1) {
+      properties[index].prospectIds = properties[index].prospectIds.filter((prospectId) => prospectId !== id);
+    }
+
+    this.savePropertiesToStorage(properties);
+
+    this._prospectDataProvider.deleteProspectById(id);
   };
 }

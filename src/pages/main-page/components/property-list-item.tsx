@@ -33,7 +33,7 @@ export const PropertyListItem: FC<PropertyListItemProps> = (props) => {
   }, [property]);
 
   return (
-    <>
+    <PropertyFormProvider propertyId={property.id}>
       <Accordion.Item
         value={property.id}
         key={property.id}
@@ -80,9 +80,7 @@ export const PropertyListItem: FC<PropertyListItemProps> = (props) => {
               </Stack>
             </Group>
           </Accordion.Control>
-          <PropertyFormProvider propertyId={property.id}>
-            <PropertyListItemMenu propertyId={property.id} />
-          </PropertyFormProvider>
+          <PropertyListItemMenu propertyId={property.id} />
         </Group>
         <Accordion.Panel>
           <PropertyInfo
@@ -134,9 +132,7 @@ export const PropertyListItem: FC<PropertyListItemProps> = (props) => {
                       </Stack>
                     </Group>
                   </Accordion.Control>
-                  <PropertyFormProvider propertyId={property.id}>
-                    <OwnerInfoMenu />
-                  </PropertyFormProvider>
+                  <OwnerInfoMenu />
                 </Group>
                 <Accordion.Panel>
                   <OwnerInfo owner={owner} />
@@ -175,11 +171,9 @@ export const PropertyListItem: FC<PropertyListItemProps> = (props) => {
                     </Stack>
                   </Group>
                 </Accordion.Control>
-                <PropertyFormProvider propertyId={property.id}>
-                  <ProspectListMenu />
-                </PropertyFormProvider>
+                <ProspectListMenu />
               </Group>
-              <Accordion.Panel>
+              <Accordion.Panel styles={{ content: { paddingRight: '0' } }}>
                 <ProspectList
                   prospects={prospects}
                   propertyId={property.id}
@@ -189,6 +183,6 @@ export const PropertyListItem: FC<PropertyListItemProps> = (props) => {
           </Accordion>
         </Accordion.Panel>
       </Accordion.Item>
-    </>
+    </PropertyFormProvider>
   );
 };

@@ -60,7 +60,7 @@ export const ProspectListMenu = () => {
                 color='var(--mantine-color-dimmed)'
                 size={24}
               />
-              <Text size='lg'>Добавить клиента</Text>
+              <Text size='lg'>Добавить</Text>
             </Group>
           </Stack>
         </Drawer>
