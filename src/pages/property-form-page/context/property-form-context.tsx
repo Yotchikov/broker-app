@@ -241,13 +241,12 @@ export const PropertyFormProvider: FC<PropertyFormProviderProps> = (props) => {
                 currency: 'RUB',
               }
             : undefined,
-        floor:
-          formData.property.floor && formData.property.floor.number > 0 && formData.property.floor.total > 0
-            ? {
-                number: Number(formData.property.floor?.number || 0),
-                total: Number(formData.property.floor?.total || 0),
-              }
-            : undefined,
+        floor: formData.property.floor
+          ? {
+              number: Number(formData.property.floor?.number),
+              total: Number(formData.property.floor?.total),
+            }
+          : undefined,
         area: formData.property.area && formData.property.area > 0 ? Number(formData.property.area) * 100 : undefined,
       };
 

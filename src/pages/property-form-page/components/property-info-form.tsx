@@ -68,7 +68,11 @@ export const PropertyInfoForm = (props: PropertyInfoFormProps) => {
           onChange={(v) => {
             if (Number.isFinite(v as number)) {
               updatePropertyInfo({
-                floor: { number: v as number, total: Math.max(v as number, formData.property.floor?.total ?? 0) },
+                floor: { number: v as number, total: formData.property.floor?.total },
+              });
+            } else {
+              updatePropertyInfo({
+                floor: { number: undefined, total: formData.property.floor?.total },
               });
             }
           }}
@@ -83,7 +87,11 @@ export const PropertyInfoForm = (props: PropertyInfoFormProps) => {
           onChange={(v) => {
             if (Number.isFinite(v as number)) {
               updatePropertyInfo({
-                floor: { number: Math.min(v as number, formData.property.floor?.number ?? 0), total: v as number },
+                floor: { number: formData.property.floor?.number, total: v as number },
+              });
+            } else {
+              updatePropertyInfo({
+                floor: { number: formData.property.floor?.number, total: undefined },
               });
             }
           }}

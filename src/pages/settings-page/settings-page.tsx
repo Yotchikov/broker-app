@@ -22,7 +22,7 @@ export const SettingsPage: FC = () => {
             <Title order={5}>Вы пользуетесь MVP</Title>
             <Text size='sm'>Некоторые функции могут быть недоступны или работать некорректно.</Text>
             <Text size='sm'>
-              По всем вопросам можно писать в Telegram <a href='https://t.me/shkuratov_official'>Грише</a> и{' '}
+              По всем вопросам можно писать в Telegram <a href='https://t.me/shkuratov_official'>Григорию</a> и{' '}
               <a href='https://t.me/yotchikov'>Антону</a>.
             </Text>
           </Stack>
