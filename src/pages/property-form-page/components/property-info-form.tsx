@@ -41,7 +41,7 @@ export const PropertyInfoForm = (props: PropertyInfoFormProps) => {
         size='md'
         variant='filled'
         thousandSeparator=' '
-        placeholder={formData.property.dealType === 'sale' ? '15,000,000' : '80,000'}
+        placeholder={formData.property.dealType === 'sale' ? '15 000 000' : '80 000'}
         value={formData.property.price?.amount}
         onChange={(v) => {
           if (Number.isFinite(v as number)) {

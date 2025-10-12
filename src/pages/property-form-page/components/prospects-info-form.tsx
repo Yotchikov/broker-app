@@ -132,7 +132,7 @@ export const ProspectsInfoForm = () => {
                       size='lg'
                       order={4}
                     >
-                      Клиент {index + 1}
+                      Клиент {formData.prospects.length - index}
                     </Title>
                     <ActionIcon
                       color='red'

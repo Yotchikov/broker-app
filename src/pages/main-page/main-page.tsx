@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import { Box, Container, Input, SegmentedControl, Stack, Title, Text, Button, Space } from '@mantine/core';
+import { Box, Container, Input, SegmentedControl, Stack, Title, Text, Button } from '@mantine/core';
 import { IconPlus, IconSearch } from '@tabler/icons-react';
 import { PropertyList } from './components/property-list';
 import { useLoaderData, useNavigate } from 'react-router';
@@ -28,7 +28,10 @@ export const MainPage: FC = () => {
           w='100%'
           h='100%'
         >
-          <Stack align='center'>
+          <Stack
+            align='center'
+            gap='xl'
+          >
             <Logo
               style={{
                 maxWidth: 200,
@@ -37,7 +40,7 @@ export const MainPage: FC = () => {
               }}
             />
             <Text
-              size='xl'
+              size='lg'
               ta='center'
             >
               Приложение для управления
@@ -46,14 +49,13 @@ export const MainPage: FC = () => {
               <br />
               собственниками и клиентами
             </Text>
-            <Space h='md' />
             <Button
-              leftSection={<IconPlus size={16} />}
+              leftSection={<IconPlus size={18} />}
               size='lg'
               radius='xl'
               onClick={() => navigate('/properties/create')}
             >
-              Добавьте первый объект
+              Добавить первый объект
             </Button>
           </Stack>
         </Stack>
