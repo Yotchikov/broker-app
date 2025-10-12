@@ -1,4 +1,4 @@
-import { createBrowserRouter, Outlet } from 'react-router';
+import { createBrowserRouter, Outlet, Navigate } from 'react-router';
 import { MainPage, PropertyFormPage, SettingsPage } from '../../pages';
 import { TopNavbar, TOP_NAVBAR_HEIGHT, BottomNavbar, BOTTOM_NAVBAR_HEIGHT } from '../components';
 import { propertyDataProvider } from '../../data';
@@ -40,6 +40,15 @@ export const router = createBrowserRouter([
       {
         path: 'properties/:id/edit',
         Component: PropertyFormPage,
+      },
+      {
+        path: '*',
+        element: (
+          <Navigate
+            to='/'
+            replace
+          />
+        ),
       },
     ],
   },
