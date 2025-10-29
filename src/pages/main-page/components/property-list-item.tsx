@@ -50,7 +50,7 @@ export const PropertyListItem: FC<PropertyListItemProps> = (props) => {
             >
               <Avatar
                 size={48}
-                radius='xl'
+                radius='lg'
                 name={property.name}
                 color='initials'
               >
@@ -107,7 +107,7 @@ export const PropertyListItem: FC<PropertyListItemProps> = (props) => {
                     >
                       <Avatar
                         size={48}
-                        radius='xl'
+                        radius='lg'
                         name={owner?.name}
                         color='initials'
                       >
@@ -152,7 +152,7 @@ export const PropertyListItem: FC<PropertyListItemProps> = (props) => {
                   >
                     <Avatar
                       size={48}
-                      radius='xl'
+                      radius='lg'
                       color='initials'
                       name={`Клиенты ${property.name}`}
                     >

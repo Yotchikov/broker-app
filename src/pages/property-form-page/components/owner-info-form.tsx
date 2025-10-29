@@ -15,7 +15,7 @@ export const OwnerInfoForm = (props: OwnerInfoFormProps) => {
     <Stack gap='md'>
       {withTitle && <Title order={3}>Собственник</Title>}
       <TextInput
-        radius='xl'
+        radius='lg'
         size='md'
         label='Имя'
         placeholder='Иван Иванов'
@@ -25,7 +25,7 @@ export const OwnerInfoForm = (props: OwnerInfoFormProps) => {
       />
       <Title order={4}>Контакты</Title>
       <TextInput
-        radius='xl'
+        radius='lg'
         type='tel'
         size='md'
         placeholder='+7 (999) 123-45-67'
@@ -34,7 +34,7 @@ export const OwnerInfoForm = (props: OwnerInfoFormProps) => {
         onChange={(ev) => updateOwnerInfo({ contacts: { ...formData.owner.contacts, phone: ev.currentTarget.value } })}
       />
       <TextInput
-        radius='xl'
+        radius='lg'
         type='email'
         size='md'
         placeholder='email@example.com'
@@ -43,7 +43,7 @@ export const OwnerInfoForm = (props: OwnerInfoFormProps) => {
         onChange={(ev) => updateOwnerInfo({ contacts: { ...formData.owner.contacts, email: ev.currentTarget.value } })}
       />
       <TextInput
-        radius='xl'
+        radius='lg'
         type='text'
         size='md'
         leftSection={<IconBrandTelegram size={16} />}
@@ -54,7 +54,7 @@ export const OwnerInfoForm = (props: OwnerInfoFormProps) => {
         }
       />
       <TextInput
-        radius='xl'
+        radius='lg'
         type='tel'
         size='md'
         leftSection={<IconBrandWhatsapp size={16} />}

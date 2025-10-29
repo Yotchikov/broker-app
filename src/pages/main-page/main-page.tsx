@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import { Box, Container, Input, SegmentedControl, Stack, Title, Text, Button } from '@mantine/core';
+import { Box, Container, Input, SegmentedControl, Stack, Text, Button } from '@mantine/core';
 import { IconPlus, IconSearch } from '@tabler/icons-react';
 import { PropertyList } from './components/property-list';
 import { useLoaderData, useNavigate } from 'react-router';
@@ -10,11 +10,14 @@ import Logo from '../../../public/images/logo.svg?react';
 
 export const MainPage: FC = () => {
   const { properties } = useLoaderData<{ properties: Property[] }>();
+  const propertiesCount = properties.length;
+  const salePropertiesCount = properties.filter((property) => property.dealType === 'sale').length;
+  const rentPropertiesCount = properties.filter((property) => property.dealType === 'rent').length;
 
   const [dealType, setDealType] = useState<'all' | 'sale' | 'rent'>('all');
   const navigate = useNavigate();
 
-  if (properties.length === 0) {
+  if (propertiesCount === 0) {
     return (
       <Container
         p={0}
@@ -79,62 +82,46 @@ export const MainPage: FC = () => {
           <Input
             size='md'
             placeholder='Поиск'
-            radius='xl'
+            radius='lg'
             leftSection={<IconSearch size={16} />}
           />
-          <SegmentedControl
-            size='md'
-            radius='xl'
-            fullWidth
-            data={[
-              { label: 'Всё', value: 'all' },
-              { label: 'Продажа', value: 'sale' },
-              { label: 'Аренда', value: 'rent' },
-            ]}
-            value={dealType}
-            onChange={(value) => setDealType(value as 'all' | 'sale' | 'rent')}
-            styles={{
-              root: {
-                backgroundColor: 'transparent',
-              },
-            }}
-          />
+          <Box>
+            <SegmentedControl
+              color='blue'
+              size='lg'
+              radius='lg'
+              data={[
+                {
+                  label: `Всё ${propertiesCount}`,
+                  value: 'all',
+                },
+                {
+                  label: `Продажа ${salePropertiesCount}`,
+                  value: 'sale',
+                },
+                {
+                  label: `Аренда ${rentPropertiesCount}`,
+                  value: 'rent',
+                },
+              ]}
+              value={dealType}
+              onChange={(value) => setDealType(value as 'all' | 'sale' | 'rent')}
+              styles={{
+                root: {
+                  backgroundColor: 'transparent',
+                },
+              }}
+              withItemsBorders={false}
+            />
+          </Box>
         </Stack>
         {((dealType === 'all' && properties.some((property) => property.dealType === 'sale')) ||
           dealType === 'sale') && (
-          <>
-            <Title
-              order={2}
-              px='sm'
-            >
-              Продажа{' '}
-              <Box
-                display='inline-block'
-                c='dimmed'
-              >
-                {properties.filter((property) => property.dealType === 'sale').length}
-              </Box>
-            </Title>
-            <PropertyList properties={properties.filter((property) => property.dealType === 'sale')} />
-          </>
+          <PropertyList properties={properties.filter((property) => property.dealType === 'sale')} />
         )}
         {((dealType === 'all' && properties.some((property) => property.dealType === 'rent')) ||
           dealType === 'rent') && (
-          <>
-            <Title
-              order={2}
-              px='sm'
-            >
-              Аренда{' '}
-              <Box
-                display='inline-block'
-                c='dimmed'
-              >
-                {properties.filter((property) => property.dealType === 'rent').length}
-              </Box>
-            </Title>
-            <PropertyList properties={properties.filter((property) => property.dealType === 'rent')} />
-          </>
+          <PropertyList properties={properties.filter((property) => property.dealType === 'rent')} />
         )}
       </Stack>
     </Container>

@@ -87,7 +87,7 @@ export const ProspectList: FC<ProspectListProps> = (props) => {
             >
               <Avatar
                 size={48}
-                radius='xl'
+                radius='lg'
                 name={prospect.name}
                 color='initials'
               />

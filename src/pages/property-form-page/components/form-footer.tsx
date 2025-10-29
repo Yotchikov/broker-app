@@ -20,7 +20,7 @@ export const FormFooter = () => {
         <Button
           variant='light'
           size='lg'
-          radius='xl'
+          radius='lg'
           onClick={prevStep}
           loading={isLoading}
         >
@@ -32,7 +32,7 @@ export const FormFooter = () => {
       {nextStep ? (
         <Button
           size='lg'
-          radius='xl'
+          radius='lg'
           onClick={nextStep}
           loading={isLoading}
         >
@@ -41,7 +41,7 @@ export const FormFooter = () => {
       ) : (
         <Button
           size='lg'
-          radius='xl'
+          radius='lg'
           onClick={submitForm}
           loading={isLoading}
         >
