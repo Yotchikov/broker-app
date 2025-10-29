@@ -20,7 +20,7 @@ export const PropertyInfoForm = (props: PropertyInfoFormProps) => {
       {withTitle && <Title order={3}>Объект</Title>}
       <TextInput
         label='Название'
-        variant='filled'
+        radius='xl'
         size='md'
         placeholder='ЖК Lucky'
         required
@@ -34,12 +34,18 @@ export const PropertyInfoForm = (props: PropertyInfoFormProps) => {
         data={dealTypes}
         value={formData.property.dealType}
         onChange={(v) => updatePropertyInfo({ dealType: (v as 'sale' | 'rent') ?? 'sale' })}
+        radius='xl'
+        styles={{
+          root: {
+            backgroundColor: 'transparent',
+          },
+        }}
       />
 
       <NumberInput
         label='Цена'
         size='md'
-        variant='filled'
+        radius='xl'
         thousandSeparator=' '
         placeholder={formData.property.dealType === 'sale' ? '15 000 000' : '80 000'}
         value={formData.property.price?.amount}
@@ -62,7 +68,7 @@ export const PropertyInfoForm = (props: PropertyInfoFormProps) => {
         <NumberInput
           label='Этаж'
           size='md'
-          variant='filled'
+          radius='xl'
           placeholder='7'
           value={formData.property.floor?.number}
           onChange={(v) => {
@@ -81,7 +87,7 @@ export const PropertyInfoForm = (props: PropertyInfoFormProps) => {
         <NumberInput
           label='Всего этажей'
           size='md'
-          variant='filled'
+          radius='xl'
           placeholder='19'
           value={formData.property.floor?.total}
           onChange={(v) => {
@@ -102,7 +108,7 @@ export const PropertyInfoForm = (props: PropertyInfoFormProps) => {
       <NumberInput
         label='Площадь'
         size='md'
-        variant='filled'
+        radius='xl'
         placeholder='69'
         value={formData.property.area}
         onChange={(v) => {

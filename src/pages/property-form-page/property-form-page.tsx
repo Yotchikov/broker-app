@@ -18,7 +18,7 @@ const PropertyFormContent: FC = () => {
     >
       <Stack
         py='sm'
-        px='md'
+        px='sm'
         h='100%'
         justify='space-between'
       >

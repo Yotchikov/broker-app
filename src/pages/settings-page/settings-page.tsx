@@ -9,7 +9,7 @@ export const SettingsPage: FC = () => {
     <Container p={0}>
       <Stack
         py='sm'
-        px='md'
+        px='sm'
         gap='md'
       >
         <Title order={2}>Настройки</Title>

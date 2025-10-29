@@ -1,3 +1,7 @@
+:root[data-mantine-color-scheme='light'] {
+  --mantine-color-body: #f2f7fa !important;
+}
+
 html,
 body,
 #root {

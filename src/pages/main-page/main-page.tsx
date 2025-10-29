@@ -73,17 +73,18 @@ export const MainPage: FC = () => {
         py='sm'
       >
         <Stack
-          px={'md'}
+          px='sm'
           gap='sm'
         >
           <Input
             size='md'
-            variant='filled'
             placeholder='Поиск'
+            radius='xl'
             leftSection={<IconSearch size={16} />}
           />
           <SegmentedControl
             size='md'
+            radius='xl'
             fullWidth
             data={[
               { label: 'Всё', value: 'all' },
@@ -92,6 +93,11 @@ export const MainPage: FC = () => {
             ]}
             value={dealType}
             onChange={(value) => setDealType(value as 'all' | 'sale' | 'rent')}
+            styles={{
+              root: {
+                backgroundColor: 'transparent',
+              },
+            }}
           />
         </Stack>
         {((dealType === 'all' && properties.some((property) => property.dealType === 'sale')) ||
@@ -99,7 +105,7 @@ export const MainPage: FC = () => {
           <>
             <Title
               order={2}
-              px='md'
+              px='sm'
             >
               Продажа{' '}
               <Box
@@ -117,7 +123,7 @@ export const MainPage: FC = () => {
           <>
             <Title
               order={2}
-              px='md'
+              px='sm'
             >
               Аренда{' '}
               <Box
