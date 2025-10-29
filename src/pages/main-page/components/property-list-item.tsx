@@ -9,6 +9,7 @@ import { PropertyFormProvider } from '../../property-form-page/context';
 import { ownerDataProvider, prospectDataProvider, type Owner, type Prospect } from '../../../data';
 import { Carousel } from '@mantine/carousel';
 import { ProspectList } from './prospect-list';
+import { PropertyNote } from './property-note';
 
 type PropertyListItemProps = {
   property: Property;
@@ -79,6 +80,7 @@ export const PropertyListItem: FC<PropertyListItemProps> = (props) => {
             slideSize='90%'
             withControls={false}
             slideGap={'xs'}
+            emblaOptions={{ loop: true }}
           >
             <Carousel.Slide>
               <PropertyInfo
@@ -95,6 +97,9 @@ export const PropertyListItem: FC<PropertyListItemProps> = (props) => {
                 prospects={prospects}
                 propertyId={property.id}
               />
+            </Carousel.Slide>
+            <Carousel.Slide>
+              <PropertyNote propertyId={property.id} />
             </Carousel.Slide>
           </Carousel>
           {/* <PropertyInfo

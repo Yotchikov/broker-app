@@ -57,7 +57,7 @@ export const OwnerInfoMenu = () => {
             <OwnerInfoForm withTitle={false} />
             <Button
               size='md'
-              radius='xl'
+              radius='lg'
               onClick={handleEdit}
             >
               Сохранить

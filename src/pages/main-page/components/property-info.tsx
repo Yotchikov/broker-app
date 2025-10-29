@@ -10,10 +10,7 @@ export const PropertyInfo: FC<PropertyInfoProps> = (props) => {
   const { area, floor, price } = props;
 
   return (
-    <Stack
-      gap='xs'
-      ml='xs'
-    >
+    <Stack gap='xs'>
       <Group
         ml='md'
         gap='xs'
@@ -33,7 +30,7 @@ export const PropertyInfo: FC<PropertyInfoProps> = (props) => {
         <Grid>
           {price && (
             <>
-              <Grid.Col span={4}>
+              <Grid.Col span={5}>
                 <Group gap='xs'>
                   <IconCurrencyDollar
                     color='var(--mantine-color-dimmed)'
@@ -48,7 +45,7 @@ export const PropertyInfo: FC<PropertyInfoProps> = (props) => {
                   </Text>
                 </Group>
               </Grid.Col>
-              <Grid.Col span={8}>
+              <Grid.Col span={7}>
                 <Text size='md'>
                   <Price
                     amount={price.amount}
@@ -60,7 +57,7 @@ export const PropertyInfo: FC<PropertyInfoProps> = (props) => {
           )}
           {area && (
             <>
-              <Grid.Col span={4}>
+              <Grid.Col span={5}>
                 <Group gap='xs'>
                   <IconShape
                     color='var(--mantine-color-dimmed)'
@@ -75,14 +72,14 @@ export const PropertyInfo: FC<PropertyInfoProps> = (props) => {
                   </Text>
                 </Group>
               </Grid.Col>
-              <Grid.Col span={8}>
+              <Grid.Col span={7}>
                 <Text size='md'>{area / 100} м²</Text>
               </Grid.Col>
             </>
           )}
           {floor && (
             <>
-              <Grid.Col span={4}>
+              <Grid.Col span={5}>
                 <Group gap='xs'>
                   <IconBuilding
                     color='var(--mantine-color-dimmed)'
@@ -97,7 +94,7 @@ export const PropertyInfo: FC<PropertyInfoProps> = (props) => {
                   </Text>
                 </Group>
               </Grid.Col>
-              <Grid.Col span={8}>
+              <Grid.Col span={7}>
                 <Text size='md'>
                   {floor.number} из {floor.total}
                 </Text>

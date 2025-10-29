@@ -1,6 +1,6 @@
-import { ActionIcon, Drawer, Group, Text, Stack, useDrawersStack, Button, Textarea, Divider } from '@mantine/core';
-import { IconDots, IconNote, IconPencil, IconTrash } from '@tabler/icons-react';
-import { useEffect, useState } from 'react';
+import { ActionIcon, Drawer, Group, Text, Stack, useDrawersStack, Button, Divider } from '@mantine/core';
+import { IconDots, IconPencil, IconTrash } from '@tabler/icons-react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { propertyDataProvider } from '../../../data';
 import { usePropertyForm } from '../../property-form-page/context';
@@ -14,17 +14,7 @@ type PropertyListItemMenuProps = {
 export const PropertyListItemMenu = (props: PropertyListItemMenuProps) => {
   const { propertyId } = props;
 
-  const [note, setNote] = useState('');
-
-  useEffect(() => {
-    const fetchProperty = async () => {
-      const property = await propertyDataProvider.getPropertyById(propertyId);
-      setNote(property.note || '');
-    };
-    fetchProperty();
-  }, [propertyId]);
-
-  const stack = useDrawersStack(['actions', 'note', 'edit', 'confirm-delete']);
+  const stack = useDrawersStack(['actions', 'edit', 'confirm-delete']);
 
   const [isDeleting, setIsDeleting] = useState(false);
 
@@ -40,11 +30,6 @@ export const PropertyListItemMenu = (props: PropertyListItemMenuProps) => {
     } finally {
       setIsDeleting(false);
     }
-  };
-
-  const handleNoteChange = async (note: string) => {
-    setNote(note);
-    await propertyDataProvider.updateProperty({ id: propertyId, note });
   };
 
   const handleEdit = async () => {
@@ -70,15 +55,6 @@ export const PropertyListItemMenu = (props: PropertyListItemMenuProps) => {
           {...COMMON_DRAWER_PROPS}
         >
           <Stack gap={'xs'}>
-            <Group onClick={() => stack.open('note')}>
-              <IconNote
-                stroke={1.8}
-                color='var(--mantine-color-dimmed)'
-                size={24}
-              />
-              <Text size='lg'>Написать заметку</Text>
-            </Group>
-            <Divider ml={40} />
             <Group onClick={() => stack.open('edit')}>
               <IconPencil
                 stroke={1.8}
@@ -101,29 +77,6 @@ export const PropertyListItemMenu = (props: PropertyListItemMenuProps) => {
           </Stack>
         </Drawer>
         <Drawer
-          {...stack.register('note')}
-          {...COMMON_DRAWER_PROPS}
-          title={
-            <Text
-              size='xl'
-              fw='bold'
-            >
-              Написать заметку
-            </Text>
-          }
-        >
-          <Textarea
-            variant='unstyled'
-            placeholder='Любая важная информация...'
-            minRows={15}
-            maxRows={15}
-            autosize
-            size='md'
-            value={note}
-            onChange={(ev) => handleNoteChange(ev.currentTarget.value)}
-          />
-        </Drawer>
-        <Drawer
           {...stack.register('confirm-delete')}
           {...COMMON_DRAWER_PROPS}
           title={
@@ -140,7 +93,7 @@ export const PropertyListItemMenu = (props: PropertyListItemMenuProps) => {
             <Group justify='flex-end'>
               <Button
                 size='md'
-                radius='xl'
+                radius='lg'
                 variant='default'
                 onClick={() => stack.close('confirm-delete')}
                 disabled={isDeleting}
@@ -150,7 +103,7 @@ export const PropertyListItemMenu = (props: PropertyListItemMenuProps) => {
               <Button
                 color='red'
                 size='md'
-                radius='xl'
+                radius='lg'
                 onClick={handleConfirmDelete}
                 loading={isDeleting}
               >
@@ -175,7 +128,7 @@ export const PropertyListItemMenu = (props: PropertyListItemMenuProps) => {
             <PropertyInfoForm withTitle={false} />
             <Button
               size='md'
-              radius='xl'
+              radius='lg'
               onClick={handleEdit}
             >
               Сохранить

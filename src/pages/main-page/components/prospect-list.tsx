@@ -87,7 +87,7 @@ export const ProspectList: FC<ProspectListProps> = (props) => {
       <Accordion.Item
         key={prospect.id}
         value={prospect.id}
-        pr={'md'}
+        pr='md'
       >
         <Group
           gap={0}
@@ -114,7 +114,7 @@ export const ProspectList: FC<ProspectListProps> = (props) => {
             gap='md'
             px='xs'
           >
-            <Grid>
+            <Grid align='center'>
               <Grid.Col span={5}>
                 <Group
                   gap='xs'
@@ -131,10 +131,7 @@ export const ProspectList: FC<ProspectListProps> = (props) => {
                 </Group>
               </Grid.Col>
               <Grid.Col span={7}>
-                <UnstyledButton
-                  display='flex'
-                  onClick={() => openStatusModal(prospect)}
-                >
+                <UnstyledButton onClick={() => openStatusModal(prospect)}>
                   <Badge
                     rightSection={<IconChevronDown size={12} />}
                     variant='light'
@@ -171,10 +168,7 @@ export const ProspectList: FC<ProspectListProps> = (props) => {
 
   return (
     <>
-      <Stack
-        gap='xs'
-        mr='xs'
-      >
+      <Stack gap='xs'>
         <Group
           ml='md'
           gap='xs'
