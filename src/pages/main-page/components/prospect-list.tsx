@@ -1,16 +1,28 @@
-import { Accordion, Avatar, Badge, Button, Divider, Drawer, Group, Stack, Text, UnstyledButton } from '@mantine/core';
+import {
+  Accordion,
+  Avatar,
+  Badge,
+  Button,
+  Card,
+  Drawer,
+  Grid,
+  Group,
+  Stack,
+  Text,
+  UnstyledButton,
+} from '@mantine/core';
 import { Timeline } from '@mantine/core';
-import { prospectDataProvider, type Prospect, type ProspectStatus } from '../../../data';
+import { prospectDataProvider, type Owner, type Prospect, type ProspectStatus } from '../../../data';
 import { useState, type FC } from 'react';
 import React from 'react';
 import {
   COMMON_DRAWER_PROPS,
-  CONTACT_ICONS,
+  CONTACT_NAMES,
   CONTACT_LINKS,
   PROSPECT_STATUS_ORDER,
   PROSPECT_STATUS_TITLES,
 } from './consts';
-import { IconChevronDown, IconInfoCircle, IconMoodSad, IconPlus } from '@tabler/icons-react';
+import { IconChevronDown, IconInfoCircle, IconMoodSad, IconPlus, IconUsers } from '@tabler/icons-react';
 import { useNavigate } from 'react-router';
 import styles from '../main-page.module.css';
 import { ProspectListItemMenu } from './prospect-list-item-menu';
@@ -75,6 +87,7 @@ export const ProspectList: FC<ProspectListProps> = (props) => {
       <Accordion.Item
         key={prospect.id}
         value={prospect.id}
+        pr={'md'}
       >
         <Group
           gap={0}
@@ -99,67 +112,95 @@ export const ProspectList: FC<ProspectListProps> = (props) => {
         <Accordion.Panel>
           <Stack
             gap='md'
-            pl={32}
+            px='xs'
           >
-            <Group
-              gap='md'
-              align='center'
-            >
-              <IconInfoCircle
-                stroke={1.8}
-                size={20}
-                color='var(--mantine-color-dimmed)'
-              />
-              <UnstyledButton
-                display='flex'
-                onClick={() => openStatusModal(prospect)}
-              >
-                <Badge
-                  rightSection={<IconChevronDown size={12} />}
-                  variant='light'
-                  size='md'
+            <Grid>
+              <Grid.Col span={5}>
+                <Group
+                  gap='xs'
+                  c='dimmed'
+                  wrap='nowrap'
+                  align='center'
                 >
-                  {PROSPECT_STATUS_TITLES[prospect.status]}
-                </Badge>
-              </UnstyledButton>
-            </Group>
-            {Object.entries(prospect.contacts).map(([key, value]) => (
-              <React.Fragment key={key}>
-                {value && (
-                  <Group
-                    gap='md'
-                    align='center'
+                  <IconInfoCircle
+                    stroke={1.8}
+                    size={20}
+                    color='var(--mantine-color-dimmed)'
+                  />
+                  <Text size='md'>Статус</Text>
+                </Group>
+              </Grid.Col>
+              <Grid.Col span={7}>
+                <UnstyledButton
+                  display='flex'
+                  onClick={() => openStatusModal(prospect)}
+                >
+                  <Badge
+                    rightSection={<IconChevronDown size={12} />}
+                    variant='light'
+                    size='md'
                   >
-                    {CONTACT_ICONS[key as keyof Prospect['contacts']]}
-                    <a
-                      href={`${CONTACT_LINKS[key as keyof Prospect['contacts']]}${value}`}
-                      key={key}
-                      target='_blank'
-                      style={{ textDecoration: 'none', color: 'inherit' }}
-                    >
-                      <Text size='md'>{value}</Text>
-                    </a>
-                  </Group>
-                )}
-              </React.Fragment>
-            ))}
+                    {PROSPECT_STATUS_TITLES[prospect.status]}
+                  </Badge>
+                </UnstyledButton>
+              </Grid.Col>
+              {Object.entries(prospect.contacts).map(([key, value]) => (
+                <React.Fragment key={key}>
+                  {value && (
+                    <>
+                      <Grid.Col span={5}>{CONTACT_NAMES[key as keyof Owner['contacts']]}</Grid.Col>
+                      <Grid.Col span={7}>
+                        <a
+                          href={`${CONTACT_LINKS[key as keyof Owner['contacts']]}${value}`}
+                          target='_blank'
+                          style={{ textDecoration: 'none', color: 'inherit' }}
+                        >
+                          <Text size='md'>{value}</Text>
+                        </a>
+                      </Grid.Col>
+                    </>
+                  )}
+                </React.Fragment>
+              ))}
+            </Grid>
           </Stack>
         </Accordion.Panel>
       </Accordion.Item>
-      {index !== prospects.length - 1 && <Divider ml={106} />}
     </React.Fragment>
   ));
 
   return (
     <>
-      <Accordion
-        multiple
-        chevronPosition='left'
-        variant='unstyled'
-        classNames={{ chevron: styles.chevron }}
+      <Stack
+        gap='xs'
+        mr='xs'
       >
-        {prospectItems}
-      </Accordion>
+        <Group
+          ml='md'
+          gap='xs'
+          c='dimmed'
+        >
+          <IconUsers
+            size={20}
+            stroke={1.8}
+          />
+          <Text size='md'>Клиенты</Text>
+        </Group>
+        <Card
+          radius='lg'
+          p={0}
+        >
+          <Accordion
+            multiple
+            chevronPosition='left'
+            variant='unstyled'
+            classNames={{ chevron: styles.chevron }}
+            styles={{ content: { paddingRight: 0, paddingLeft: 0 } }}
+          >
+            {prospectItems}
+          </Accordion>
+        </Card>
+      </Stack>
       <Drawer
         {...COMMON_DRAWER_PROPS}
         opened={modalOpened}

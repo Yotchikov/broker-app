@@ -1,17 +1,14 @@
 import { useEffect, useState, type FC } from 'react';
 import type { Property } from '../../../data/entities/property';
-import { Accordion, Group, Avatar, Stack, Space, Text, Divider } from '@mantine/core';
-import { IconBuilding, IconUser, IconUsers } from '@tabler/icons-react';
-import { Price } from '../../../app/components';
+import { Accordion, Group, Avatar, Stack, Text } from '@mantine/core';
+import { IconBuilding } from '@tabler/icons-react';
 import { OwnerInfo } from './owner-info';
 import { PropertyInfo } from './property-info';
-import { ProspectList } from './prospect-list';
-import styles from '../main-page.module.css';
 import { PropertyListItemMenu } from './property-list-item-menu';
-import { OwnerInfoMenu } from './owner-info-menu';
-import { ProspectListMenu } from './prospect-list-menu';
 import { PropertyFormProvider } from '../../property-form-page/context';
 import { ownerDataProvider, prospectDataProvider, type Owner, type Prospect } from '../../../data';
+import { Carousel } from '@mantine/carousel';
+import { ProspectList } from './prospect-list';
 
 type PropertyListItemProps = {
   property: Property;
@@ -61,29 +58,47 @@ export const PropertyListItem: FC<PropertyListItemProps> = (props) => {
               </Avatar>
               <Stack gap={0}>
                 <Text
+                  size='sm'
+                  c='dimmed'
+                >
+                  {property.dealType === 'sale' ? 'Продажа' : 'Аренда'}
+                </Text>
+                <Text
                   fw='bold'
                   size='lg'
                 >
                   {property.name}
                 </Text>
-                {property.price && (
-                  <Text
-                    size='sm'
-                    c='dimmed'
-                  >
-                    <Price
-                      amount={property.price.amount}
-                      currency={property.price.currency}
-                    />
-                  </Text>
-                )}
               </Stack>
             </Group>
           </Accordion.Control>
           <PropertyListItemMenu propertyId={property.id} />
         </Group>
         <Accordion.Panel>
-          <PropertyInfo
+          <Carousel
+            slideSize='90%'
+            withControls={false}
+            slideGap={'xs'}
+          >
+            <Carousel.Slide>
+              <PropertyInfo
+                price={property.price}
+                area={property.area}
+                floor={property.floor}
+              />
+            </Carousel.Slide>
+            <Carousel.Slide>
+              <OwnerInfo owner={owner} />
+            </Carousel.Slide>
+            <Carousel.Slide>
+              <ProspectList
+                prospects={prospects}
+                propertyId={property.id}
+              />
+            </Carousel.Slide>
+          </Carousel>
+          {/* <PropertyInfo
+            price={property.price}
             area={property.area}
             floor={property.floor}
           />
@@ -180,7 +195,7 @@ export const PropertyListItem: FC<PropertyListItemProps> = (props) => {
                 />
               </Accordion.Panel>
             </Accordion.Item>
-          </Accordion>
+          </Accordion> */}
         </Accordion.Panel>
       </Accordion.Item>
     </PropertyFormProvider>

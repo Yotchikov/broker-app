@@ -1,4 +1,4 @@
-import { Accordion, Button, Divider, Stack, Text } from '@mantine/core';
+import { Accordion, Button, Stack, Text } from '@mantine/core';
 import type { Property } from '../../../data/entities/property';
 import styles from '../main-page.module.css';
 import { PropertyListItem } from './property-list-item';
@@ -48,16 +48,11 @@ export const PropertyList = (props: PropertyListProps) => {
         chevronPosition='left'
         classNames={{ chevron: styles.chevron }}
         variant='unstyled'
+        styles={{ content: { paddingRight: 0, paddingLeft: 0 } }}
       >
-        {properties.map((property, index) => (
+        {properties.map((property) => (
           <React.Fragment key={property.id}>
             <PropertyListItem property={property} />
-            {index !== properties.length - 1 && (
-              <Divider
-                ml={106}
-                mr={16}
-              />
-            )}
           </React.Fragment>
         ))}
       </Accordion>

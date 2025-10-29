@@ -1,7 +1,7 @@
 import { IconPhone, IconAt, IconBrandTelegram, IconBrandWhatsapp } from '@tabler/icons-react';
 import type { ReactNode } from 'react';
 import type { ProspectStatus, Prospect } from '../../../data';
-import type { DrawerProps } from '@mantine/core';
+import { Group, type DrawerProps, Text } from '@mantine/core';
 
 export const PROSPECT_STATUS_TITLES: Record<ProspectStatus, string> = {
   inquired: 'Интересовался',
@@ -29,34 +29,66 @@ export const PROSPECT_STATUS_ORDER: ProspectStatus[] = [
   'feedback_from_the_deal',
 ];
 
-export const CONTACT_ICONS: Record<keyof Prospect['contacts'], ReactNode> = {
+export const CONTACT_NAMES: Record<keyof Prospect['contacts'], ReactNode> = {
   phone: (
-    <IconPhone
-      stroke={1.8}
-      color='var(--mantine-color-dimmed)'
-      size={20}
-    />
+    <Group
+      gap='xs'
+      c='dimmed'
+      wrap='nowrap'
+      align='center'
+    >
+      <IconPhone
+        stroke={1.8}
+        color='var(--mantine-color-dimmed)'
+        size={20}
+      />
+      <Text size='md'>Телефон</Text>
+    </Group>
   ),
   email: (
-    <IconAt
-      stroke={1.8}
-      color='var(--mantine-color-dimmed)'
-      size={20}
-    />
+    <Group
+      gap='xs'
+      c='dimmed'
+      wrap='nowrap'
+      align='center'
+    >
+      <IconAt
+        stroke={1.8}
+        color='var(--mantine-color-dimmed)'
+        size={20}
+      />
+      <Text size='md'>Email</Text>
+    </Group>
   ),
   telegram: (
-    <IconBrandTelegram
-      stroke={1.8}
-      color='var(--mantine-color-dimmed)'
-      size={20}
-    />
+    <Group
+      gap='xs'
+      c='dimmed'
+      wrap='nowrap'
+      align='center'
+    >
+      <IconBrandTelegram
+        stroke={1.8}
+        color='var(--mantine-color-dimmed)'
+        size={20}
+      />
+      <Text size='md'>Telegram</Text>
+    </Group>
   ),
   whatsapp: (
-    <IconBrandWhatsapp
-      stroke={1.8}
-      color='var(--mantine-color-dimmed)'
-      size={20}
-    />
+    <Group
+      gap='xs'
+      c='dimmed'
+      wrap='nowrap'
+      align='center'
+    >
+      <IconBrandWhatsapp
+        stroke={1.8}
+        color='var(--mantine-color-dimmed)'
+        size={20}
+      />
+      <Text size='md'>WhatsApp</Text>
+    </Group>
   ),
 };
 
