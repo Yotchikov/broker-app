@@ -84,7 +84,7 @@ export const ProspectListMenu = () => {
             />
             <Button
               size='md'
-              radius='xl'
+              radius='lg'
               onClick={handleSaveProspect}
             >
               Сохранить

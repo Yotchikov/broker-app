@@ -27,7 +27,7 @@ export const ProspectInfoForm = (props: ProspectInfoFormProps) => {
       <TextInput
         label='Имя'
         size='md'
-        variant='filled'
+        radius='lg'
         placeholder='Александр Еремеев'
         required
         value={prospect.name}
@@ -36,7 +36,7 @@ export const ProspectInfoForm = (props: ProspectInfoFormProps) => {
       <NativeSelect
         label='Статус'
         size='md'
-        variant='filled'
+        radius='lg'
         data={prospectStatuses}
         value={prospect.status}
         onChange={(event) => handleUpdateProspect('status', event.currentTarget.value as ProspectStatus)}
@@ -44,7 +44,7 @@ export const ProspectInfoForm = (props: ProspectInfoFormProps) => {
       <Title order={4}>Контакты</Title>
       <TextInput
         size='md'
-        variant='filled'
+        radius='lg'
         leftSection={<IconPhone size={16} />}
         placeholder='+7 (999) 123-45-67'
         value={prospect.contacts.phone}
@@ -53,7 +53,7 @@ export const ProspectInfoForm = (props: ProspectInfoFormProps) => {
 
       <TextInput
         size='md'
-        variant='filled'
+        radius='lg'
         leftSection={<IconMail size={16} />}
         placeholder='email@example.com'
         type='email'
@@ -61,7 +61,7 @@ export const ProspectInfoForm = (props: ProspectInfoFormProps) => {
         onChange={(ev) => handleUpdateProspect('contacts', { ...prospect.contacts, email: ev.currentTarget.value })}
       />
       <TextInput
-        variant='filled'
+        radius='lg'
         leftSection={<IconBrandTelegram size={16} />}
         size='md'
         placeholder='telegram_username'
@@ -74,7 +74,7 @@ export const ProspectInfoForm = (props: ProspectInfoFormProps) => {
         }
       />
       <TextInput
-        variant='filled'
+        radius='lg'
         leftSection={<IconBrandWhatsapp size={16} />}
         size='md'
         placeholder='+7 (999) 123-45-67'

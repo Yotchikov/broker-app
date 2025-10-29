@@ -50,12 +50,7 @@ export const OwnerInfo: FC<OwnerInfoProps> = ({ owner }) => {
                 size={24}
               />
             </Avatar>
-            <Text
-              fw='bold'
-              size='lg'
-            >
-              {name}
-            </Text>
+            <Text size='md'>{name}</Text>
           </Group>
           <Grid>
             {Object.entries(contacts).map(([key, value]) => (

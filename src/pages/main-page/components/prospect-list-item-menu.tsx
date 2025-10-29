@@ -94,7 +94,7 @@ export const ProspectListItemMenu = (props: ProspectListItemMenuProps) => {
             />
             <Button
               size='md'
-              radius='xl'
+              radius='lg'
               onClick={handleSaveProspect}
             >
               Сохранить
