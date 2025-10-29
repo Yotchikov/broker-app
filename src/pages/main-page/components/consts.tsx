@@ -1,7 +1,10 @@
 import { IconPhone, IconAt, IconBrandTelegram, IconBrandWhatsapp } from '@tabler/icons-react';
 import type { ReactNode } from 'react';
-import type { ProspectStatus, Prospect } from '../../../data';
+import type { ProspectStatus, Prospect, Property } from '../../../data';
 import { Group, type DrawerProps, Text } from '@mantine/core';
+import IconBrandCian from 'public/icons/companies/cian.svg?react';
+import IconBrandAvito from 'public/icons/companies/avito.svg?react';
+import IconBrandYandex from 'public/icons/companies/yandex.svg?react';
 
 export const PROSPECT_STATUS_TITLES: Record<ProspectStatus, string> = {
   inquired: 'Интересовался',
@@ -29,7 +32,60 @@ export const PROSPECT_STATUS_ORDER: ProspectStatus[] = [
   'feedback_from_the_deal',
 ];
 
-export const CONTACT_NAMES: Record<keyof Prospect['contacts'], ReactNode> = {
+export const LINK_LABELS: Record<keyof Property['links'], ReactNode> = {
+  cian: (
+    <Group
+      gap='xs'
+      wrap='nowrap'
+      align='center'
+    >
+      <IconBrandCian
+        width={20}
+        height={20}
+        display='block'
+      />
+      <Text
+        size='md'
+        c='#0468ff'
+      >
+        Циан
+      </Text>
+    </Group>
+  ),
+  avito: (
+    <Group
+      gap='xs'
+      wrap='nowrap'
+      align='center'
+    >
+      <IconBrandAvito
+        width={20}
+        height={20}
+      />
+      <Text size='md'>Авито</Text>
+    </Group>
+  ),
+  yandex: (
+    <Group
+      gap='xs'
+      c='dimmed'
+      wrap='nowrap'
+      align='center'
+    >
+      <IconBrandYandex />
+      <Text size='md'>Яндекс</Text>
+    </Group>
+  ),
+  domclick: (
+    <Group
+      gap='xs'
+      c='dimmed'
+      wrap='nowrap'
+      align='center'
+    ></Group>
+  ),
+};
+export const CONTACT_LABELS: Record<keyof Prospect['contacts'], ReactNode> = {
   phone: (
     <Group
       gap='xs'

@@ -118,7 +118,7 @@ export const ProspectListItemMenu = (props: ProspectListItemMenuProps) => {
             <Group justify='flex-end'>
               <Button
                 size='md'
-                radius='xl'
+                radius='lg'
                 variant='default'
                 onClick={() => stack.close('confirm-delete')}
               >
@@ -127,7 +127,7 @@ export const ProspectListItemMenu = (props: ProspectListItemMenuProps) => {
               <Button
                 color='red'
                 size='md'
-                radius='xl'
+                radius='lg'
                 onClick={handleConfirmDelete}
               >
                 Удалить

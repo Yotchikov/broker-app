@@ -1,7 +1,7 @@
 import { type FC } from 'react';
 import { type Owner } from '../../../data';
 import { Text, Group, Stack, Card, Grid, Avatar } from '@mantine/core';
-import { CONTACT_LINKS, CONTACT_NAMES } from './consts';
+import { CONTACT_LINKS, CONTACT_LABELS } from './consts';
 import React from 'react';
 import { IconUser } from '@tabler/icons-react';
 import { OwnerInfoMenu } from './owner-info-menu';
@@ -57,12 +57,15 @@ export const OwnerInfo: FC<OwnerInfoProps> = ({ owner }) => {
             <OwnerInfoMenu />
           </Group>
           {Object.entries(contacts).length > 0 && (
-            <Grid align='center'>
+            <Grid
+              align='center'
+              gutter='xs'
+            >
               {Object.entries(contacts).map(([key, value]) => (
                 <React.Fragment key={key}>
                   {value && (
                     <>
-                      <Grid.Col span={5}>{CONTACT_NAMES[key as keyof Owner['contacts']]}</Grid.Col>
+                      <Grid.Col span={5}>{CONTACT_LABELS[key as keyof Owner['contacts']]}</Grid.Col>
                       <Grid.Col span={7}>
                         <a
                           href={`${CONTACT_LINKS[key as keyof Owner['contacts']]}${value}`}

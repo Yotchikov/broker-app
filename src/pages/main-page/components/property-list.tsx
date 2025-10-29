@@ -33,7 +33,7 @@ export const PropertyList = (props: PropertyListProps) => {
         <Button
           leftSection={<IconPlus size={16} />}
           size='md'
-          radius='xl'
+          radius='lg'
           onClick={() => navigate('/properties/create')}
         >
           Добавить

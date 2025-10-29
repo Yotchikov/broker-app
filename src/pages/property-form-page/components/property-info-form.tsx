@@ -1,5 +1,9 @@
 import { usePropertyForm } from '../context';
 import { Group, NumberInput, SegmentedControl, Stack, TextInput, Title, Notification } from '@mantine/core';
+import IconBrandCian from 'public/icons/companies/cian.svg?react';
+import IconBrandAvito from 'public/icons/companies/avito.svg?react';
+import IconBrandYandex from 'public/icons/companies/yandex.svg?react';
+import IconBrandDomclick from 'public/icons/companies/domclick.svg?react';
 
 type PropertyInfoFormProps = {
   withTitle?: boolean;
@@ -120,7 +124,65 @@ export const PropertyInfoForm = (props: PropertyInfoFormProps) => {
         thousandSeparator=' '
         rightSection='м²'
       />
-
+      <Title order={4}>Ссылки</Title>
+      <TextInput
+        leftSection={
+          <IconBrandCian
+            width={16}
+            height={16}
+          />
+        }
+        label='Циан'
+        radius='lg'
+        size='md'
+        placeholder='https://www.cian.ru/offer/1234567890/'
+        value={formData.property.links.cian}
+        onChange={(ev) => updatePropertyInfo({ links: { ...formData.property.links, cian: ev.currentTarget.value } })}
+      />
+      <TextInput
+        leftSection={
+          <IconBrandAvito
+            width={16}
+            height={16}
+          />
+        }
+        label='Авито'
+        radius='lg'
+        size='md'
+        placeholder='https://www.avito.ru/moskva/kvartiry/1234567890'
+        value={formData.property.links.avito}
+        onChange={(ev) => updatePropertyInfo({ links: { ...formData.property.links, avito: ev.currentTarget.value } })}
+      />
+      <TextInput
+        leftSection={
+          <IconBrandYandex
+            width={16}
+            height={16}
+          />
+        }
+        label='Яндекс'
+        radius='lg'
+        size='md'
+        placeholder='https://realty.yandex.ru/offer/1234567890/'
+        value={formData.property.links.yandex}
+        onChange={(ev) => updatePropertyInfo({ links: { ...formData.property.links, yandex: ev.currentTarget.value } })}
+      />
+      <TextInput
+        leftSection={
+          <IconBrandDomclick
+            width={16}
+            height={16}
+          />
+        }
+        label='Домклик'
+        radius='lg'
+        size='md'
+        placeholder='https://www.domclick.ru/offer/1234567890/'
+        value={formData.property.links.domclick}
+        onChange={(ev) =>
+          updatePropertyInfo({ links: { ...formData.property.links, domclick: ev.currentTarget.value } })
+        }
+      />
       {error && (
         <Notification
           color='red'

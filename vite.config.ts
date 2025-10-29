@@ -8,6 +8,7 @@ export default defineConfig({
   resolve: {
     alias: {
       data: '/src/data',
+      public: '/public',
     },
   },
 });

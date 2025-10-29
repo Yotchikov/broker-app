@@ -99,7 +99,6 @@ export const ProspectListInfoForm = () => {
               <Card
                 key={index}
                 radius='lg'
-                withBorder
               >
                 <Stack gap='sm'>
                   <Group justify='space-between'>

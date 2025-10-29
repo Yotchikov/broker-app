@@ -55,7 +55,7 @@ export const MainPage: FC = () => {
             <Button
               leftSection={<IconPlus size={18} />}
               size='lg'
-              radius='xl'
+              radius='lg'
               onClick={() => navigate('/properties/create')}
             >
               Добавить первый объект

@@ -28,7 +28,9 @@
       "data": ["src/data"],
       "data/*": ["src/data/*"],
       "pages": ["src/pages"],
-      "pages/*": ["src/pages/*"]
+      "pages/*": ["src/pages/*"],
+      "public": ["public"],
+      "public/*": ["public/*"]
     }
   },
   "include": ["src", "packages/**/*", ".storybook/*"]

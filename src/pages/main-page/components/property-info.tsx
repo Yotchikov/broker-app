@@ -3,11 +3,14 @@ import type { FC } from 'react';
 import type { Property } from '../../../data';
 import { IconBuilding, IconCurrencyDollar, IconInfoCircle, IconLink, IconShape } from '@tabler/icons-react';
 import { Price } from '../../../app/components';
+import { LINK_LABELS } from './consts';
 
-type PropertyInfoProps = Pick<Property, 'area' | 'floor' | 'price'>;
+type PropertyInfoProps = {
+  property: Property;
+};
 
 export const PropertyInfo: FC<PropertyInfoProps> = (props) => {
-  const { area, floor, price } = props;
+  const { area, floor, price, links } = props.property;
 
   return (
     <Stack gap='xs'>
@@ -27,7 +30,10 @@ export const PropertyInfo: FC<PropertyInfoProps> = (props) => {
         px='md'
         py='xs'
       >
-        <Grid>
+        <Grid
+          align='center'
+          gutter='xs'
+        >
           {price && (
             <>
               <Grid.Col span={5}>
@@ -119,7 +125,19 @@ export const PropertyInfo: FC<PropertyInfoProps> = (props) => {
         px='md'
         py='xs'
       >
-        Здесь скоро будут ссылки!
+        <Stack gap='xs'>
+          {Object.entries(links).map(([key, value]) =>
+            value ? (
+              <a
+                href={value}
+                target='_blank'
+                style={{ textDecoration: 'none', color: 'inherit' }}
+              >
+                {LINK_LABELS[key as keyof Property['links']]}
+              </a>
+            ) : null,
+          )}
+        </Stack>
       </Card>
     </Stack>
   );

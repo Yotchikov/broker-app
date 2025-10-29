@@ -17,7 +17,7 @@ import { useState, type FC } from 'react';
 import React from 'react';
 import {
   COMMON_DRAWER_PROPS,
-  CONTACT_NAMES,
+  CONTACT_LABELS,
   CONTACT_LINKS,
   PROSPECT_STATUS_ORDER,
   PROSPECT_STATUS_TITLES,
@@ -56,7 +56,7 @@ export const ProspectList: FC<ProspectListProps> = (props) => {
         </Stack>
         <Button
           size='md'
-          radius='xl'
+          radius='lg'
           leftSection={<IconPlus size={16} />}
           onClick={() => navigate(`/properties/${propertyId}/edit?tab=prospects`)}
         >
@@ -114,7 +114,10 @@ export const ProspectList: FC<ProspectListProps> = (props) => {
             gap='md'
             px='xs'
           >
-            <Grid align='center'>
+            <Grid
+              align='center'
+              gutter='xs'
+            >
               <Grid.Col span={5}>
                 <Group
                   gap='xs'
@@ -145,7 +148,7 @@ export const ProspectList: FC<ProspectListProps> = (props) => {
                 <React.Fragment key={key}>
                   {value && (
                     <>
-                      <Grid.Col span={5}>{CONTACT_NAMES[key as keyof Owner['contacts']]}</Grid.Col>
+                      <Grid.Col span={5}>{CONTACT_LABELS[key as keyof Owner['contacts']]}</Grid.Col>
                       <Grid.Col span={7}>
                         <a
                           href={`${CONTACT_LINKS[key as keyof Owner['contacts']]}${value}`}

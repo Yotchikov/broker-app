@@ -42,6 +42,7 @@ export const PropertyFormProvider: FC<PropertyFormProviderProps> = (props) => {
       id: crypto.randomUUID(),
       name: '',
       dealType: 'sale',
+      links: {},
     },
 
     // Owner info
@@ -80,6 +81,7 @@ export const PropertyFormProvider: FC<PropertyFormProviderProps> = (props) => {
             total: property.floor?.total ?? 0,
           },
           area: property.area ? property.area / 100 : 0,
+          links: property.links ?? {},
         },
         owner: {
           ...prev.owner,
@@ -248,6 +250,7 @@ export const PropertyFormProvider: FC<PropertyFormProviderProps> = (props) => {
             }
           : undefined,
         area: formData.property.area && formData.property.area > 0 ? Number(formData.property.area) * 100 : undefined,
+        links: formData.property.links,
       };
 
       if (isEditMode) {
@@ -291,6 +294,7 @@ export const PropertyFormProvider: FC<PropertyFormProviderProps> = (props) => {
           id: crypto.randomUUID(),
           name: '',
           dealType: 'sale',
+          links: {},
         },
 
         // Owner info

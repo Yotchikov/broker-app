@@ -83,11 +83,7 @@ export const PropertyListItem: FC<PropertyListItemProps> = (props) => {
             emblaOptions={{ loop: true }}
           >
             <Carousel.Slide>
-              <PropertyInfo
-                price={property.price}
-                area={property.area}
-                floor={property.floor}
-              />
+              <PropertyInfo property={property} />
             </Carousel.Slide>
             <Carousel.Slide>
               <OwnerInfo owner={owner} />
