@@ -12,7 +12,7 @@ export type Property = BaseEntity & {
   dealType: 'sale' | 'rent';
   area?: number;
   note?: string;
-  links: {
+  links?: {
     cian?: string;
     avito?: string;
     yandex?: string;

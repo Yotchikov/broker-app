@@ -136,7 +136,7 @@ export const PropertyInfoForm = (props: PropertyInfoFormProps) => {
         radius='lg'
         size='md'
         placeholder='https://www.cian.ru/offer/1234567890/'
-        value={formData.property.links.cian}
+        value={formData.property.links?.cian}
         onChange={(ev) => updatePropertyInfo({ links: { ...formData.property.links, cian: ev.currentTarget.value } })}
       />
       <TextInput
@@ -150,7 +150,7 @@ export const PropertyInfoForm = (props: PropertyInfoFormProps) => {
         radius='lg'
         size='md'
         placeholder='https://www.avito.ru/moskva/kvartiry/1234567890'
-        value={formData.property.links.avito}
+        value={formData.property.links?.avito}
         onChange={(ev) => updatePropertyInfo({ links: { ...formData.property.links, avito: ev.currentTarget.value } })}
       />
       <TextInput
@@ -164,7 +164,7 @@ export const PropertyInfoForm = (props: PropertyInfoFormProps) => {
         radius='lg'
         size='md'
         placeholder='https://realty.yandex.ru/offer/1234567890/'
-        value={formData.property.links.yandex}
+        value={formData.property.links?.yandex}
         onChange={(ev) => updatePropertyInfo({ links: { ...formData.property.links, yandex: ev.currentTarget.value } })}
       />
       <TextInput
@@ -178,7 +178,7 @@ export const PropertyInfoForm = (props: PropertyInfoFormProps) => {
         radius='lg'
         size='md'
         placeholder='https://www.domclick.ru/offer/1234567890/'
-        value={formData.property.links.domclick}
+        value={formData.property.links?.domclick}
         onChange={(ev) =>
           updatePropertyInfo({ links: { ...formData.property.links, domclick: ev.currentTarget.value } })
         }

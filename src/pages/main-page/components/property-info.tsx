@@ -109,36 +109,40 @@ export const PropertyInfo: FC<PropertyInfoProps> = (props) => {
           )}
         </Grid>
       </Card>
-      <Group
-        ml='md'
-        gap='xs'
-        c='dimmed'
-      >
-        <IconLink
-          size={20}
-          stroke={1.8}
-        />
-        <Text size='md'>Ссылки</Text>
-      </Group>
-      <Card
-        radius='lg'
-        px='md'
-        py='xs'
-      >
-        <Stack gap='xs'>
-          {Object.entries(links).map(([key, value]) =>
-            value ? (
-              <a
-                href={value}
-                target='_blank'
-                style={{ textDecoration: 'none', color: 'inherit' }}
-              >
-                {LINK_LABELS[key as keyof Property['links']]}
-              </a>
-            ) : null,
-          )}
-        </Stack>
-      </Card>
+      {links && (
+        <>
+          <Group
+            ml='md'
+            gap='xs'
+            c='dimmed'
+          >
+            <IconLink
+              size={20}
+              stroke={1.8}
+            />
+            <Text size='md'>Ссылки</Text>
+          </Group>
+          <Card
+            radius='lg'
+            px='md'
+            py='xs'
+          >
+            <Stack gap='xs'>
+              {Object.entries(links).map(([key, value]) =>
+                value ? (
+                  <a
+                    href={value}
+                    target='_blank'
+                    style={{ textDecoration: 'none', color: 'inherit' }}
+                  >
+                    {LINK_LABELS[key as keyof Property['links']]}
+                  </a>
+                ) : null,
+              )}
+            </Stack>
+          </Card>
+        </>
+      )}
     </Stack>
   );
 };
