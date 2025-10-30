@@ -243,12 +243,13 @@ export const PropertyFormProvider: FC<PropertyFormProviderProps> = (props) => {
                 currency: 'RUB',
               }
             : undefined,
-        floor: formData.property.floor
-          ? {
-              number: Number(formData.property.floor?.number),
-              total: Number(formData.property.floor?.total),
-            }
-          : undefined,
+        floor:
+          formData.property.floor && formData.property.floor.number && formData.property.floor.total
+            ? {
+                number: Number(formData.property.floor?.number),
+                total: Number(formData.property.floor?.total),
+              }
+            : undefined,
         area: formData.property.area && formData.property.area > 0 ? Number(formData.property.area) * 100 : undefined,
         links: formData.property.links,
       };
@@ -294,7 +295,6 @@ export const PropertyFormProvider: FC<PropertyFormProviderProps> = (props) => {
           id: crypto.randomUUID(),
           name: '',
           dealType: 'sale',
-          links: {},
         },
 
         // Owner info

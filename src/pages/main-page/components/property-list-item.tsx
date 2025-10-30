@@ -82,21 +82,13 @@ export const PropertyListItem: FC<PropertyListItemProps> = (props) => {
             slideGap={'xs'}
             emblaOptions={{ loop: true }}
           >
-            <Carousel.Slide>
-              <PropertyInfo property={property} />
-            </Carousel.Slide>
-            <Carousel.Slide>
-              <OwnerInfo owner={owner} />
-            </Carousel.Slide>
-            <Carousel.Slide>
-              <ProspectList
-                prospects={prospects}
-                propertyId={property.id}
-              />
-            </Carousel.Slide>
-            <Carousel.Slide>
-              <PropertyNote propertyId={property.id} />
-            </Carousel.Slide>
+            <PropertyInfo property={property} />
+            <OwnerInfo owner={owner} />
+            <ProspectList
+              prospects={prospects}
+              propertyId={property.id}
+            />
+            <PropertyNote propertyId={property.id} />
           </Carousel>
           {/* <PropertyInfo
             price={property.price}

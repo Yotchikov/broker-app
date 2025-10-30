@@ -5,6 +5,7 @@ import { Group, type DrawerProps, Text } from '@mantine/core';
 import IconBrandCian from 'public/icons/companies/cian.svg?react';
 import IconBrandAvito from 'public/icons/companies/avito.svg?react';
 import IconBrandYandex from 'public/icons/companies/yandex.svg?react';
+import IconBrandDomclick from 'public/icons/companies/domclick.svg?react';
 
 export const PROSPECT_STATUS_TITLES: Record<ProspectStatus, string> = {
   inquired: 'Интересовался',
@@ -44,12 +45,7 @@ export const LINK_LABELS: Record<keyof Property['links'], ReactNode> = {
         height={20}
         display='block'
       />
-      <Text
-        size='md'
-        c='#0468ff'
-      >
-        Циан
-      </Text>
+      <Text size='md'>Циан</Text>
     </Group>
   ),
   avito: (
@@ -68,21 +64,28 @@ export const LINK_LABELS: Record<keyof Property['links'], ReactNode> = {
   yandex: (
     <Group
       gap='xs'
-      c='dimmed'
       wrap='nowrap'
       align='center'
     >
-      <IconBrandYandex />
+      <IconBrandYandex
+        width={20}
+        height={20}
+      />
       <Text size='md'>Яндекс</Text>
     </Group>
   ),
   domclick: (
     <Group
       gap='xs'
-      c='dimmed'
       wrap='nowrap'
       align='center'
-    ></Group>
+    >
+      <IconBrandDomclick
+        width={20}
+        height={20}
+      />
+      <Text size='md'>Домклик</Text>
+    </Group>
   ),
 };
 export const CONTACT_LABELS: Record<keyof Prospect['contacts'], ReactNode> = {

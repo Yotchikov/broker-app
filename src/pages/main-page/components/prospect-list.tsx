@@ -26,6 +26,7 @@ import { IconChevronDown, IconInfoCircle, IconMoodSad, IconPlus, IconUsers } fro
 import { useNavigate } from 'react-router';
 import styles from '../main-page.module.css';
 import { ProspectListItemMenu } from './prospect-list-item-menu';
+import { Carousel } from '@mantine/carousel';
 
 type ProspectListProps = {
   propertyId: string;
@@ -39,32 +40,33 @@ export const ProspectList: FC<ProspectListProps> = (props) => {
   const [activeProspect, setActiveProspect] = useState<Prospect | null>(null);
   const navigate = useNavigate();
 
-  if (prospects.length === 0) {
-    return (
+  const noProspectsDisclaimer = (
+    <Stack
+      p='xl'
+      align='center'
+      gap='xl'
+      c='dimmed'
+    >
       <Stack
-        p='xl'
         align='center'
-        gap='xl'
-        c='dimmed'
+        gap='xs'
       >
-        <Stack
-          align='center'
-          gap='xs'
-        >
-          <IconMoodSad size={48} />
-          <Text ta='center'>Пока нет клиентов</Text>
-        </Stack>
-        <Button
-          size='md'
-          radius='lg'
-          leftSection={<IconPlus size={16} />}
-          onClick={() => navigate(`/properties/${propertyId}/edit?tab=prospects`)}
-        >
-          Добавить
-        </Button>
+        <IconMoodSad
+          size={48}
+          stroke={1.8}
+        />
+        <Text ta='center'>Пока нет клиентов</Text>
       </Stack>
-    );
-  }
+      <Button
+        size='md'
+        radius='lg'
+        leftSection={<IconPlus size={16} />}
+        onClick={() => navigate(`/properties/${propertyId}/edit?tab=prospects`)}
+      >
+        Добавить
+      </Button>
+    </Stack>
+  );
 
   const openStatusModal = (prospect: Prospect) => {
     setActiveProspect(prospect);
@@ -112,7 +114,8 @@ export const ProspectList: FC<ProspectListProps> = (props) => {
         <Accordion.Panel>
           <Stack
             gap='md'
-            px='xs'
+            px='md'
+            py='xs'
           >
             <Grid
               align='center'
@@ -170,7 +173,7 @@ export const ProspectList: FC<ProspectListProps> = (props) => {
   ));
 
   return (
-    <>
+    <Carousel.Slide>
       <Stack gap='xs'>
         <Group
           ml='md'
@@ -187,15 +190,19 @@ export const ProspectList: FC<ProspectListProps> = (props) => {
           radius='lg'
           p={0}
         >
-          <Accordion
-            multiple
-            chevronPosition='left'
-            variant='unstyled'
-            classNames={{ chevron: styles.chevron }}
-            styles={{ content: { paddingRight: 0, paddingLeft: 0 } }}
-          >
-            {prospectItems}
-          </Accordion>
+          {prospects.length > 0 ? (
+            <Accordion
+              multiple
+              chevronPosition='left'
+              variant='unstyled'
+              classNames={{ chevron: styles.chevron }}
+              styles={{ content: { paddingRight: 0, paddingLeft: 0 } }}
+            >
+              {prospectItems}
+            </Accordion>
+          ) : (
+            noProspectsDisclaimer
+          )}
         </Card>
       </Stack>
       <Drawer
@@ -227,6 +234,6 @@ export const ProspectList: FC<ProspectListProps> = (props) => {
           ))}
         </Timeline>
       </Drawer>
-    </>
+    </Carousel.Slide>
   );
 };

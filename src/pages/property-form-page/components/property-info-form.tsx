@@ -31,7 +31,6 @@ export const PropertyInfoForm = (props: PropertyInfoFormProps) => {
         value={formData.property.name}
         onChange={(ev) => updatePropertyInfo({ name: ev.currentTarget.value })}
       />
-
       <SegmentedControl
         size='lg'
         fullWidth
@@ -45,7 +44,6 @@ export const PropertyInfoForm = (props: PropertyInfoFormProps) => {
           },
         }}
       />
-
       <NumberInput
         label='Цена'
         size='md'
@@ -54,7 +52,7 @@ export const PropertyInfoForm = (props: PropertyInfoFormProps) => {
         placeholder={formData.property.dealType === 'sale' ? '15 000 000' : '80 000'}
         value={formData.property.price?.amount}
         onChange={(v) => {
-          if (Number.isFinite(v as number)) {
+          if ((v as number) > 0 && Number.isFinite(v as number)) {
             updatePropertyInfo({
               price: {
                 // TODO: add currency
@@ -62,12 +60,15 @@ export const PropertyInfoForm = (props: PropertyInfoFormProps) => {
                 amount: v as number,
               },
             });
+          } else {
+            updatePropertyInfo({
+              price: undefined,
+            });
           }
         }}
         min={0}
         rightSection='₽'
       />
-
       <Group wrap='nowrap'>
         <NumberInput
           label='Этаж'
@@ -76,15 +77,10 @@ export const PropertyInfoForm = (props: PropertyInfoFormProps) => {
           placeholder='7'
           value={formData.property.floor?.number}
           onChange={(v) => {
-            if (Number.isFinite(v as number)) {
-              updatePropertyInfo({
-                floor: { number: v as number, total: formData.property.floor?.total },
-              });
-            } else {
-              updatePropertyInfo({
-                floor: { number: undefined, total: formData.property.floor?.total },
-              });
-            }
+            console.log(v || undefined);
+            updatePropertyInfo({
+              floor: { number: (v as number) || undefined, total: formData.property.floor?.total },
+            });
           }}
           min={0}
         />
@@ -95,20 +91,13 @@ export const PropertyInfoForm = (props: PropertyInfoFormProps) => {
           placeholder='19'
           value={formData.property.floor?.total}
           onChange={(v) => {
-            if (Number.isFinite(v as number)) {
-              updatePropertyInfo({
-                floor: { number: formData.property.floor?.number, total: v as number },
-              });
-            } else {
-              updatePropertyInfo({
-                floor: { number: formData.property.floor?.number, total: undefined },
-              });
-            }
+            updatePropertyInfo({
+              floor: { number: formData.property.floor?.number, total: (v as number) || undefined },
+            });
           }}
           min={0}
         />
       </Group>
-
       <NumberInput
         label='Площадь'
         size='md'
@@ -116,9 +105,7 @@ export const PropertyInfoForm = (props: PropertyInfoFormProps) => {
         placeholder='69'
         value={formData.property.area}
         onChange={(v) => {
-          if (Number.isFinite(v as number)) {
-            updatePropertyInfo({ area: v as number });
-          }
+          updatePropertyInfo({ area: (v as number) || undefined });
         }}
         min={0}
         thousandSeparator=' '
@@ -135,9 +122,11 @@ export const PropertyInfoForm = (props: PropertyInfoFormProps) => {
         label='Циан'
         radius='lg'
         size='md'
-        placeholder='https://www.cian.ru/offer/1234567890/'
+        placeholder='https://www.cian.ru/'
         value={formData.property.links?.cian}
-        onChange={(ev) => updatePropertyInfo({ links: { ...formData.property.links, cian: ev.currentTarget.value } })}
+        onChange={(ev) =>
+          updatePropertyInfo({ links: { ...formData.property.links, cian: ev.currentTarget.value || undefined } })
+        }
       />
       <TextInput
         leftSection={
@@ -149,9 +138,11 @@ export const PropertyInfoForm = (props: PropertyInfoFormProps) => {
         label='Авито'
         radius='lg'
         size='md'
-        placeholder='https://www.avito.ru/moskva/kvartiry/1234567890'
+        placeholder='https://www.avito.ru/'
         value={formData.property.links?.avito}
-        onChange={(ev) => updatePropertyInfo({ links: { ...formData.property.links, avito: ev.currentTarget.value } })}
+        onChange={(ev) =>
+          updatePropertyInfo({ links: { ...formData.property.links, avito: ev.currentTarget.value || undefined } })
+        }
       />
       <TextInput
         leftSection={
@@ -163,9 +154,11 @@ export const PropertyInfoForm = (props: PropertyInfoFormProps) => {
         label='Яндекс'
         radius='lg'
         size='md'
-        placeholder='https://realty.yandex.ru/offer/1234567890/'
+        placeholder='https://realty.yandex.ru/'
         value={formData.property.links?.yandex}
-        onChange={(ev) => updatePropertyInfo({ links: { ...formData.property.links, yandex: ev.currentTarget.value } })}
+        onChange={(ev) =>
+          updatePropertyInfo({ links: { ...formData.property.links, yandex: ev.currentTarget.value || undefined } })
+        }
       />
       <TextInput
         leftSection={
@@ -177,10 +170,10 @@ export const PropertyInfoForm = (props: PropertyInfoFormProps) => {
         label='Домклик'
         radius='lg'
         size='md'
-        placeholder='https://www.domclick.ru/offer/1234567890/'
+        placeholder='https://www.domclick.ru/'
         value={formData.property.links?.domclick}
         onChange={(ev) =>
-          updatePropertyInfo({ links: { ...formData.property.links, domclick: ev.currentTarget.value } })
+          updatePropertyInfo({ links: { ...formData.property.links, domclick: ev.currentTarget.value || undefined } })
         }
       />
       {error && (
