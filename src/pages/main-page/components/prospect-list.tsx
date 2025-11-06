@@ -7,6 +7,7 @@ import {
   Drawer,
   Grid,
   Group,
+  Space,
   Stack,
   Text,
   UnstyledButton,
@@ -42,11 +43,13 @@ export const ProspectList: FC<ProspectListProps> = (props) => {
 
   const noProspectsDisclaimer = (
     <Stack
-      p='xl'
-      align='center'
+      px='md'
+      py='xs'
+      align='stretch'
       gap='xl'
       c='dimmed'
     >
+      <Space />
       <Stack
         align='center'
         gap='xs'
@@ -55,13 +58,19 @@ export const ProspectList: FC<ProspectListProps> = (props) => {
           size={48}
           stroke={1.8}
         />
-        <Text ta='center'>Пока нет клиентов</Text>
+        <Text ta='center'>У этого объекта пока нет клиентов</Text>
       </Stack>
       <Button
         size='md'
         radius='lg'
-        leftSection={<IconPlus size={16} />}
+        leftSection={
+          <IconPlus
+            size={16}
+            stroke={1.8}
+          />
+        }
         onClick={() => navigate(`/properties/${propertyId}/edit?tab=prospects`)}
+        variant='light'
       >
         Добавить
       </Button>

@@ -1,4 +1,4 @@
 export { PropertyList } from './property-list';
-export { PropertyInfo } from './property-info';
+export { PropertyInfo } from './property-slide/property-info';
 export { ProspectList } from './prospect-list';
 export { OwnerInfo } from './owner-info';

@@ -9,18 +9,19 @@ import { SplashScreen } from './components';
 
 const theme = createTheme({
   fontFamily: 'Manrope, sans-serif',
+  primaryColor: 'orange',
   colors: {
-    blue: [
-      '#e8f2ff',
-      '#d0e0fe',
-      '#9fbefb',
-      '#6b99f9',
-      '#417bf7',
-      '#2967f7',
-      '#1c5df8',
-      '#104edd',
-      '#0343c1',
-      '#003baf',
+    orange: [
+      '#fff5e2',
+      '#ffe9cd',
+      '#fed29c',
+      '#fcb968',
+      '#faa43b',
+      '#fa961f',
+      '#fa9214',
+      '#df7c01',
+      '#c76d00',
+      '#ad5d00',
     ],
   },
 });

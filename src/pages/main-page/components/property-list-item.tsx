@@ -3,13 +3,12 @@ import type { Property } from '../../../data/entities/property';
 import { Accordion, Group, Avatar, Stack, Text } from '@mantine/core';
 import { IconBuilding } from '@tabler/icons-react';
 import { OwnerInfo } from './owner-info';
-import { PropertyInfo } from './property-info';
+import { PropertySlide } from './property-slide';
 import { PropertyListItemMenu } from './property-list-item-menu';
 import { PropertyFormProvider } from '../../property-form-page/context';
 import { ownerDataProvider, prospectDataProvider, type Owner, type Prospect } from '../../../data';
 import { Carousel } from '@mantine/carousel';
 import { ProspectList } from './prospect-list';
-import { PropertyNote } from './property-note';
 
 type PropertyListItemProps = {
   property: Property;
@@ -82,113 +81,13 @@ export const PropertyListItem: FC<PropertyListItemProps> = (props) => {
             slideGap={'xs'}
             emblaOptions={{ loop: true }}
           >
-            <PropertyInfo property={property} />
+            <PropertySlide property={property} />
             <OwnerInfo owner={owner} />
             <ProspectList
               prospects={prospects}
               propertyId={property.id}
             />
-            <PropertyNote propertyId={property.id} />
           </Carousel>
-          {/* <PropertyInfo
-            price={property.price}
-            area={property.area}
-            floor={property.floor}
-          />
-          <Space h='xs' />
-          <Accordion
-            multiple
-            chevronPosition='left'
-            variant='unstyled'
-            classNames={{ chevron: styles.chevron }}
-          >
-            {property.ownerId && (
-              <Accordion.Item value='owner'>
-                <Group
-                  gap={0}
-                  wrap='nowrap'
-                >
-                  <Accordion.Control>
-                    <Group
-                      align='center'
-                      gap='xs'
-                    >
-                      <Avatar
-                        size={48}
-                        radius='lg'
-                        name={owner?.name}
-                        color='initials'
-                      >
-                        <IconUser
-                          stroke={1.8}
-                          size={24}
-                        />
-                      </Avatar>
-                      <Stack gap={0}>
-                        <Text
-                          fw='bold'
-                          size='lg'
-                        >
-                          {owner?.name}
-                        </Text>
-                        <Text
-                          size='sm'
-                          c='dimmed'
-                        >
-                          Собственник
-                        </Text>
-                      </Stack>
-                    </Group>
-                  </Accordion.Control>
-                  <OwnerInfoMenu />
-                </Group>
-                <Accordion.Panel>
-                  <OwnerInfo owner={owner} />
-                </Accordion.Panel>
-              </Accordion.Item>
-            )}
-            <Divider ml={106} />
-            <Accordion.Item value='prospects'>
-              <Group
-                gap={0}
-                wrap='nowrap'
-              >
-                <Accordion.Control>
-                  <Group
-                    align='center'
-                    gap='xs'
-                  >
-                    <Avatar
-                      size={48}
-                      radius='lg'
-                      color='initials'
-                      name={`Клиенты ${property.name}`}
-                    >
-                      <IconUsers
-                        stroke={1.8}
-                        size={24}
-                      />
-                    </Avatar>
-                    <Stack gap={0}>
-                      <Text
-                        fw='bold'
-                        size='lg'
-                      >
-                        {property.prospectIds.length} клиентов
-                      </Text>
-                    </Stack>
-                  </Group>
-                </Accordion.Control>
-                <ProspectListMenu />
-              </Group>
-              <Accordion.Panel styles={{ content: { paddingRight: '0' } }}>
-                <ProspectList
-                  prospects={prospects}
-                  propertyId={property.id}
-                />
-              </Accordion.Panel>
-            </Accordion.Item>
-          </Accordion> */}
         </Accordion.Panel>
       </Accordion.Item>
     </PropertyFormProvider>

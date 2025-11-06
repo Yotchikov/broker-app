@@ -40,6 +40,7 @@ export const MainPage: FC = () => {
                 maxWidth: 200,
                 width: 'auto',
                 height: 'auto',
+                color: 'var(--mantine-primary-color-filled)',
               }}
             />
             <Text
@@ -87,7 +88,7 @@ export const MainPage: FC = () => {
           />
           <Box>
             <SegmentedControl
-              color='blue'
+              color='orange'
               size='lg'
               radius='lg'
               data={[

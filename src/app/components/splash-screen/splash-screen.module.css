@@ -19,7 +19,7 @@
 }
 
 .logo {
-  color: var(--mantine-text-color);
+  color: var(--mantine-primary-color-filled);
   max-width: 200px;
   max-height: 200px;
   width: auto;
