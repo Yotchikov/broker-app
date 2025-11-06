@@ -58,7 +58,7 @@ export class ProspectLocalDataProviderImpl implements ProspectDataProvider {
     return prospect;
   };
 
-  updateProspect = async (prospect: Prospect): Promise<Prospect> => {
+  updateProspect = async (prospect: Partial<Prospect> & { id: string }): Promise<Prospect> => {
     const prospects = this.getProspectsFromStorage();
     const index = prospects.findIndex((p) => p.id === prospect.id);
 
@@ -66,10 +66,10 @@ export class ProspectLocalDataProviderImpl implements ProspectDataProvider {
       throw new Error(`Prospect with id ${prospect.id} not found`);
     }
 
-    prospects[index] = prospect;
+    prospects[index] = { ...prospects[index], ...prospect };
     this.saveProspectsToStorage(prospects);
 
-    return prospect;
+    return { ...prospects[index], ...prospect };
   };
 
   deleteProspectById = async (id: string): Promise<void> => {

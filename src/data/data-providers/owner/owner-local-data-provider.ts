@@ -32,11 +32,15 @@ export class OwnerLocalDataProviderImpl implements OwnerDataProvider {
     }
   }
 
-  getOwnerById = async (id: string): Promise<Owner | null> => {
+  getOwnerById = async (id: string): Promise<Owner> => {
     const owners = this.getOwnersFromStorage();
     const owner = owners.find((owner) => owner.id === id);
 
-    return owner || null;
+    if (!owner) {
+      throw new Error(`Owner with id ${id} not found`);
+    }
+
+    return owner;
   };
 
   createOwner = async (owner: Owner): Promise<Owner> => {
@@ -54,7 +58,7 @@ export class OwnerLocalDataProviderImpl implements OwnerDataProvider {
     return owner;
   };
 
-  updateOwner = async (owner: Owner): Promise<Owner> => {
+  updateOwner = async (owner: Partial<Owner> & { id: string }): Promise<Owner> => {
     const owners = this.getOwnersFromStorage();
     const index = owners.findIndex((o) => o.id === owner.id);
 
@@ -62,10 +66,10 @@ export class OwnerLocalDataProviderImpl implements OwnerDataProvider {
       throw new Error(`Owner with id ${owner.id} not found`);
     }
 
-    owners[index] = owner;
+    owners[index] = { ...owners[index], ...owner };
     this.saveOwnersToStorage(owners);
 
-    return owner;
+    return { ...owners[index], ...owner };
   };
 
   deleteOwnerById = async (id: string): Promise<void> => {

@@ -1,10 +1,10 @@
-import { ActionIcon, Button, Drawer, Group, Stack, Text, useDrawersStack } from '@mantine/core';
-import { IconDots, IconPlus } from '@tabler/icons-react';
-import { COMMON_DRAWER_PROPS } from './consts';
-import { ProspectInfoForm } from '../../property-form-page/components/prospect-info-form';
-import { usePropertyForm } from '../../property-form-page/context';
+import { Stack, Space, Button, Text, Drawer, useDrawersStack } from '@mantine/core';
+import { IconMoodSad, IconPlus } from '@tabler/icons-react';
+import { ProspectInfoForm } from '../../../property-form-page/components';
+import { COMMON_DRAWER_PROPS } from '../consts';
+import { usePropertyForm } from '../../../property-form-page/context';
 
-export const ProspectListMenu = () => {
+export const ProspectListEmptyDisclaimer = () => {
   const { formData, addProspect, updateProspect, submitForm, clearForm } = usePropertyForm();
 
   const stack = useDrawersStack(['actions', 'add']);
@@ -19,12 +19,10 @@ export const ProspectListMenu = () => {
 
     stack.open('add');
   };
-
   const handleSaveProspect = () => {
     submitForm();
     stack.close('add');
   };
-
   const handleCloseAddProspectDrawer = () => {
     clearForm();
     stack.close('add');
@@ -32,38 +30,40 @@ export const ProspectListMenu = () => {
 
   return (
     <>
-      <ActionIcon
-        variant='transparent'
-        color='default'
-        onClick={() => stack.open('actions')}
+      <Stack
+        px='md'
+        py='xs'
+        align='stretch'
+        gap='xl'
+        c='dimmed'
       >
-        <IconDots
-          stroke={1.8}
-          size={20}
-        />
-      </ActionIcon>
-      <Drawer.Stack>
-        <Drawer
-          {...stack.register('actions')}
-          position='bottom'
-          styles={{ content: { height: 'auto' } }}
-          offset={8}
-          radius='md'
-          closeButtonProps={{
-            size: 'lg',
-          }}
+        <Space />
+        <Stack
+          align='center'
+          gap='xs'
         >
-          <Stack gap='xs'>
-            <Group onClick={handleOpenAddProspectDrawer}>
-              <IconPlus
-                stroke={1.8}
-                color='var(--mantine-color-dimmed)'
-                size={24}
-              />
-              <Text size='lg'>Добавить</Text>
-            </Group>
-          </Stack>
-        </Drawer>
+          <IconMoodSad
+            size={48}
+            stroke={1.8}
+          />
+          <Text ta='center'>У этого объекта пока нет клиентов</Text>
+        </Stack>
+        <Button
+          size='md'
+          radius='lg'
+          leftSection={
+            <IconPlus
+              size={16}
+              stroke={1.8}
+            />
+          }
+          onClick={handleOpenAddProspectDrawer}
+          variant='light'
+        >
+          Добавить
+        </Button>
+      </Stack>
+      <Drawer.Stack>
         <Drawer
           {...stack.register('add')}
           {...COMMON_DRAWER_PROPS}
@@ -84,7 +84,7 @@ export const ProspectListMenu = () => {
             />
             <Button
               size='md'
-              radius='lg'
+              radius='xl'
               onClick={handleSaveProspect}
             >
               Сохранить

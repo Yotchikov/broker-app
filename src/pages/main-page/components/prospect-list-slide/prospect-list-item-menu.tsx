@@ -1,9 +1,9 @@
 import { useDrawersStack, ActionIcon, Drawer, Stack, Group, Button, Text, Divider } from '@mantine/core';
 import { IconDots, IconPencil, IconTrash } from '@tabler/icons-react';
-import { ProspectInfoForm } from '../../property-form-page/components';
-import { usePropertyForm } from '../../property-form-page/context';
-import { COMMON_DRAWER_PROPS } from './consts';
-import { propertyDataProvider } from '../../../data';
+import { ProspectInfoForm } from '../../../property-form-page/components';
+import { usePropertyForm } from '../../../property-form-page/context';
+import { COMMON_DRAWER_PROPS } from '../consts';
+import { propertyDataProvider } from '../../../../data';
 import { useNavigate } from 'react-router';
 
 type ProspectListItemMenuProps = {

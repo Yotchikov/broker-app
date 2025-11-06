@@ -2,13 +2,13 @@ import { useEffect, useState, type FC } from 'react';
 import type { Property } from '../../../data/entities/property';
 import { Accordion, Group, Avatar, Stack, Text } from '@mantine/core';
 import { IconBuilding } from '@tabler/icons-react';
-import { OwnerInfo } from './owner-info';
 import { PropertySlide } from './property-slide';
 import { PropertyListItemMenu } from './property-list-item-menu';
 import { PropertyFormProvider } from '../../property-form-page/context';
 import { ownerDataProvider, prospectDataProvider, type Owner, type Prospect } from '../../../data';
 import { Carousel } from '@mantine/carousel';
-import { ProspectList } from './prospect-list';
+import { ProspectListSlide } from './prospect-list-slide';
+import { OwnerSlide } from './owner-slide';
 
 type PropertyListItemProps = {
   property: Property;
@@ -82,11 +82,8 @@ export const PropertyListItem: FC<PropertyListItemProps> = (props) => {
             emblaOptions={{ loop: true }}
           >
             <PropertySlide property={property} />
-            <OwnerInfo owner={owner} />
-            <ProspectList
-              prospects={prospects}
-              propertyId={property.id}
-            />
+            <OwnerSlide owner={owner} />
+            <ProspectListSlide prospects={prospects} />
           </Carousel>
         </Accordion.Panel>
       </Accordion.Item>

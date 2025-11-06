@@ -1,10 +1,10 @@
 import { ActionIcon, Button, Drawer, Group, Stack, Text, useDrawersStack } from '@mantine/core';
 import { IconDots, IconPencil } from '@tabler/icons-react';
-import { usePropertyForm } from '../../property-form-page/context';
-import { OwnerInfoForm } from '../../property-form-page/components';
-import { COMMON_DRAWER_PROPS } from './consts';
+import { usePropertyForm } from '../../../property-form-page/context';
+import { OwnerInfoForm } from '../../../property-form-page/components';
+import { COMMON_DRAWER_PROPS } from '../consts';
 
-export const OwnerInfoMenu = () => {
+export const OwnerMenu = () => {
   const stack = useDrawersStack(['actions', 'edit']);
   const { submitForm } = usePropertyForm();
 
