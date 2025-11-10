@@ -3,6 +3,7 @@ import { IconPhone, IconMail, IconBrandTelegram, IconBrandWhatsapp } from '@tabl
 import type { Prospect, ProspectStatus } from '../../../data';
 import { PROSPECT_STATUS_TITLES } from '../../main-page/components/consts';
 import { formatPhoneNumber } from '../../../app/utils/format-phone';
+import { ClearButton } from './clear-button';
 
 type ProspectInfoFormProps = {
   handleUpdateProspect: (field: keyof Prospect, value: Prospect[keyof Prospect]) => void;
@@ -33,6 +34,7 @@ export const ProspectInfoForm = (props: ProspectInfoFormProps) => {
         required
         value={prospect.name}
         onChange={(ev) => handleUpdateProspect('name', ev.currentTarget.value)}
+        rightSection={prospect.name ? <ClearButton onClick={() => handleUpdateProspect('name', '')} /> : null}
       />
       <NativeSelect
         label='Статус'
@@ -53,6 +55,11 @@ export const ProspectInfoForm = (props: ProspectInfoFormProps) => {
           const formatted = formatPhoneNumber(ev.currentTarget.value);
           handleUpdateProspect('contacts', { ...prospect.contacts, phone: formatted });
         }}
+        rightSection={
+          prospect.contacts.phone ? (
+            <ClearButton onClick={() => handleUpdateProspect('contacts', { ...prospect.contacts, phone: '' })} />
+          ) : null
+        }
       />
 
       <TextInput
@@ -63,6 +70,11 @@ export const ProspectInfoForm = (props: ProspectInfoFormProps) => {
         type='email'
         value={prospect.contacts.email}
         onChange={(ev) => handleUpdateProspect('contacts', { ...prospect.contacts, email: ev.currentTarget.value })}
+        rightSection={
+          prospect.contacts.email ? (
+            <ClearButton onClick={() => handleUpdateProspect('contacts', { ...prospect.contacts, email: '' })} />
+          ) : null
+        }
       />
       <TextInput
         radius='lg'
@@ -76,6 +88,11 @@ export const ProspectInfoForm = (props: ProspectInfoFormProps) => {
             telegram: ev.currentTarget.value,
           })
         }
+        rightSection={
+          prospect.contacts.telegram ? (
+            <ClearButton onClick={() => handleUpdateProspect('contacts', { ...prospect.contacts, telegram: '' })} />
+          ) : null
+        }
       />
       <TextInput
         radius='lg'
@@ -87,6 +104,11 @@ export const ProspectInfoForm = (props: ProspectInfoFormProps) => {
           const formatted = formatPhoneNumber(ev.currentTarget.value);
           handleUpdateProspect('contacts', { ...prospect.contacts, whatsapp: formatted });
         }}
+        rightSection={
+          prospect.contacts.whatsapp ? (
+            <ClearButton onClick={() => handleUpdateProspect('contacts', { ...prospect.contacts, whatsapp: '' })} />
+          ) : null
+        }
       />
     </Stack>
   );

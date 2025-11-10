@@ -2,6 +2,7 @@ import { usePropertyForm } from '../context';
 import { Stack, TextInput, Title, Notification } from '@mantine/core';
 import { IconBrandTelegram, IconBrandWhatsapp, IconMail, IconPhone } from '@tabler/icons-react';
 import { formatPhoneNumber } from '../../../app/utils/format-phone';
+import { ClearButton } from './clear-button';
 
 type OwnerInfoFormProps = {
   withTitle?: boolean;
@@ -23,6 +24,7 @@ export const OwnerInfoForm = (props: OwnerInfoFormProps) => {
         required
         value={formData.owner.name}
         onChange={(ev) => updateOwnerInfo({ name: ev.currentTarget.value })}
+        rightSection={formData.owner.name ? <ClearButton onClick={() => updateOwnerInfo({ name: '' })} /> : null}
       />
       <Title order={4}>Контакты</Title>
       <TextInput
@@ -36,6 +38,11 @@ export const OwnerInfoForm = (props: OwnerInfoFormProps) => {
           const formatted = formatPhoneNumber(ev.currentTarget.value);
           updateOwnerInfo({ contacts: { ...formData.owner.contacts, phone: formatted } });
         }}
+        rightSection={
+          formData.owner.contacts.phone ? (
+            <ClearButton onClick={() => updateOwnerInfo({ contacts: { ...formData.owner.contacts, phone: '' } })} />
+          ) : null
+        }
       />
       <TextInput
         radius='lg'
@@ -45,6 +52,11 @@ export const OwnerInfoForm = (props: OwnerInfoFormProps) => {
         leftSection={<IconMail size={16} />}
         value={formData.owner.contacts.email}
         onChange={(ev) => updateOwnerInfo({ contacts: { ...formData.owner.contacts, email: ev.currentTarget.value } })}
+        rightSection={
+          formData.owner.contacts.email ? (
+            <ClearButton onClick={() => updateOwnerInfo({ contacts: { ...formData.owner.contacts, email: '' } })} />
+          ) : null
+        }
       />
       <TextInput
         radius='lg'
@@ -55,6 +67,11 @@ export const OwnerInfoForm = (props: OwnerInfoFormProps) => {
         value={formData.owner.contacts.telegram}
         onChange={(ev) =>
           updateOwnerInfo({ contacts: { ...formData.owner.contacts, telegram: ev.currentTarget.value } })
+        }
+        rightSection={
+          formData.owner.contacts.telegram ? (
+            <ClearButton onClick={() => updateOwnerInfo({ contacts: { ...formData.owner.contacts, telegram: '' } })} />
+          ) : null
         }
       />
       <TextInput
@@ -68,6 +85,11 @@ export const OwnerInfoForm = (props: OwnerInfoFormProps) => {
           const formatted = formatPhoneNumber(ev.currentTarget.value);
           updateOwnerInfo({ contacts: { ...formData.owner.contacts, whatsapp: formatted } });
         }}
+        rightSection={
+          formData.owner.contacts.whatsapp ? (
+            <ClearButton onClick={() => updateOwnerInfo({ contacts: { ...formData.owner.contacts, whatsapp: '' } })} />
+          ) : null
+        }
       />
       {error && (
         <Notification

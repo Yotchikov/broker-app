@@ -4,6 +4,7 @@ import IconBrandCian from 'public/icons/companies/cian.svg?react';
 import IconBrandAvito from 'public/icons/companies/avito.svg?react';
 import IconBrandYandex from 'public/icons/companies/yandex.svg?react';
 import IconBrandDomclick from 'public/icons/companies/domclick.svg?react';
+import { ClearButton } from './clear-button';
 
 type PropertyInfoFormProps = {
   withTitle?: boolean;
@@ -30,6 +31,7 @@ export const PropertyInfoForm = (props: PropertyInfoFormProps) => {
         required
         value={formData.property.name}
         onChange={(ev) => updatePropertyInfo({ name: ev.currentTarget.value })}
+        rightSection={formData.property.name ? <ClearButton onClick={() => updatePropertyInfo({ name: '' })} /> : null}
       />
       <SegmentedControl
         size='lg'
@@ -123,9 +125,16 @@ export const PropertyInfoForm = (props: PropertyInfoFormProps) => {
         radius='lg'
         size='md'
         placeholder='https://www.cian.ru/'
-        value={formData.property.links?.cian}
+        value={formData.property.links?.cian || ''}
         onChange={(ev) =>
           updatePropertyInfo({ links: { ...formData.property.links, cian: ev.currentTarget.value || undefined } })
+        }
+        rightSection={
+          formData.property.links?.cian ? (
+            <ClearButton
+              onClick={() => updatePropertyInfo({ links: { ...formData.property.links, cian: undefined } })}
+            />
+          ) : null
         }
       />
       <TextInput
@@ -139,9 +148,16 @@ export const PropertyInfoForm = (props: PropertyInfoFormProps) => {
         radius='lg'
         size='md'
         placeholder='https://www.avito.ru/'
-        value={formData.property.links?.avito}
+        value={formData.property.links?.avito || ''}
         onChange={(ev) =>
           updatePropertyInfo({ links: { ...formData.property.links, avito: ev.currentTarget.value || undefined } })
+        }
+        rightSection={
+          formData.property.links?.avito ? (
+            <ClearButton
+              onClick={() => updatePropertyInfo({ links: { ...formData.property.links, avito: undefined } })}
+            />
+          ) : null
         }
       />
       <TextInput
@@ -155,9 +171,16 @@ export const PropertyInfoForm = (props: PropertyInfoFormProps) => {
         radius='lg'
         size='md'
         placeholder='https://realty.yandex.ru/'
-        value={formData.property.links?.yandex}
+        value={formData.property.links?.yandex || ''}
         onChange={(ev) =>
           updatePropertyInfo({ links: { ...formData.property.links, yandex: ev.currentTarget.value || undefined } })
+        }
+        rightSection={
+          formData.property.links?.yandex ? (
+            <ClearButton
+              onClick={() => updatePropertyInfo({ links: { ...formData.property.links, yandex: undefined } })}
+            />
+          ) : null
         }
       />
       <TextInput
@@ -171,9 +194,16 @@ export const PropertyInfoForm = (props: PropertyInfoFormProps) => {
         radius='lg'
         size='md'
         placeholder='https://www.domclick.ru/'
-        value={formData.property.links?.domclick}
+        value={formData.property.links?.domclick || ''}
         onChange={(ev) =>
           updatePropertyInfo({ links: { ...formData.property.links, domclick: ev.currentTarget.value || undefined } })
+        }
+        rightSection={
+          formData.property.links?.domclick ? (
+            <ClearButton
+              onClick={() => updatePropertyInfo({ links: { ...formData.property.links, domclick: undefined } })}
+            />
+          ) : null
         }
       />
       {error && (
