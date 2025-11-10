@@ -1,6 +1,7 @@
 import { usePropertyForm } from '../context';
 import { Stack, TextInput, Title, Notification } from '@mantine/core';
 import { IconBrandTelegram, IconBrandWhatsapp, IconMail, IconPhone } from '@tabler/icons-react';
+import { formatPhoneNumber } from '../../../app/utils/format-phone';
 
 type OwnerInfoFormProps = {
   withTitle?: boolean;
@@ -31,7 +32,10 @@ export const OwnerInfoForm = (props: OwnerInfoFormProps) => {
         placeholder='+7 (999) 123-45-67'
         leftSection={<IconPhone size={16} />}
         value={formData.owner.contacts.phone}
-        onChange={(ev) => updateOwnerInfo({ contacts: { ...formData.owner.contacts, phone: ev.currentTarget.value } })}
+        onChange={(ev) => {
+          const formatted = formatPhoneNumber(ev.currentTarget.value);
+          updateOwnerInfo({ contacts: { ...formData.owner.contacts, phone: formatted } });
+        }}
       />
       <TextInput
         radius='lg'
@@ -60,9 +64,10 @@ export const OwnerInfoForm = (props: OwnerInfoFormProps) => {
         leftSection={<IconBrandWhatsapp size={16} />}
         placeholder='+7 (999) 123-45-67'
         value={formData.owner.contacts.whatsapp}
-        onChange={(ev) =>
-          updateOwnerInfo({ contacts: { ...formData.owner.contacts, whatsapp: ev.currentTarget.value } })
-        }
+        onChange={(ev) => {
+          const formatted = formatPhoneNumber(ev.currentTarget.value);
+          updateOwnerInfo({ contacts: { ...formData.owner.contacts, whatsapp: formatted } });
+        }}
       />
       {error && (
         <Notification

@@ -12,7 +12,7 @@ type PropertyLinksProps = {
 export const PropertyLinks: FC<PropertyLinksProps> = (props) => {
   const { links } = props;
 
-  if (!links || Object.keys(links).length === 0) {
+  if (!links || Object.keys(links).length === 0 || Object.values(links).every((value) => !value)) {
     return null;
   }
 
@@ -45,7 +45,7 @@ export const PropertyLinks: FC<PropertyLinksProps> = (props) => {
                 >
                   {LINK_LABELS[key as keyof Property['links']]}
                 </a>
-                {index < Object.entries(links).length - 1 && <Divider ml={30} />}
+                {index < Object.values(links).filter((value) => value).length - 1 && <Divider ml={30} />}
               </React.Fragment>
             ) : null,
           )}

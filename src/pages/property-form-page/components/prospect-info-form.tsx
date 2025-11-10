@@ -2,6 +2,7 @@ import { Stack, Title, TextInput, NativeSelect } from '@mantine/core';
 import { IconPhone, IconMail, IconBrandTelegram, IconBrandWhatsapp } from '@tabler/icons-react';
 import type { Prospect, ProspectStatus } from '../../../data';
 import { PROSPECT_STATUS_TITLES } from '../../main-page/components/consts';
+import { formatPhoneNumber } from '../../../app/utils/format-phone';
 
 type ProspectInfoFormProps = {
   handleUpdateProspect: (field: keyof Prospect, value: Prospect[keyof Prospect]) => void;
@@ -48,7 +49,10 @@ export const ProspectInfoForm = (props: ProspectInfoFormProps) => {
         leftSection={<IconPhone size={16} />}
         placeholder='+7 (999) 123-45-67'
         value={prospect.contacts.phone}
-        onChange={(ev) => handleUpdateProspect('contacts', { ...prospect.contacts, phone: ev.currentTarget.value })}
+        onChange={(ev) => {
+          const formatted = formatPhoneNumber(ev.currentTarget.value);
+          handleUpdateProspect('contacts', { ...prospect.contacts, phone: formatted });
+        }}
       />
 
       <TextInput
@@ -79,12 +83,10 @@ export const ProspectInfoForm = (props: ProspectInfoFormProps) => {
         size='md'
         placeholder='+7 (999) 123-45-67'
         value={prospect.contacts.whatsapp}
-        onChange={(ev) =>
-          handleUpdateProspect('contacts', {
-            ...prospect.contacts,
-            whatsapp: ev.currentTarget.value,
-          })
-        }
+        onChange={(ev) => {
+          const formatted = formatPhoneNumber(ev.currentTarget.value);
+          handleUpdateProspect('contacts', { ...prospect.contacts, whatsapp: formatted });
+        }}
       />
     </Stack>
   );

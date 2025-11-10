@@ -15,7 +15,9 @@ export const SettingsPage: FC = () => {
         <Title order={2}>Настройки</Title>
         <Blockquote
           variant='light'
-          color='blue'
+          color='orange'
+          radius='lg'
+          ml='4px'
           icon={<IconInfoCircle />}
         >
           <Stack gap='md'>
