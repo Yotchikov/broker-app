@@ -9,12 +9,11 @@ export const FormFooter = () => {
     <Group
       justify='space-between'
       pos='fixed'
-      bottom={BOTTOM_NAVBAR_HEIGHT}
-      p='md'
+      bottom={BOTTOM_NAVBAR_HEIGHT + 32 + 16}
+      px='md'
       left={0}
       right={0}
-      bg='var(--mantine-color-body)'
-      style={{ boxShadow: '0 -10px 10px var(--mantine-color-body)', zIndex: 100 }}
+      style={{ zIndex: 100 }}
     >
       {prevStep ? (
         <Button
@@ -23,6 +22,7 @@ export const FormFooter = () => {
           radius='lg'
           onClick={prevStep}
           loading={isLoading}
+          style={{ backdropFilter: 'blur(14px)' }}
         >
           Назад
         </Button>

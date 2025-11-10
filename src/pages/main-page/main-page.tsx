@@ -5,8 +5,9 @@ import { PropertyList } from './components/property-list';
 import { useLoaderData, useNavigate } from 'react-router';
 import { useState } from 'react';
 import type { Property } from '../../data/entities/property';
-import { TOP_NAVBAR_HEIGHT } from '../../app/components';
+import { BOTTOM_NAVBAR_HEIGHT, TOP_NAVBAR_HEIGHT } from '../../app/components';
 import Logo from '../../../public/images/logo.svg?react';
+import { BOTTOM_NAVBAR_BOTTOM_PADDING, BOTTOM_NAVBAR_TOP_PADDING } from '../../app/components/bottom-navbar/consts';
 
 export const MainPage: FC = () => {
   const { properties } = useLoaderData<{ properties: Property[] }>();
@@ -74,7 +75,7 @@ export const MainPage: FC = () => {
     >
       <Stack
         gap='sm'
-        py='sm'
+        pt='sm'
       >
         <Stack
           px='sm'
@@ -125,6 +126,7 @@ export const MainPage: FC = () => {
           <PropertyList properties={properties.filter((property) => property.dealType === 'rent')} />
         )}
       </Stack>
+      <Box h={BOTTOM_NAVBAR_HEIGHT + BOTTOM_NAVBAR_BOTTOM_PADDING + BOTTOM_NAVBAR_TOP_PADDING} />
     </Container>
   );
 };

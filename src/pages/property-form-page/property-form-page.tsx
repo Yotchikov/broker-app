@@ -1,9 +1,11 @@
 import type { FC } from 'react';
 import { useParams } from 'react-router';
-import { Container, Space, Stack, Stepper, Title } from '@mantine/core';
+import { Box, Container, Stack, Stepper, Title } from '@mantine/core';
 import { IconBuilding, IconUser, IconUsers } from '@tabler/icons-react';
 import { OwnerInfoForm, PropertyInfoForm, ProspectListInfoForm, FormFooter } from './components';
 import { PropertyFormProvider, usePropertyForm } from './context';
+import { BOTTOM_NAVBAR_HEIGHT } from '../../app/components/bottom-navbar';
+import { BOTTOM_NAVBAR_BOTTOM_PADDING, BOTTOM_NAVBAR_TOP_PADDING } from '../../app/components/bottom-navbar/consts';
 
 const PropertyFormContent: FC = () => {
   const params = useParams();
@@ -38,8 +40,8 @@ const PropertyFormContent: FC = () => {
               <ProspectListInfoForm />
             </Stepper.Step>
           </Stepper>
+          <Box h={BOTTOM_NAVBAR_HEIGHT + BOTTOM_NAVBAR_BOTTOM_PADDING + BOTTOM_NAVBAR_TOP_PADDING + 50} />
         </Stack>
-        <Space h={76} />
         <FormFooter />
       </Stack>
     </Container>

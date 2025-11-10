@@ -1,1 +1,3 @@
 export const BOTTOM_NAVBAR_HEIGHT = 64;
+export const BOTTOM_NAVBAR_BOTTOM_PADDING = 32;
+export const BOTTOM_NAVBAR_TOP_PADDING = 16;
