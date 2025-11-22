@@ -42,6 +42,11 @@ export const router = createBrowserRouter([
       },
       {
         path: 'prospects/create',
+        loader: async () => {
+          return {
+            properties: await propertyDataProvider.getProperties(),
+          };
+        },
         Component: ProspectFormPage,
       },
       {

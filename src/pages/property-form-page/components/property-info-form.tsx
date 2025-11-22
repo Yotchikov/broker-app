@@ -79,7 +79,6 @@ export const PropertyInfoForm = (props: PropertyInfoFormProps) => {
           placeholder='7'
           value={formData.property.floor?.number}
           onChange={(v) => {
-            console.log(v || undefined);
             updatePropertyInfo({
               floor: { number: (v as number) || undefined, total: formData.property.floor?.total },
             });

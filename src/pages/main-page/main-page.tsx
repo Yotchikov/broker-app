@@ -60,7 +60,7 @@ export const MainPage: FC = () => {
               radius='lg'
               onClick={() => navigate('/properties/create')}
             >
-              Добавить первый объект
+              Создать первый объект
             </Button>
           </Stack>
         </Stack>

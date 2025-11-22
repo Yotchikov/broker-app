@@ -92,7 +92,7 @@ export const ProspectList: FC<ProspectListProps> = (props) => {
             mx='md'
             my='xs'
           >
-            Добавить
+            Добавить клиента
           </Button>
         </Card>
       </Stack>
