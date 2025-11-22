@@ -1,5 +1,5 @@
 import { createBrowserRouter, Outlet, Navigate } from 'react-router';
-import { MainPage, PropertyFormPage, SettingsPage } from '../../pages';
+import { MainPage, PropertyFormPage, ProspectFormPage, SettingsPage } from '../../pages';
 import { TopNavbar, TOP_NAVBAR_HEIGHT, BottomNavbar } from '../components';
 import { propertyDataProvider } from '../../data';
 import { Box } from '@mantine/core';
@@ -39,6 +39,10 @@ export const router = createBrowserRouter([
       {
         path: 'properties/:id/edit',
         Component: PropertyFormPage,
+      },
+      {
+        path: 'prospects/create',
+        Component: ProspectFormPage,
       },
       {
         path: '*',

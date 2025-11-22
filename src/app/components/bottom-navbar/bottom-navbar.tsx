@@ -1,15 +1,16 @@
 import { Box, Card, Group, Stack, Text } from '@mantine/core';
 import {
-  IconCirclePlus,
-  IconCirclePlusFilled,
+  IconBuildingPlus,
   IconHome,
   IconHomeFilled,
   IconSettings,
   IconSettingsFilled,
+  IconUserPlus,
 } from '@tabler/icons-react';
 import { useLocation, useNavigate } from 'react-router';
 import { BOTTOM_NAVBAR_HEIGHT } from './consts';
 import styles from './bottom-navbar.module.css';
+import { IconBuildingPlusFilled, IconUserPlusFilled } from '../custom-icons';
 
 const BOTTOM_NAVBAR_ITEMS = [
   {
@@ -21,12 +22,18 @@ const BOTTOM_NAVBAR_ITEMS = [
   },
   {
     id: 'create-property',
-    Icon: IconCirclePlus,
-    IconCurrent: IconCirclePlusFilled,
+    Icon: IconBuildingPlus,
+    IconCurrent: IconBuildingPlusFilled,
     path: '/properties/create',
-    label: 'Добавить',
+    label: 'Объект',
   },
-
+  {
+    id: 'create-property',
+    Icon: IconUserPlus,
+    IconCurrent: IconUserPlusFilled,
+    path: '/prospects/create',
+    label: 'Клиент',
+  },
   {
     id: 'settings',
     Icon: IconSettings,
