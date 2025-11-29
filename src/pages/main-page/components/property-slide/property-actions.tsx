@@ -1,17 +1,18 @@
-import { ActionIcon, Drawer, Group, Text, Stack, useDrawersStack, Button, Divider } from '@mantine/core';
-import { IconDots, IconPencil, IconTrash } from '@tabler/icons-react';
+import { Button, Divider, Drawer, Group, Stack, useDrawersStack, Text } from '@mantine/core';
+import { IconCopy, IconDots, IconPencil, IconShare3, IconTrash, IconUserPlus } from '@tabler/icons-react';
+import { VerticalButton } from '../../../../app/components';
+import { PropertyInfoForm } from '../../../property-form-page/components';
+import { COMMON_DRAWER_PROPS } from '../consts';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
-import { propertyDataProvider } from '../../../data';
-import { usePropertyForm } from '../../property-form-page/context';
-import { PropertyInfoForm } from '../../property-form-page/components';
-import { COMMON_DRAWER_PROPS } from './consts';
+import { propertyDataProvider } from '../../../../data';
+import { usePropertyForm } from '../../../property-form-page/context';
 
-type PropertyListItemMenuProps = {
+type PropertyActionsProps = {
   propertyId: string;
 };
 
-export const PropertyListItemMenu = (props: PropertyListItemMenuProps) => {
+export const PropertyActions = (props: PropertyActionsProps) => {
   const { propertyId } = props;
 
   const stack = useDrawersStack(['actions', 'edit', 'confirm-delete']);
@@ -37,31 +38,89 @@ export const PropertyListItemMenu = (props: PropertyListItemMenuProps) => {
     stack.close('edit');
   };
 
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'Посмотри этот объект',
+          text: 'Тут будет описание объекта',
+          url: 'https://example.com', // или window.location.href
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
   return (
     <>
-      <ActionIcon
-        variant='transparent'
-        color='default'
-        onClick={() => stack.open('actions')}
-      >
-        <IconDots
-          stroke={1.8}
-          size={20}
-        />
-      </ActionIcon>
+      <Group gap='xs'>
+        <VerticalButton
+          leftSection={
+            <IconPencil
+              stroke={1.8}
+              size={24}
+            />
+          }
+          variant='light'
+          size='xs'
+          radius='lg'
+          flex={1}
+          onClick={() => stack.open('edit')}
+        >
+          Изменить
+        </VerticalButton>
+        <VerticalButton
+          leftSection={
+            <IconShare3
+              stroke={1.8}
+              size={24}
+            />
+          }
+          variant='light'
+          size='xs'
+          radius='lg'
+          flex={1}
+          onClick={handleShare}
+        >
+          Отправить
+        </VerticalButton>
+        <VerticalButton
+          leftSection={
+            <IconDots
+              stroke={1.8}
+              size={24}
+            />
+          }
+          variant='light'
+          size='xs'
+          radius='lg'
+          flex={1}
+          onClick={() => stack.open('actions')}
+        >
+          Ещё
+        </VerticalButton>
+      </Group>
       <Drawer.Stack>
         <Drawer
           {...stack.register('actions')}
           {...COMMON_DRAWER_PROPS}
         >
           <Stack gap={'xs'}>
-            <Group onClick={() => stack.open('edit')}>
-              <IconPencil
+            <Group>
+              <IconUserPlus
                 stroke={1.8}
-                color='var(--mantine-color-dimmed)'
                 size={24}
               />
-              <Text size='lg'>Редактировать</Text>
+              <Text size='lg'>Добавить клиента</Text>
+            </Group>
+            <Divider ml={40} />
+            <Group>
+              <IconCopy
+                stroke={1.8}
+                size={24}
+              />
+              <Text size='lg'>Копировать информацию</Text>
             </Group>
             <Divider ml={40} />
             <Group

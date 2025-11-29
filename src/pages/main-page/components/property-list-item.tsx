@@ -3,7 +3,6 @@ import type { Property } from '../../../data/entities/property';
 import { Accordion, Group, Avatar, Stack, Text } from '@mantine/core';
 import { IconBuilding } from '@tabler/icons-react';
 import { PropertySlide } from './property-slide';
-import { PropertyListItemMenu } from './property-list-item-menu';
 import { PropertyFormProvider } from '../../property-form-page/context';
 import { ownerDataProvider, prospectDataProvider, type Owner, type Prospect } from '../../../data';
 import { Carousel } from '@mantine/carousel';
@@ -72,7 +71,6 @@ export const PropertyListItem: FC<PropertyListItemProps> = (props) => {
               </Stack>
             </Group>
           </Accordion.Control>
-          <PropertyListItemMenu propertyId={property.id} />
         </Group>
         <Accordion.Panel>
           <Carousel

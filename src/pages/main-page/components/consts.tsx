@@ -162,6 +162,6 @@ export const COMMON_DRAWER_PROPS: Partial<DrawerProps> = {
   position: 'bottom',
   styles: { content: { height: 'auto', marginBottom: 32 } },
   offset: 8,
-  radius: 'lg',
+  radius: 'xl',
   closeButtonProps: { size: 'lg' },
 };

@@ -37,7 +37,7 @@ const BOTTOM_NAVBAR_ITEMS = [
     label: 'Объект',
   },
   {
-    id: 'create-property',
+    id: 'create-prospect',
     Icon: IconUserPlus,
     IconCurrent: IconUserPlusFilled,
     path: '/prospects/create',
