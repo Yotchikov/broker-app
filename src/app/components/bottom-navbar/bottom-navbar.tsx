@@ -1,6 +1,8 @@
 import { Box, Card, Group, Stack, Text } from '@mantine/core';
 import {
   IconBuildingPlus,
+  IconEye,
+  IconEyeFilled,
   IconHome,
   IconHomeFilled,
   IconSettings,
@@ -19,6 +21,13 @@ const BOTTOM_NAVBAR_ITEMS = [
     IconCurrent: IconHomeFilled,
     path: '/',
     label: 'Объекты',
+  },
+  {
+    id: 'showings',
+    Icon: IconEye,
+    IconCurrent: IconEyeFilled,
+    path: '/showings',
+    label: 'Показы',
   },
   {
     id: 'create-property',
