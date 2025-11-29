@@ -37,7 +37,7 @@ export const OwnerMenu = () => {
                 size={24}
                 color='var(--mantine-color-dimmed)'
               />
-              <Text size='lg'>Редактировать</Text>
+              <Text size='lg'>Изменить</Text>
             </Group>
           </Stack>
         </Drawer>
@@ -49,7 +49,7 @@ export const OwnerMenu = () => {
               size='xl'
               fw='bold'
             >
-              Редактировать собственника
+              Изменить собственника
             </Text>
           }
         >

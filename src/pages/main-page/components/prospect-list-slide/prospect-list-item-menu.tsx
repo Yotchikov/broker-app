@@ -59,7 +59,7 @@ export const ProspectListItemMenu = (props: ProspectListItemMenuProps) => {
                 color='var(--mantine-color-dimmed)'
                 size={24}
               />
-              <Text size='lg'>Редактировать</Text>
+              <Text size='lg'>Изменить</Text>
             </Group>
             <Divider ml={40} />
             <Group
@@ -82,7 +82,7 @@ export const ProspectListItemMenu = (props: ProspectListItemMenuProps) => {
               size='xl'
               fw='bold'
             >
-              Редактировать клиента
+              Изменить клиента
             </Text>
           }
           onClose={handleCloseEditProspectDrawer}

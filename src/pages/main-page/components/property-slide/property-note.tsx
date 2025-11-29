@@ -1,4 +1,4 @@
-import { Card, Group, Stack, Text, Textarea } from '@mantine/core';
+import { Group, Stack, Text, Textarea } from '@mantine/core';
 import { IconNote } from '@tabler/icons-react';
 import { propertyDataProvider } from '../../../../data';
 import { useEffect, useState, type FC } from 'react';
@@ -36,22 +36,16 @@ export const PropertyNote: FC<PropertyNoteProps> = (props: PropertyNoteProps) =>
         />
         <Text size='md'>Особенности объекта</Text>
       </Group>
-      <Card
+      <Textarea
+        placeholder='Например: нужен клининг, ремонт, когда освободится, и т.д.'
+        autosize
+        size='md'
+        value={note}
+        minRows={3}
+        maxRows={10}
+        onChange={(ev) => handleNoteChange(ev.currentTarget.value)}
         radius='lg'
-        px='md'
-        py='xs'
-      >
-        <Textarea
-          variant='unstyled'
-          placeholder='Например: нужен клининг, ремонт, когда освободится, и т.д.'
-          autosize
-          size='md'
-          value={note}
-          minRows={3}
-          maxRows={10}
-          onChange={(ev) => handleNoteChange(ev.currentTarget.value)}
-        />
-      </Card>
+      />
     </Stack>
   );
 };

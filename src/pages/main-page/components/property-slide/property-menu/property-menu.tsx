@@ -129,7 +129,7 @@ export const PropertyMenu = forwardRef<unknown, PropertyMenuProps>((props, ref) 
             size='xl'
             fw='bold'
           >
-            Редактировать объект
+            Изменить объект
           </Text>
         }
       >
