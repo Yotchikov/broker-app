@@ -160,8 +160,8 @@ export const CONTACT_LINKS: Record<keyof Prospect['contacts'], string> = {
 
 export const COMMON_DRAWER_PROPS: Partial<DrawerProps> = {
   position: 'bottom',
-  styles: { content: { height: 'auto', marginBottom: 32 } },
-  offset: 8,
+  styles: { content: { height: 'auto', marginBottom: 16 } },
+  offset: 12,
   radius: 'xl',
   closeButtonProps: { size: 'lg' },
 };

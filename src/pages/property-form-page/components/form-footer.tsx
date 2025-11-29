@@ -1,6 +1,6 @@
 import { Group, Button, Box } from '@mantine/core';
 import { usePropertyForm } from '../context';
-import { BOTTOM_NAVBAR_HEIGHT } from '../../../app/components/bottom-navbar';
+import { BOTTOM_NAVBAR_HEIGHT, BOTTOM_NAVBAR_BOTTOM_PADDING } from '../../../app/components/bottom-navbar';
 
 export const FormFooter = () => {
   const { prevStep, nextStep, submitForm, isLoading } = usePropertyForm();
@@ -9,7 +9,7 @@ export const FormFooter = () => {
     <Group
       justify='space-between'
       pos='fixed'
-      bottom={BOTTOM_NAVBAR_HEIGHT + 32 + 16}
+      bottom={BOTTOM_NAVBAR_HEIGHT + BOTTOM_NAVBAR_BOTTOM_PADDING + 16}
       px='md'
       left={0}
       right={0}

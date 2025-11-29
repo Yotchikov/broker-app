@@ -10,7 +10,7 @@ import {
   IconUserPlus,
 } from '@tabler/icons-react';
 import { useLocation, useNavigate } from 'react-router';
-import { BOTTOM_NAVBAR_HEIGHT } from './consts';
+import { BOTTOM_NAVBAR_BOTTOM_PADDING, BOTTOM_NAVBAR_HEIGHT } from './consts';
 import styles from './bottom-navbar.module.css';
 import { IconBuildingPlusFilled, IconUserPlusFilled } from '../custom-icons';
 
@@ -59,18 +59,19 @@ export const BottomNavbar = () => {
   return (
     <Card
       pos='fixed'
-      bottom={32}
-      left={16}
-      right={16}
+      bottom={BOTTOM_NAVBAR_BOTTOM_PADDING}
+      left={12}
+      right={12}
       p={0}
-      radius='lg'
+      radius='xl'
       shadow='md'
       className={styles.bottomNavbar}
     >
       <Group
-        justify='space-evenly'
+        justify='space-around'
         wrap='nowrap'
         h={BOTTOM_NAVBAR_HEIGHT}
+        px='md'
       >
         {BOTTOM_NAVBAR_ITEMS.map((item) => (
           <Box
@@ -79,6 +80,7 @@ export const BottomNavbar = () => {
               color: currentPath === item.path ? 'var(--mantine-primary-color-filled)' : 'var(--mantine-color-text)',
             }}
             onClick={() => navigate(item.path)}
+            flex={1}
           >
             <Stack
               gap='0'

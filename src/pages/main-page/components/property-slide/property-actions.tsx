@@ -1,12 +1,8 @@
-import { Button, Divider, Drawer, Group, Stack, useDrawersStack, Text } from '@mantine/core';
-import { IconCopy, IconDots, IconPencil, IconShare3, IconTrash, IconUserPlus } from '@tabler/icons-react';
+import { Group } from '@mantine/core';
+import { IconDots, IconPencil, IconShare3 } from '@tabler/icons-react';
 import { VerticalButton } from '../../../../app/components';
-import { PropertyInfoForm } from '../../../property-form-page/components';
-import { COMMON_DRAWER_PROPS } from '../consts';
-import { useState } from 'react';
-import { useNavigate } from 'react-router';
-import { propertyDataProvider } from '../../../../data';
-import { usePropertyForm } from '../../../property-form-page/context';
+import { useRef } from 'react';
+import { PropertyMenu } from './property-menu';
 
 type PropertyActionsProps = {
   propertyId: string;
@@ -15,28 +11,10 @@ type PropertyActionsProps = {
 export const PropertyActions = (props: PropertyActionsProps) => {
   const { propertyId } = props;
 
-  const stack = useDrawersStack(['actions', 'edit', 'confirm-delete']);
-
-  const [isDeleting, setIsDeleting] = useState(false);
-
-  const navigate = useNavigate();
-
-  const { submitForm } = usePropertyForm();
-
-  const handleConfirmDelete = async () => {
-    try {
-      setIsDeleting(true);
-      await propertyDataProvider.deletePropertyById(propertyId);
-      navigate('/');
-    } finally {
-      setIsDeleting(false);
-    }
-  };
-
-  const handleEdit = async () => {
-    await submitForm();
-    stack.close('edit');
-  };
+  const propertyMenuRef = useRef<{
+    openMore: () => void;
+    openEdit: () => void;
+  }>(null);
 
   const handleShare = async () => {
     if (navigator.share) {
@@ -66,7 +44,7 @@ export const PropertyActions = (props: PropertyActionsProps) => {
           size='xs'
           radius='lg'
           flex={1}
-          onClick={() => stack.open('edit')}
+          onClick={() => propertyMenuRef.current?.openEdit()}
         >
           Изменить
         </VerticalButton>
@@ -96,105 +74,15 @@ export const PropertyActions = (props: PropertyActionsProps) => {
           size='xs'
           radius='lg'
           flex={1}
-          onClick={() => stack.open('actions')}
+          onClick={() => propertyMenuRef.current?.openMore()}
         >
           Ещё
         </VerticalButton>
       </Group>
-      <Drawer.Stack>
-        <Drawer
-          {...stack.register('actions')}
-          {...COMMON_DRAWER_PROPS}
-        >
-          <Stack gap={'xs'}>
-            <Group>
-              <IconUserPlus
-                stroke={1.8}
-                size={24}
-              />
-              <Text size='lg'>Добавить клиента</Text>
-            </Group>
-            <Divider ml={40} />
-            <Group>
-              <IconCopy
-                stroke={1.8}
-                size={24}
-              />
-              <Text size='lg'>Копировать информацию</Text>
-            </Group>
-            <Divider ml={40} />
-            <Group
-              c='red'
-              onClick={() => stack.open('confirm-delete')}
-            >
-              <IconTrash
-                stroke={1.8}
-                size={24}
-              />
-              <Text size='lg'>Удалить</Text>
-            </Group>
-          </Stack>
-        </Drawer>
-        <Drawer
-          {...stack.register('confirm-delete')}
-          {...COMMON_DRAWER_PROPS}
-          title={
-            <Text
-              size='xl'
-              fw='bold'
-            >
-              Удалить объект?
-            </Text>
-          }
-        >
-          <Stack gap='md'>
-            <Text>Вы уверены? Это действие нельзя отменить.</Text>
-            <Group justify='flex-end'>
-              <Button
-                size='md'
-                radius='lg'
-                variant='default'
-                onClick={() => stack.close('confirm-delete')}
-                disabled={isDeleting}
-              >
-                Отмена
-              </Button>
-              <Button
-                color='red'
-                size='md'
-                radius='lg'
-                onClick={handleConfirmDelete}
-                loading={isDeleting}
-              >
-                Удалить
-              </Button>
-            </Group>
-          </Stack>
-        </Drawer>
-        <Drawer
-          {...stack.register('edit')}
-          {...COMMON_DRAWER_PROPS}
-          title={
-            <Text
-              size='xl'
-              fw='bold'
-            >
-              Редактировать объект
-            </Text>
-          }
-        >
-          <Stack gap='md'>
-            <PropertyInfoForm withTitle={false} />
-            <Button
-              size='md'
-              radius='lg'
-              onClick={handleEdit}
-            >
-              Сохранить
-            </Button>
-          </Stack>
-        </Drawer>
-      </Drawer.Stack>
+      <PropertyMenu
+        ref={propertyMenuRef}
+        propertyId={propertyId}
+      />
     </>
   );
 };
