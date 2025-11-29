@@ -1,9 +1,9 @@
-import { Accordion, Button, Card, Drawer, Group, Stack, Text } from '@mantine/core';
+import { Accordion, Button, Card, Drawer, Text } from '@mantine/core';
 import { Timeline } from '@mantine/core';
 import { prospectDataProvider, type Prospect, type ProspectStatus } from '../../../../data';
 import { useState, type FC } from 'react';
 import { COMMON_DRAWER_PROPS, PROSPECT_STATUS_ORDER, PROSPECT_STATUS_TITLES } from '../consts';
-import { IconPlus, IconUsers } from '@tabler/icons-react';
+import { IconPlus } from '@tabler/icons-react';
 import { useNavigate } from 'react-router';
 import styles from '../../main-page.module.css';
 import { ProspectListEmptyDisclaimer } from './prospect-list-empty-disclaimer';
@@ -49,53 +49,40 @@ export const ProspectList: FC<ProspectListProps> = (props) => {
 
   return (
     <>
-      <Stack gap='xs'>
-        <Group
-          ml='md'
-          gap='xs'
-          c='dimmed'
-        >
-          <IconUsers
-            size={20}
-            stroke={1.8}
-          />
-          <Text size='md'>Клиенты</Text>
-        </Group>
-        <Card
-          radius='lg'
-          p={0}
-        >
-          {prospects.length > 0 ? (
-            <Accordion
-              multiple
-              chevronPosition='left'
-              variant='unstyled'
-              classNames={{ chevron: styles.chevron }}
-              styles={{ content: { padding: '0' } }}
-            >
-              {prospectItems}
-            </Accordion>
-          ) : (
-            <ProspectListEmptyDisclaimer />
-          )}
-          <Button
-            size='md'
-            radius='lg'
-            leftSection={
-              <IconPlus
-                size={16}
-                stroke={1.8}
-              />
-            }
-            onClick={() => setIsAddProspectModalOpened(true)}
-            variant='light'
-            mx='md'
-            my='xs'
+      <Card
+        radius='lg'
+        p={0}
+      >
+        {prospects.length > 0 ? (
+          <Accordion
+            multiple
+            chevronPosition='left'
+            variant='unstyled'
+            classNames={{ chevron: styles.chevron }}
+            styles={{ content: { padding: '0' } }}
           >
-            Добавить клиента
-          </Button>
-        </Card>
-      </Stack>
+            {prospectItems}
+          </Accordion>
+        ) : (
+          <ProspectListEmptyDisclaimer />
+        )}
+        <Button
+          size='md'
+          radius='lg'
+          leftSection={
+            <IconPlus
+              size={16}
+              stroke={1.8}
+            />
+          }
+          onClick={() => setIsAddProspectModalOpened(true)}
+          variant='light'
+          mx='md'
+          my='xs'
+        >
+          Добавить клиента
+        </Button>
+      </Card>
       <Drawer
         {...COMMON_DRAWER_PROPS}
         opened={modalOpened}

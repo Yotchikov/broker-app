@@ -18,71 +18,58 @@ export const OwnerInfo: FC<OwnerInfoProps> = ({ owner }) => {
   const { name, contacts } = owner;
 
   return (
-    <Stack gap='xs'>
-      <Group
-        ml='md'
-        gap='xs'
-        c='dimmed'
-      >
-        <IconUser
-          size={20}
-          stroke={1.8}
-        />
-        <Text size='md'>Собственник</Text>
-      </Group>
-      <Card
-        radius='lg'
-        px='md'
-        py='xs'
-      >
-        <Stack gap={'md'}>
-          <Group justify='space-between'>
-            <Group
-              align='center'
-              gap='xs'
+    <Card
+      radius='lg'
+      px='md'
+      py='xs'
+    >
+      <Stack gap={'md'}>
+        <Group justify='space-between'>
+          <Group
+            align='center'
+            gap='xs'
+          >
+            <Avatar
+              size={48}
+              radius='lg'
+              name={owner?.name}
+              color='initials'
             >
-              <Avatar
-                size={48}
-                radius='lg'
-                name={owner?.name}
-                color='initials'
-              >
-                <IconUser
-                  stroke={1.8}
-                  size={24}
-                />
-              </Avatar>
-              <Text size='md'>{name}</Text>
-            </Group>
-            <OwnerMenu />
+              <IconUser
+                stroke={1.8}
+                size={24}
+              />
+            </Avatar>
+            <Text size='md'>{name}</Text>
           </Group>
-          {Object.entries(contacts).length > 0 && (
-            <Grid
-              align='center'
-              gutter='xs'
-            >
-              {Object.entries(contacts).map(([key, value]) => (
-                <React.Fragment key={key}>
-                  {value && (
-                    <>
-                      <Grid.Col span={5}>{CONTACT_LABELS[key as keyof Owner['contacts']]}</Grid.Col>
-                      <Grid.Col span={7}>
-                        <a
-                          href={`${CONTACT_LINKS[key as keyof Owner['contacts']]}${value}`}
-                          target='_blank'
-                          style={{ textDecoration: 'none', color: 'inherit' }}
-                        >
-                          <Text size='md'>{value}</Text>
-                        </a>
-                      </Grid.Col>
-                    </>
-                  )}
-                </React.Fragment>
-              ))}
-            </Grid>
-          )}
-        </Stack>
-      </Card>
-    </Stack>
+          <OwnerMenu />
+        </Group>
+        {Object.entries(contacts).length > 0 && (
+          <Grid
+            align='center'
+            gutter='xs'
+          >
+            {Object.entries(contacts).map(([key, value]) => (
+              <React.Fragment key={key}>
+                {value && (
+                  <>
+                    <Grid.Col span={5}>{CONTACT_LABELS[key as keyof Owner['contacts']]}</Grid.Col>
+                    <Grid.Col span={7}>
+                      <a
+                        href={`${CONTACT_LINKS[key as keyof Owner['contacts']]}${value}`}
+                        target='_blank'
+                        style={{ textDecoration: 'none', color: 'inherit' }}
+                      >
+                        <Text size='md'>{value}</Text>
+                      </a>
+                    </Grid.Col>
+                  </>
+                )}
+              </React.Fragment>
+            ))}
+          </Grid>
+        )}
+      </Stack>
+    </Card>
   );
 };

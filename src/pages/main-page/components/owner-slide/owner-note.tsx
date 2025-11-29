@@ -24,7 +24,7 @@ export const OwnerNote: FC<OwnerNoteProps> = (props: OwnerNoteProps) => {
   };
 
   return (
-    <Stack gap='xs'>
+    <Stack gap='4'>
       <Group
         ml='md'
         gap='xs'

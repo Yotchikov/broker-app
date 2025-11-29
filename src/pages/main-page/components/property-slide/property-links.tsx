@@ -17,7 +17,7 @@ export const PropertyLinks: FC<PropertyLinksProps> = (props) => {
   }
 
   return (
-    <>
+    <Stack gap='4'>
       <Group
         ml='md'
         gap='xs'
@@ -51,6 +51,6 @@ export const PropertyLinks: FC<PropertyLinksProps> = (props) => {
           )}
         </Stack>
       </Card>
-    </>
+    </Stack>
   );
 };

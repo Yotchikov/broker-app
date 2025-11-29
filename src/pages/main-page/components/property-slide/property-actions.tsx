@@ -3,13 +3,15 @@ import { IconDots, IconPencil, IconShare3 } from '@tabler/icons-react';
 import { VerticalButton } from '../../../../app/components';
 import { useRef } from 'react';
 import { PropertyMenu } from './property-menu';
+import type { Property } from '../../../../data';
+import { getShareMessage } from '../../../../app/utils';
 
 type PropertyActionsProps = {
-  propertyId: string;
+  property: Property;
 };
 
 export const PropertyActions = (props: PropertyActionsProps) => {
-  const { propertyId } = props;
+  const { property } = props;
 
   const propertyMenuRef = useRef<{
     openMore: () => void;
@@ -20,9 +22,9 @@ export const PropertyActions = (props: PropertyActionsProps) => {
     if (navigator.share) {
       try {
         await navigator.share({
-          title: 'Посмотри этот объект',
-          text: 'Тут будет описание объекта',
-          url: 'https://example.com', // или window.location.href
+          title: `Объект на ${property.dealType === 'sale' ? 'продажу' : 'аренду'}`,
+          text: getShareMessage(property),
+          url: window.location.href,
         });
       } catch (error) {
         console.log(error);
@@ -81,7 +83,7 @@ export const PropertyActions = (props: PropertyActionsProps) => {
       </Group>
       <PropertyMenu
         ref={propertyMenuRef}
-        propertyId={propertyId}
+        propertyId={property.id}
       />
     </>
   );

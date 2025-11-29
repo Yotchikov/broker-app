@@ -18,7 +18,7 @@ export const PropertySlide: FC<PropertySlideProps> = (props) => {
   return (
     <Carousel.Slide>
       <Stack gap='xs'>
-        <PropertyActions propertyId={id} />
+        <PropertyActions property={property} />
         <PropertyInfo property={property} />
         <PropertyLinks links={links} />
         <PropertyNote propertyId={id} />

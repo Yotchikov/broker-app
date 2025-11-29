@@ -8,6 +8,7 @@ import { ownerDataProvider, prospectDataProvider, type Owner, type Prospect } fr
 import { Carousel } from '@mantine/carousel';
 import { ProspectListSlide } from './prospect-list-slide';
 import { OwnerSlide } from './owner-slide';
+import styles from './property-list.module.css';
 
 type PropertyListItemProps = {
   property: Property;
@@ -78,6 +79,9 @@ export const PropertyListItem: FC<PropertyListItemProps> = (props) => {
             withControls={false}
             slideGap={'xs'}
             emblaOptions={{ loop: true }}
+            withKeyboardEvents={false}
+            withIndicators={true}
+            classNames={styles}
           >
             <PropertySlide property={property} />
             <OwnerSlide owner={owner} />

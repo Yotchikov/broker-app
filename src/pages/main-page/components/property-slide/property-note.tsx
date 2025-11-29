@@ -24,7 +24,7 @@ export const PropertyNote: FC<PropertyNoteProps> = (props: PropertyNoteProps) =>
   };
 
   return (
-    <Stack gap='xs'>
+    <Stack gap='4'>
       <Group
         ml='md'
         gap='xs'

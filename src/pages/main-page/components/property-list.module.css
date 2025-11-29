@@ -1,0 +1,38 @@
+.root {
+  padding-top: 32px;
+}
+
+.indicators {
+  gap: 12px;
+  padding-left: 26px;
+  justify-content: flex-start;
+  top: 0;
+
+  & :nth-child(1) {
+    &:after {
+      content: 'Информация';
+    }
+  }
+
+  & :nth-child(2) {
+    &:after {
+      content: 'Собственник';
+    }
+  }
+
+  & :nth-child(3) {
+    &:after {
+      content: 'Клиенты';
+    }
+  }
+}
+
+.indicator {
+  width: auto;
+  height: 0;
+  background: transparent;
+
+  &[data-active] {
+    font-weight: bold;
+  }
+}
