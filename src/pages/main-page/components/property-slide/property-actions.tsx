@@ -22,9 +22,7 @@ export const PropertyActions = (props: PropertyActionsProps) => {
     if (navigator.share) {
       try {
         await navigator.share({
-          title: `Объект на ${property.dealType === 'sale' ? 'продажу' : 'аренду'}`,
-          text: getShareMessage(property),
-          url: window.location.href,
+          url: getShareMessage(property),
         });
       } catch (error) {
         console.log(error);
@@ -63,7 +61,7 @@ export const PropertyActions = (props: PropertyActionsProps) => {
           flex={1}
           onClick={handleShare}
         >
-          Отправить
+          Поделиться
         </VerticalButton>
         <VerticalButton
           leftSection={
