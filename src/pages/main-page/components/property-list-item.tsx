@@ -9,6 +9,7 @@ import { Carousel } from '@mantine/carousel';
 import { ProspectListSlide } from './prospect-list-slide';
 import { OwnerSlide } from './owner-slide';
 import styles from './property-list.module.css';
+import type { EmblaCarouselType } from 'embla-carousel';
 
 type PropertyListItemProps = {
   property: Property;
@@ -80,16 +81,17 @@ export const PropertyListItem: FC<PropertyListItemProps> = (props) => {
             slideGap={'xs'}
             emblaOptions={{
               loop: true,
-              watchDrag: (emblaApi: any, event: MouseEvent | TouchEvent) => {
+              watchDrag: (_: EmblaCarouselType, event: MouseEvent | TouchEvent) => {
                 try {
-                  const target = (event as any).target ?? null;
+                  const target = event.target ?? null;
+
                   if (!target) return true;
-                  if (target.closest && target.closest('[data-no-embla-drag]')) {
-                    // событие начато внутри карты — не начинать drag карусели
+
+                  if ((target as HTMLElement).closest && (target as HTMLElement).closest('[data-no-embla-drag]')) {
                     return false;
                   }
-                } catch (err) {
-                  // в сомнительном случае разрешаем поведение по умолчанию
+                } catch (error) {
+                  console.error(error);
                 }
 
                 return true;
