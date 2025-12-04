@@ -42,7 +42,7 @@ export const PropertyMap = () => {
         <Box h={300}>
           <YMap location={reactify.useDefault(LOCATION)}>
             <YMapDefaultSchemeLayer
-              customization={(isLight ? PROPERTY_MAP_LIGHT_CUSTOMIZATION : PROPERTY_MAP_DARK_CUSTOMIZATION) as any}
+              customization={isLight ? PROPERTY_MAP_LIGHT_CUSTOMIZATION : PROPERTY_MAP_DARK_CUSTOMIZATION}
             />
             <YMapDefaultFeaturesLayer />
 

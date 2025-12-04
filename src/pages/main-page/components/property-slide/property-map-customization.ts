@@ -1,4 +1,6 @@
-export const PROPERTY_MAP_LIGHT_CUSTOMIZATION = [
+import type { Customization } from '@yandex/ymaps3-types';
+
+export const PROPERTY_MAP_LIGHT_CUSTOMIZATION: Customization = [
   {
     tags: 'country',
     elements: 'geometry.fill',
@@ -6644,7 +6646,7 @@ export const PROPERTY_MAP_LIGHT_CUSTOMIZATION = [
   },
 ];
 
-export const PROPERTY_MAP_DARK_CUSTOMIZATION = [
+export const PROPERTY_MAP_DARK_CUSTOMIZATION: Customization = [
   {
     tags: 'country',
     elements: 'geometry.fill',
