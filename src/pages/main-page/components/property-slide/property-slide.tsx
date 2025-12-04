@@ -6,6 +6,7 @@ import { PropertyInfo } from './property-info';
 import { PropertyLinks } from './property-links';
 import { PropertyNote } from './property-note';
 import { PropertyActions } from './property-actions';
+import { PropertyMap } from './property-map';
 
 type PropertySlideProps = {
   property: Property;
@@ -21,6 +22,7 @@ export const PropertySlide: FC<PropertySlideProps> = (props) => {
         <PropertyActions property={property} />
         <PropertyInfo property={property} />
         <PropertyLinks links={links} />
+        <PropertyMap />
         <PropertyNote propertyId={id} />
       </Stack>
     </Carousel.Slide>

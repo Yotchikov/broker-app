@@ -78,7 +78,23 @@ export const PropertyListItem: FC<PropertyListItemProps> = (props) => {
             slideSize='90%'
             withControls={false}
             slideGap={'xs'}
-            emblaOptions={{ loop: true }}
+            emblaOptions={{
+              loop: true,
+              watchDrag: (emblaApi: any, event: MouseEvent | TouchEvent) => {
+                try {
+                  const target = (event as any).target ?? null;
+                  if (!target) return true;
+                  if (target.closest && target.closest('[data-no-embla-drag]')) {
+                    // событие начато внутри карты — не начинать drag карусели
+                    return false;
+                  }
+                } catch (err) {
+                  // в сомнительном случае разрешаем поведение по умолчанию
+                }
+
+                return true;
+              },
+            }}
             withKeyboardEvents={false}
             withIndicators={true}
             classNames={styles}
