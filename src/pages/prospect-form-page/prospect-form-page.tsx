@@ -1,10 +1,13 @@
 import { useEffect, useState, type FC } from 'react';
 import { useLoaderData } from 'react-router';
-import { Container, Stack, Button, NativeSelect, Title, Notification } from '@mantine/core';
+import { Container, Stack, Button, NativeSelect, Title, Notification, Box } from '@mantine/core';
 import { PropertyFormProvider, usePropertyForm } from '../property-form-page/context';
 import { ProspectInfoForm } from '../property-form-page/components';
 import type { Property } from '../../data';
 import { PropertyListEmptyDisclaimer } from './components';
+import { BOTTOM_NAVBAR_HEIGHT, BOTTOM_NAVBAR_BOTTOM_PADDING } from '../../app/components';
+import { BOTTOM_NAVBAR_TOP_PADDING } from '../../app/components/bottom-navbar/consts';
+import { IconExclamationMark } from '@tabler/icons-react';
 
 const ProspectFormContent: FC = () => {
   const { formData, addProspect, updateProspect, submitForm, setError, error } = usePropertyForm();
@@ -27,28 +30,36 @@ const ProspectFormContent: FC = () => {
         prospect={prospect}
         handleUpdateProspect={(field, value) => updateProspect(prospectIndex, { [field]: value })}
       />
-      {error && (
-        <Notification
-          color='red'
-          title='Ошибка'
-          radius={'md'}
-          onClose={() => setError(null)}
-          pos='absolute'
-          bottom={76 * 2}
-          left={16}
-          right={16}
-          style={{ zIndex: 150 }}
-        >
-          {error}
-        </Notification>
-      )}
-      <Button
-        size='md'
-        radius='lg'
-        onClick={submitForm}
+      <Box h={BOTTOM_NAVBAR_HEIGHT + BOTTOM_NAVBAR_BOTTOM_PADDING + BOTTOM_NAVBAR_TOP_PADDING + 42} />
+      <Stack
+        justify='space-between'
+        pos='fixed'
+        bottom={BOTTOM_NAVBAR_HEIGHT + BOTTOM_NAVBAR_BOTTOM_PADDING + BOTTOM_NAVBAR_TOP_PADDING}
+        px='md'
+        left={0}
+        right={0}
+        style={{ zIndex: 100 }}
       >
-        Сохранить
-      </Button>
+        {error && (
+          <Notification
+            icon={<IconExclamationMark size={16} />}
+            color='red'
+            radius={'lg'}
+            onClose={() => setError(null)}
+            bg='red.1'
+          >
+            {error}
+          </Notification>
+        )}
+        <Button
+          size='md'
+          radius='lg'
+          onClick={submitForm}
+          fullWidth
+        >
+          Сохранить
+        </Button>
+      </Stack>
     </Stack>
   );
 };

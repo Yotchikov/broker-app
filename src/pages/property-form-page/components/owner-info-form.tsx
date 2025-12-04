@@ -1,6 +1,6 @@
 import { usePropertyForm } from '../context';
 import { Stack, TextInput, Title, Notification } from '@mantine/core';
-import { IconBrandTelegram, IconBrandWhatsapp, IconMail, IconPhone } from '@tabler/icons-react';
+import { IconBrandTelegram, IconBrandWhatsapp, IconExclamationMark, IconMail, IconPhone } from '@tabler/icons-react';
 import { formatPhoneNumber } from '../../../app/utils/format-phone';
 import { ClearButton } from './clear-button';
 
@@ -94,14 +94,15 @@ export const OwnerInfoForm = (props: OwnerInfoFormProps) => {
       {error && (
         <Notification
           color='red'
-          title='Ошибка'
-          radius={'md'}
+          icon={<IconExclamationMark size={16} />}
+          radius={'lg'}
           onClose={() => setError(null)}
           pos='absolute'
           bottom={76 * 2}
           left={16}
           right={16}
           style={{ zIndex: 150 }}
+          bg='red.1'
         >
           {error}
         </Notification>

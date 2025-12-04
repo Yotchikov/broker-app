@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { usePropertyForm } from '../context';
 import { Box, Group, Stack, ActionIcon, Card, Text, Title, Notification, Modal, Button } from '@mantine/core';
-import { IconPlus, IconTrash } from '@tabler/icons-react';
+import { IconExclamationMark, IconPlus, IconTrash } from '@tabler/icons-react';
 import type { Prospect } from 'data';
 import { ProspectInfoForm } from './prospect-info-form';
 
@@ -133,14 +133,15 @@ export const ProspectListInfoForm = () => {
         {error && (
           <Notification
             color='red'
-            title='Ошибка'
-            radius={'md'}
+            icon={<IconExclamationMark size={16} />}
+            radius={'lg'}
             onClose={() => setError(null)}
             pos='absolute'
             bottom={76 * 2}
             left={16}
             right={16}
             style={{ zIndex: 150 }}
+            bg='red.1'
           >
             {error}
           </Notification>

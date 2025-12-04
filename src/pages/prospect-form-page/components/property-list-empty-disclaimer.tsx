@@ -41,7 +41,7 @@ export const PropertyListEmptyDisclaimer = () => {
         onClick={() => navigate('/properties/create')}
         variant='light'
       >
-        Создать объект
+        Добавить объект
       </Button>
     </Stack>
   );

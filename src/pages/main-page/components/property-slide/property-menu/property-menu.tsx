@@ -1,5 +1,5 @@
 import { Drawer, Stack, Group, Divider, Button, Text, useDrawersStack } from '@mantine/core';
-import { IconUserPlus, IconCopy, IconTrash } from '@tabler/icons-react';
+import { IconUserPlus, IconTrash } from '@tabler/icons-react';
 import { PropertyInfoForm } from '../../../../property-form-page/components';
 import { COMMON_DRAWER_PROPS } from '../../consts';
 import { useNavigate } from 'react-router';
@@ -63,14 +63,6 @@ export const PropertyMenu = forwardRef<unknown, PropertyMenuProps>((props, ref) 
               size={24}
             />
             <Text size='lg'>Добавить клиента</Text>
-          </Group>
-          <Divider ml={40} />
-          <Group>
-            <IconCopy
-              stroke={1.8}
-              size={24}
-            />
-            <Text size='lg'>Копировать информацию</Text>
           </Group>
           <Divider ml={40} />
           <Group

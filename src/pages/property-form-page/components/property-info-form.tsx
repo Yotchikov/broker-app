@@ -5,6 +5,7 @@ import IconBrandAvito from 'public/icons/companies/avito.svg?react';
 import IconBrandYandex from 'public/icons/companies/yandex.svg?react';
 import IconBrandDomclick from 'public/icons/companies/domclick.svg?react';
 import { ClearButton } from './clear-button';
+import { IconExclamationMark } from '@tabler/icons-react';
 
 type PropertyInfoFormProps = {
   withTitle?: boolean;
@@ -208,14 +209,15 @@ export const PropertyInfoForm = (props: PropertyInfoFormProps) => {
       {error && (
         <Notification
           color='red'
-          title='Ошибка'
-          radius={'md'}
+          icon={<IconExclamationMark size={16} />}
+          radius={'lg'}
           onClose={() => setError(null)}
           pos='absolute'
           bottom={76 * 2}
           left={16}
           right={16}
           style={{ zIndex: 150 }}
+          bg='red.1'
         >
           {error}
         </Notification>

@@ -1,6 +1,6 @@
 import { createBrowserRouter, Outlet, Navigate } from 'react-router';
 import { MainPage, PropertyFormPage, ProspectFormPage, SettingsPage, ShowingsPage } from '../../pages';
-import { TopNavbar, TOP_NAVBAR_HEIGHT, BottomNavbar } from '../components';
+import { BottomNavbar } from '../components';
 import { propertyDataProvider } from '../../data';
 import { Box } from '@mantine/core';
 
@@ -11,9 +11,7 @@ export const router = createBrowserRouter([
       <Box
         pos='relative'
         h='100%'
-        pt={TOP_NAVBAR_HEIGHT}
       >
-        <TopNavbar />
         <Outlet />
         <BottomNavbar />
       </Box>

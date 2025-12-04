@@ -6,6 +6,7 @@ import { OwnerInfoForm, PropertyInfoForm, ProspectListInfoForm, FormFooter } fro
 import { PropertyFormProvider, usePropertyForm } from './context';
 import { BOTTOM_NAVBAR_HEIGHT } from '../../app/components/bottom-navbar';
 import { BOTTOM_NAVBAR_BOTTOM_PADDING, BOTTOM_NAVBAR_TOP_PADDING } from '../../app/components/bottom-navbar/consts';
+import { FORM_FOOTER_HEIGHT } from './components/form-footer';
 
 const PropertyFormContent: FC = () => {
   const params = useParams();
@@ -25,7 +26,7 @@ const PropertyFormContent: FC = () => {
         justify='space-between'
       >
         <Stack gap='md'>
-          <Title order={2}>{isEditMode ? 'Изменение объекта' : 'Создание объекта'}</Title>
+          <Title order={2}>{isEditMode ? 'Изменение объекта' : 'Добавление объекта'}</Title>
           <Stepper
             active={currentStep}
             size='xs'
@@ -40,7 +41,9 @@ const PropertyFormContent: FC = () => {
               <ProspectListInfoForm />
             </Stepper.Step>
           </Stepper>
-          <Box h={BOTTOM_NAVBAR_HEIGHT + BOTTOM_NAVBAR_BOTTOM_PADDING + BOTTOM_NAVBAR_TOP_PADDING + 50} />
+          <Box
+            h={BOTTOM_NAVBAR_BOTTOM_PADDING + BOTTOM_NAVBAR_HEIGHT + BOTTOM_NAVBAR_TOP_PADDING + FORM_FOOTER_HEIGHT}
+          />
         </Stack>
         <FormFooter />
       </Stack>

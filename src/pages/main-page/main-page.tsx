@@ -5,7 +5,7 @@ import { PropertyList } from './components/property-list';
 import { useLoaderData, useNavigate } from 'react-router';
 import { useState } from 'react';
 import type { Property } from '../../data/entities/property';
-import { BOTTOM_NAVBAR_HEIGHT, TOP_NAVBAR_HEIGHT } from '../../app/components';
+import { BOTTOM_NAVBAR_HEIGHT } from '../../app/components';
 import Logo from '../../../public/images/logo.svg?react';
 import { BOTTOM_NAVBAR_BOTTOM_PADDING, BOTTOM_NAVBAR_TOP_PADDING } from '../../app/components/bottom-navbar/consts';
 
@@ -22,7 +22,6 @@ export const MainPage: FC = () => {
     return (
       <Container
         p={0}
-        mt={-TOP_NAVBAR_HEIGHT}
         w='100%'
         h='100%'
       >
@@ -60,7 +59,7 @@ export const MainPage: FC = () => {
               radius='lg'
               onClick={() => navigate('/properties/create')}
             >
-              Создать первый объект
+              Добавить первый объект
             </Button>
           </Stack>
         </Stack>
@@ -69,10 +68,7 @@ export const MainPage: FC = () => {
   }
 
   return (
-    <Container
-      p={0}
-      mt={-TOP_NAVBAR_HEIGHT}
-    >
+    <Container p={0}>
       <Stack
         gap='sm'
         pt='sm'
