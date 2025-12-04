@@ -5,6 +5,9 @@ import svgr from 'vite-plugin-svgr';
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [svgr(), react()],
+  build: {
+    target: 'esnext',
+  },
   resolve: {
     alias: {
       data: '/src/data',
