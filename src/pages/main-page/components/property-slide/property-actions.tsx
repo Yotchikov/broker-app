@@ -4,7 +4,7 @@ import { VerticalButton } from '../../../../app/components';
 import { useRef } from 'react';
 import { PropertyMenu } from './property-menu';
 import type { Property } from '../../../../data';
-// import { getShareMessage } from '../../../../app/utils';
+import { getShareMessage } from '../../../../app/utils';
 
 type PropertyActionsProps = {
   property: Property;
@@ -21,9 +21,8 @@ export const PropertyActions = (props: PropertyActionsProps) => {
   const handleShare = async () => {
     try {
       await navigator.share({
-        title: 'Example Page',
-        text: 'Check out this awesome page!',
-        url: 'https://example.com',
+        title: `Объект на ${property.dealType === 'sale' ? 'продажу' : 'аренду'}`,
+        text: getShareMessage(property),
       });
       console.log('Data was shared successfully');
     } catch (err) {
