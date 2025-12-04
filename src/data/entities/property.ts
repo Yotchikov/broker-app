@@ -1,5 +1,6 @@
 import type { BaseEntity } from './base-entity';
 import type { Price } from './price';
+import type { PropertyLocation } from './property-location';
 
 export type Property = BaseEntity & {
   floor?: {
@@ -18,4 +19,5 @@ export type Property = BaseEntity & {
     yandex?: string;
     domclick?: string;
   };
+  location?: PropertyLocation;
 };

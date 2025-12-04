@@ -22,7 +22,7 @@ export const PropertySlide: FC<PropertySlideProps> = (props) => {
         <PropertyActions property={property} />
         <PropertyInfo property={property} />
         <PropertyLinks links={links} />
-        <PropertyMap />
+        <PropertyMap property={property} />
         <PropertyNote propertyId={id} />
       </Stack>
     </Carousel.Slide>
