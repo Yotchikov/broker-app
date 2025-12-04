@@ -22,7 +22,9 @@ export const PropertyActions = (props: PropertyActionsProps) => {
     if (navigator.share) {
       try {
         await navigator.share({
-          url: getShareMessage(property),
+          title: `Объект на ${property.dealType === 'sale' ? 'продажу' : 'аренду'}`,
+          text: getShareMessage(property),
+          url: window.location.href,
         });
       } catch (error) {
         console.log(error);
