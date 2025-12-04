@@ -1,11 +1,11 @@
 import { Drawer, Stack, Group, Divider, Button, Text, useDrawersStack } from '@mantine/core';
 import { IconUserPlus, IconTrash } from '@tabler/icons-react';
-import { PropertyInfoForm } from '../../../../property-form-page/components';
-import { COMMON_DRAWER_PROPS } from '../../consts';
+import { PropertyInfoForm } from '../../../property-form-page/components';
+import { COMMON_DRAWER_PROPS } from '../consts';
 import { useNavigate } from 'react-router';
 import { forwardRef, useImperativeHandle, useState } from 'react';
-import { usePropertyForm } from '../../../../property-form-page/context';
-import { propertyDataProvider } from '../../../../../data';
+import { usePropertyForm } from '../../../property-form-page/context';
+import { propertyDataProvider } from '../../../../data';
 
 type PropertyMenuProps = {
   propertyId: string;

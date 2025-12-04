@@ -21,7 +21,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
-
+    "typeRoots": ["./node_modules/@types", "./node_modules/@yandex/ymaps3-types"],
     /* Path mapping */
     "baseUrl": ".",
     "paths": {
@@ -30,7 +30,9 @@
       "pages": ["src/pages"],
       "pages/*": ["src/pages/*"],
       "public": ["public"],
-      "public/*": ["public/*"]
+      "public/*": ["public/*"],
+      "ymaps3": ["./node_modules/@yandex/ymaps3-types"],
+      "ymaps3/*": ["./node_modules/@yandex/ymaps3-types/*"]
     }
   },
   "include": ["src", "packages/**/*", ".storybook/*"]
