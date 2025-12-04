@@ -1,6 +1,8 @@
 import type { Property } from '../../data';
 import { getPrice } from '../components';
 
+const getYandexMapsLink = (lat: number, lng: number) => `https://yandex.ru/maps/?pt=${lng},${lat}&z=17&l=map`;
+
 export const getShareMessage = (property: Property) => {
   return [
     `Объект на ${property.dealType === 'sale' ? 'продажу' : 'аренду'}`,
@@ -15,6 +17,7 @@ export const getShareMessage = (property: Property) => {
           .filter((value) => value)
           .join(',\n')}`
       : '',
+    property.location ? `\nНа карте: ${getYandexMapsLink(property.location.lat, property.location.lng)}` : '',
   ]
     .filter(Boolean)
     .join('\n');
