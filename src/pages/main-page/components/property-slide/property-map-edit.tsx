@@ -78,7 +78,7 @@ export const PropertyMapEdit: FC<PropertyMapEditProps> = (props) => {
         left={0}
         right={0}
         bottom={0}
-        style={{ zIndex: 1000 }}
+        style={{ zIndex: 1000, bgColor: 'var(--mantine-color-body)' }}
       >
         <YMap location={reactify.useDefault(mapLocation)}>
           <YMapDefaultSchemeLayer

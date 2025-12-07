@@ -39,10 +39,7 @@ export const PropertyMap: FC<PropertyMapProps> = (props) => {
   };
 
   return (
-    <Stack
-      gap='xs'
-      data-no-embla-drag
-    >
+    <Stack gap='xs'>
       <Stack gap='4'>
         <Group
           ml='md'
@@ -59,6 +56,7 @@ export const PropertyMap: FC<PropertyMapProps> = (props) => {
           radius='lg'
           p={0}
           style={{ overflow: 'hidden' }}
+          data-no-embla-drag
         >
           <Box
             h={300}
