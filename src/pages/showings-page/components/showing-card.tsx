@@ -1,15 +1,18 @@
-import { type FC } from 'react';
+import { useRef, type FC } from 'react';
 import { ActionIcon, Avatar, Card, Group, Stack, Text } from '@mantine/core';
 import { IconBuilding, IconDots, IconUser } from '@tabler/icons-react';
 import type { Property, Prospect } from '../../../data';
+import { ShowingMenu } from './showing-menu';
 
 type ShowingCardProps = {
+  showingId: string;
   property?: Property;
   prospect?: Prospect | null;
 };
 
 export const ShowingCard: FC<ShowingCardProps> = (props) => {
-  const { property, prospect } = props;
+  const { showingId, property, prospect } = props;
+  const showingMenuRef = useRef<{ openMenu: () => void }>(null);
 
   const propertyName = property?.name || 'Неизвестный объект';
   const prospectName = prospect?.name || 'Неизвестный клиент';
@@ -42,7 +45,7 @@ export const ShowingCard: FC<ShowingCardProps> = (props) => {
           <ActionIcon
             variant='transparent'
             color='default'
-            onClick={() => {}}
+            onClick={() => showingMenuRef.current?.openMenu()}
           >
             <IconDots
               stroke={1.8}
@@ -68,6 +71,10 @@ export const ShowingCard: FC<ShowingCardProps> = (props) => {
           <Text size='md'>{prospectName}</Text>
         </Group>
       </Stack>
+      <ShowingMenu
+        ref={showingMenuRef}
+        showingId={showingId}
+      />
     </Card>
   );
 };

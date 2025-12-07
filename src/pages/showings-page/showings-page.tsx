@@ -86,6 +86,7 @@ export const ShowingsPage: FC = () => {
                 >
                   <ShowingCard
                     key={showing.id}
+                    showingId={showing.id}
                     property={getProperty(showing.propertyId)}
                     prospect={getProspect(showing.prospectId)}
                   />
@@ -132,6 +133,7 @@ export const ShowingsPage: FC = () => {
                   >
                     <ShowingCard
                       key={showing.id}
+                      showingId={showing.id}
                       property={getProperty(showing.propertyId)}
                       prospect={getProspect(showing.prospectId)}
                     />
