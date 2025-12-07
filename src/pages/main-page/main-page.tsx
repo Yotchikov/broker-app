@@ -115,11 +115,17 @@ export const MainPage: FC = () => {
         </Stack>
         {((dealType === 'all' && properties.some((property) => property.dealType === 'sale')) ||
           dealType === 'sale') && (
-          <PropertyList properties={properties.filter((property) => property.dealType === 'sale')} />
+          <PropertyList
+            properties={properties.filter((property) => property.dealType === 'sale')}
+            dealType='sale'
+          />
         )}
         {((dealType === 'all' && properties.some((property) => property.dealType === 'rent')) ||
           dealType === 'rent') && (
-          <PropertyList properties={properties.filter((property) => property.dealType === 'rent')} />
+          <PropertyList
+            properties={properties.filter((property) => property.dealType === 'rent')}
+            dealType='rent'
+          />
         )}
       </Stack>
       <Box h={BOTTOM_NAVBAR_HEIGHT + BOTTOM_NAVBAR_BOTTOM_PADDING + BOTTOM_NAVBAR_TOP_PADDING} />

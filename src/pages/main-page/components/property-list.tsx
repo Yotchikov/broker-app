@@ -1,44 +1,50 @@
-import { Accordion, Button, Stack, Text } from '@mantine/core';
+import { Accordion, Button } from '@mantine/core';
 import type { Property } from '../../../data/entities/property';
 import styles from '../main-page.module.css';
 import { PropertyListItem } from './property-list-item';
-import { IconMoodSad, IconPlus } from '@tabler/icons-react';
 import React from 'react';
 import { useNavigate } from 'react-router';
+import { EmptyDisclaimer } from '../../../app/components';
+import { IconPlus } from '@tabler/icons-react';
 
 type PropertyListProps = {
   properties: Property[];
+  dealType: 'sale' | 'rent';
 };
 
 export const PropertyList = (props: PropertyListProps) => {
-  const { properties } = props;
+  const { properties, dealType } = props;
 
   const navigate = useNavigate();
 
   if (properties.length === 0) {
     return (
-      <Stack
-        p='xl'
-        align='center'
-        gap='xl'
-        c='dimmed'
-      >
-        <Stack
-          align='center'
-          gap='xs'
-        >
-          <IconMoodSad size={48} />
-          <Text ta='center'>Пока нет объектов</Text>
-        </Stack>
-        <Button
-          leftSection={<IconPlus size={16} />}
-          size='md'
-          radius='lg'
-          onClick={() => navigate('/properties/create')}
-        >
-          Добавить
-        </Button>
-      </Stack>
+      <EmptyDisclaimer
+        title='Пока нет объектов'
+        description={
+          <>
+            Добавьте первый объект с типом "{dealType === 'sale' ? 'продажа' : 'аренда'}",
+            <br />и он появится здесь
+          </>
+        }
+        button={
+          <Button
+            fullWidth
+            size='md'
+            radius='lg'
+            leftSection={
+              <IconPlus
+                size={16}
+                stroke={1.8}
+              />
+            }
+            variant='light'
+            onClick={() => navigate('/properties/create')}
+          >
+            Добавить объект
+          </Button>
+        }
+      />
     );
   }
 

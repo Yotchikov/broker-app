@@ -3,3 +3,4 @@ export * from './avatar-selector';
 export * from './bottom-navbar';
 export * from './splash-screen';
 export * from './vertical-button';
+export * from './empty-disclaimer';

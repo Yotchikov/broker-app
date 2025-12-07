@@ -3,7 +3,7 @@ import { Box, Collapse, Container, Group, Stack, Text, Timeline, Title, Unstyled
 import { IconChevronDown } from '@tabler/icons-react';
 import { useLoaderData } from 'react-router';
 import type { Property, Prospect, Showing } from '../../data';
-import { BOTTOM_NAVBAR_HEIGHT } from '../../app/components';
+import { BOTTOM_NAVBAR_HEIGHT, EmptyDisclaimer } from '../../app/components';
 import { BOTTOM_NAVBAR_BOTTOM_PADDING, BOTTOM_NAVBAR_TOP_PADDING } from '../../app/components/bottom-navbar/consts';
 import { ShowingCard, formatDate, formatTime } from './components';
 
@@ -46,6 +46,25 @@ export const ShowingsPage: FC = () => {
 
   const hasNoShowings = showings.length === 0;
 
+  if (hasNoShowings) {
+    return (
+      <Container
+        p={0}
+        h='100%'
+      >
+        <EmptyDisclaimer
+          title='Пока нет показов'
+          description={
+            <>
+              Вы можете добавить показ во вкладке "Ещё"
+              <br />у выбранного объекта
+            </>
+          }
+        />
+      </Container>
+    );
+  }
+
   return (
     <Container p={0}>
       <Stack
@@ -54,16 +73,6 @@ export const ShowingsPage: FC = () => {
         gap='md'
       >
         <Title order={2}>Показы</Title>
-
-        {hasNoShowings && (
-          <Text
-            c='dimmed'
-            ta='center'
-            py='xl'
-          >
-            Пока нет запланированных показов
-          </Text>
-        )}
 
         {upcomingShowings.length > 0 && (
           <Stack gap='sm'>
