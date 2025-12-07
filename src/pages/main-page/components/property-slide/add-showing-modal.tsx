@@ -96,6 +96,7 @@ export const AddShowingModal: FC<AddShowingModalProps> = (props) => {
           data={prospectOptions}
           value={selectedProspectId}
           onChange={(event) => setSelectedProspectId(event.currentTarget.value)}
+          required
         />
         <TextInput
           type='datetime-local'
@@ -105,6 +106,7 @@ export const AddShowingModal: FC<AddShowingModalProps> = (props) => {
           value={dateTime}
           onChange={(event) => setDateTime(event.currentTarget.value)}
           min={getMinDateTime()}
+          required
         />
         {error && (
           <Notification
