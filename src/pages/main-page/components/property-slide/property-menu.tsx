@@ -1,11 +1,12 @@
 import { Drawer, Stack, Group, Divider, Button, Text, useDrawersStack } from '@mantine/core';
-import { IconUserPlus, IconTrash } from '@tabler/icons-react';
+import { IconUserPlus, IconCalendarPlus, IconTrash } from '@tabler/icons-react';
 import { PropertyInfoForm } from '../../../property-form-page/components';
 import { COMMON_DRAWER_PROPS } from '../consts';
 import { useNavigate } from 'react-router';
 import { forwardRef, useImperativeHandle, useState } from 'react';
 import { usePropertyForm } from '../../../property-form-page/context';
 import { propertyDataProvider } from '../../../../data';
+import { AddShowingModal } from './add-showing-modal';
 
 type PropertyMenuProps = {
   propertyId: string;
@@ -14,13 +15,13 @@ type PropertyMenuProps = {
 export const PropertyMenu = forwardRef<unknown, PropertyMenuProps>((props, ref) => {
   const { propertyId } = props;
 
-  const stack = useDrawersStack(['more', 'edit', 'confirm-delete']);
+  const stack = useDrawersStack(['more', 'edit', 'confirm-delete', 'add-showing']);
 
   const [isDeleting, setIsDeleting] = useState(false);
 
   const navigate = useNavigate();
 
-  const { submitForm } = usePropertyForm();
+  const { submitForm, formData } = usePropertyForm();
 
   const handleConfirmDelete = async () => {
     try {
@@ -66,8 +67,20 @@ export const PropertyMenu = forwardRef<unknown, PropertyMenuProps>((props, ref) 
           </Group>
           <Divider ml={40} />
           <Group
+            onClick={() => stack.open('add-showing')}
+            style={{ cursor: 'pointer' }}
+          >
+            <IconCalendarPlus
+              stroke={1.8}
+              size={24}
+            />
+            <Text size='lg'>Добавить показ</Text>
+          </Group>
+          <Divider ml={40} />
+          <Group
             c='red'
             onClick={() => stack.open('confirm-delete')}
+            style={{ cursor: 'pointer' }}
           >
             <IconTrash
               stroke={1.8}
@@ -136,6 +149,12 @@ export const PropertyMenu = forwardRef<unknown, PropertyMenuProps>((props, ref) 
           </Button>
         </Stack>
       </Drawer>
+      <AddShowingModal
+        {...stack.register('add-showing')}
+        propertyId={propertyId}
+        prospects={formData.prospects}
+        isEdit={false}
+      />
     </Drawer.Stack>
   );
 });

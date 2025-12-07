@@ -46,7 +46,6 @@ export const PropertyMapEdit: FC<PropertyMapEditProps> = (props) => {
       const [lng, lat] = event.location.center;
       setCurrentCenter({ lng, lat });
 
-      // Check if location changed from initial
       if (lng !== startLocation.lng || lat !== startLocation.lat) {
         setHasChanged(true);
       }
@@ -87,15 +86,13 @@ export const PropertyMapEdit: FC<PropertyMapEditProps> = (props) => {
           <YMapDefaultFeaturesLayer />
           <YMapListener onUpdate={handleMapUpdate} />
         </YMap>
-
-        {/* Fixed center marker - positioned so the pin tip points to exact center */}
         <IconMapPinFilled
           size={40}
           color='var(--mantine-primary-color-filled)'
           style={{
             position: 'absolute',
-            top: 'calc(50% - 40px)', // Move up by icon height so bottom is at center
-            left: 'calc(50% - 20px)', // Move left by half icon width to center horizontally
+            top: 'calc(50% - 40px)',
+            left: 'calc(50% - 20px)',
             zIndex: 1001,
             pointerEvents: 'none',
             display: 'block',

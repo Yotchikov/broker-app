@@ -56,7 +56,6 @@ export const ProspectListItemMenu = (props: ProspectListItemMenuProps) => {
             <Group onClick={() => stack.open('edit')}>
               <IconPencil
                 stroke={1.8}
-                color='var(--mantine-color-dimmed)'
                 size={24}
               />
               <Text size='lg'>Изменить</Text>

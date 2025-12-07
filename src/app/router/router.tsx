@@ -1,7 +1,7 @@
 import { createBrowserRouter, Outlet, Navigate } from 'react-router';
 import { MainPage, PropertyFormPage, ProspectFormPage, SettingsPage, ShowingsPage } from '../../pages';
 import { BottomNavbar } from '../components';
-import { propertyDataProvider } from '../../data';
+import { propertyDataProvider, showingDataProvider, prospectDataProvider } from '../../data';
 import { Box } from '@mantine/core';
 
 export const router = createBrowserRouter([
@@ -49,6 +49,24 @@ export const router = createBrowserRouter([
       },
       {
         path: 'showings',
+        loader: async () => {
+          const [showings, properties] = await Promise.all([
+            showingDataProvider.getShowings(),
+            propertyDataProvider.getProperties(),
+          ]);
+
+          const prospectIds = properties.flatMap((p) => p.prospectIds);
+          const uniqueProspectIds = [...new Set(prospectIds)];
+          const prospects = await Promise.all(
+            uniqueProspectIds.map((id) => prospectDataProvider.getProspectById(id).catch(() => null)),
+          );
+
+          return {
+            showings,
+            properties,
+            prospects: prospects.filter(Boolean),
+          };
+        },
         Component: ShowingsPage,
       },
       {

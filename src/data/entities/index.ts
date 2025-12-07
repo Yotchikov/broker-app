@@ -5,3 +5,4 @@ export * from './currency';
 export * from './owner';
 export * from './prospect';
 export * from './property-location';
+export * from './showing';

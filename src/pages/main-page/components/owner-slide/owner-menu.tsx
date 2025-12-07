@@ -35,7 +35,6 @@ export const OwnerMenu = () => {
               <IconPencil
                 stroke={1.8}
                 size={24}
-                color='var(--mantine-color-dimmed)'
               />
               <Text size='lg'>Изменить</Text>
             </Group>
