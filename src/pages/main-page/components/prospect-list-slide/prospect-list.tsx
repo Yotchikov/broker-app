@@ -38,7 +38,10 @@ export const ProspectList: FC<ProspectListProps> = (props) => {
     navigate('/');
   };
 
-  const prospectItems = prospects.map((prospect, index) => (
+  const prospectItems = [
+    ...prospects.filter((prospect) => prospect.status !== 'canceled'),
+    ...prospects.filter((prospect) => prospect.status === 'canceled'),
+  ].map((prospect, index) => (
     <ProspectListItem
       key={prospect.id}
       index={index}

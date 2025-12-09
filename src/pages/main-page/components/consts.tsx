@@ -18,6 +18,7 @@ export const PROSPECT_STATUS_TITLES: Record<ProspectStatus, string> = {
   scheduled_signing: 'Назначено подписание',
   deal: 'Сделка',
   feedback_from_the_deal: 'Фидбек со сделки',
+  canceled: 'Отказ',
 };
 
 export const PROSPECT_STATUS_ORDER: ProspectStatus[] = [
@@ -31,6 +32,7 @@ export const PROSPECT_STATUS_ORDER: ProspectStatus[] = [
   'scheduled_signing',
   'deal',
   'feedback_from_the_deal',
+  'canceled',
 ];
 
 export const LINK_LABELS: Record<keyof Property['links'], ReactNode> = {

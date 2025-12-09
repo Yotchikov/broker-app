@@ -41,6 +41,7 @@ export const ProspectListItem: FC<ProspectListItemProps> = (props) => {
           <Group
             gap='sm'
             align='center'
+            style={{ opacity: prospect.status === 'canceled' ? 0.5 : 1 }}
           >
             <Avatar
               size={48}

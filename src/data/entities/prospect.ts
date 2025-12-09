@@ -10,7 +10,8 @@ export type ProspectStatus =
   | 'document_preparation'
   | 'scheduled_signing'
   | 'deal'
-  | 'feedback_from_the_deal';
+  | 'feedback_from_the_deal'
+  | 'canceled';
 
 export type Prospect = BaseEntity & {
   contacts: {
