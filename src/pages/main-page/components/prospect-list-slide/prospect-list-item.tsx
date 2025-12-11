@@ -33,6 +33,8 @@ export const ProspectListItem: FC<ProspectListItemProps> = (props) => {
     await prospectDataProvider.updateProspect({ id: prospect.id, note });
   };
 
+  const StatusIcon = PROSPECT_STATUS_ICONS[prospect.status];
+
   return (
     <Accordion.Item
       key={prospect.id}
@@ -62,7 +64,10 @@ export const ProspectListItem: FC<ProspectListItemProps> = (props) => {
                 radius='xl'
                 size={24}
               >
-                {PROSPECT_STATUS_ICONS[prospect.status]}
+                <StatusIcon
+                  size={16}
+                  stroke={1.8}
+                />
               </Avatar>
             </Group>
           </Group>
@@ -98,7 +103,7 @@ export const ProspectListItem: FC<ProspectListItemProps> = (props) => {
               <UnstyledButton onClick={() => openStatusModal(prospect)}>
                 <Badge
                   rightSection={<IconChevronDown size={12} />}
-                  leftSection={PROSPECT_STATUS_ICONS[prospect.status]}
+                  leftSection={<StatusIcon size={12} />}
                   variant='light'
                   size={'md'}
                   color={PROSPECT_STATUS_COLORS[prospect.status]}

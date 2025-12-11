@@ -9,8 +9,9 @@ import {
   IconClock,
   IconMessage,
   IconCurrencyDollar,
+  type IconProps,
 } from '@tabler/icons-react';
-import type { ReactNode } from 'react';
+import type { ComponentType, ReactNode } from 'react';
 import type { ProspectStatus, Prospect, Property } from '../../../data';
 import { Group, type DrawerProps, Text } from '@mantine/core';
 import IconBrandCian from 'public/icons/companies/cian.svg?react';
@@ -190,74 +191,19 @@ export const PROSPECT_STATUS_COLORS: Record<ProspectStatus, string> = {
   scheduled_signing: 'green',
   deal: 'green',
   feedback_from_the_deal: 'green',
-  canceled: 'grey',
+  canceled: 'red',
 };
 
-export const PROSPECT_STATUS_ICONS: Record<ProspectStatus, ReactNode> = {
-  inquired: (
-    <IconCircleDashed
-      size={12}
-      stroke={1.8}
-    />
-  ),
-  scheduled_a_showing: (
-    <IconClock
-      size={12}
-      stroke={1.8}
-    />
-  ),
-  feedback_from_the_showing: (
-    <IconMessage
-      size={12}
-      stroke={1.8}
-    />
-  ),
-  request_to_the_owner: (
-    <IconMessage
-      size={12}
-      stroke={1.8}
-    />
-  ),
-  bargaining: (
-    <IconCurrencyDollar
-      size={12}
-      stroke={1.8}
-    />
-  ),
-  contract_discussion: (
-    <IconContract
-      size={12}
-      stroke={1.8}
-    />
-  ),
-  document_preparation: (
-    <IconContract
-      size={12}
-      stroke={1.8}
-    />
-  ),
-  scheduled_signing: (
-    <IconContract
-      size={12}
-      stroke={1.8}
-    />
-  ),
-  deal: (
-    <IconContract
-      size={16}
-      stroke={1.8}
-    />
-  ),
-  feedback_from_the_deal: (
-    <IconMessage
-      size={12}
-      stroke={1.8}
-    />
-  ),
-  canceled: (
-    <IconCircleX
-      size={12}
-      stroke={1.8}
-    />
-  ),
+export const PROSPECT_STATUS_ICONS: Record<ProspectStatus, ComponentType<IconProps>> = {
+  inquired: IconCircleDashed,
+  scheduled_a_showing: IconClock,
+  feedback_from_the_showing: IconMessage,
+  request_to_the_owner: IconMessage,
+  bargaining: IconCurrencyDollar,
+  contract_discussion: IconContract,
+  document_preparation: IconContract,
+  scheduled_signing: IconContract,
+  deal: IconContract,
+  feedback_from_the_deal: IconMessage,
+  canceled: IconCircleX,
 };

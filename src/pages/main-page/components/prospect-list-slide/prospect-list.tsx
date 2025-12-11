@@ -1,4 +1,4 @@
-import { Accordion, Button, Card, Drawer, Text } from '@mantine/core';
+import { Accordion, Box, Button, Card, Drawer, Text } from '@mantine/core';
 import { Timeline } from '@mantine/core';
 import { prospectDataProvider, type Prospect, type ProspectStatus } from '../../../../data';
 import { useState, type FC } from 'react';
@@ -151,16 +151,33 @@ export const ProspectList: FC<ProspectListProps> = (props) => {
               bulletSize={18}
               lineWidth={2}
             >
-              {PROSPECT_STATUS_ORDER.map((status) => (
-                <Timeline.Item
-                  key={status}
-                  title={PROSPECT_STATUS_TITLES[status]}
-                  onClick={() => handleSelectStatus(status)}
-                  lineVariant='dashed'
-                  color={PROSPECT_STATUS_COLORS[status]}
-                  bullet={PROSPECT_STATUS_ICONS[status]}
-                />
-              ))}
+              {PROSPECT_STATUS_ORDER.map((status) => {
+                const StatusIcon = PROSPECT_STATUS_ICONS[status];
+                const isFutureStatus =
+                  PROSPECT_STATUS_ORDER.indexOf(status) >
+                  PROSPECT_STATUS_ORDER.indexOf(activeProspect?.status || 'inquired');
+
+                return (
+                  <Timeline.Item
+                    key={status}
+                    title={
+                      <Box fw={status === activeProspect?.status ? 'bold' : 'normal'}>
+                        {PROSPECT_STATUS_TITLES[status]}
+                      </Box>
+                    }
+                    onClick={() => handleSelectStatus(status)}
+                    lineVariant='dashed'
+                    color={`var(--mantine-color-${PROSPECT_STATUS_COLORS[status]}-${isFutureStatus ? 'light' : 'filled'})`}
+                    bullet={
+                      <StatusIcon
+                        size={12}
+                        stroke={1.8}
+                        color={isFutureStatus ? 'var(--mantine-color-text)' : 'var(--mantine-color-body)'}
+                      />
+                    }
+                  />
+                );
+              })}
             </Timeline>
           </Drawer>
         </>
