@@ -34,5 +34,9 @@
 
   &[data-active] {
     font-weight: bold;
+
+    &:after {
+      color: var(--mantine-primary-color-filled);
+    }
   }
 }

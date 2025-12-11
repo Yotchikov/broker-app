@@ -2,7 +2,13 @@ import { Accordion, Avatar, Badge, Grid, Group, Stack, UnstyledButton, Text, Tex
 import { IconInfoCircle, IconChevronDown, IconNote } from '@tabler/icons-react';
 import React, { useEffect, useState, type FC } from 'react';
 import { prospectDataProvider, type Owner, type Prospect } from '../../../../data';
-import { PROSPECT_STATUS_TITLES, CONTACT_LABELS, CONTACT_LINKS } from '../consts';
+import {
+  PROSPECT_STATUS_TITLES,
+  CONTACT_LABELS,
+  CONTACT_LINKS,
+  PROSPECT_STATUS_COLORS,
+  PROSPECT_STATUS_ICONS,
+} from '../consts';
 import { ProspectListItemMenu } from './prospect-list-item-menu';
 
 type ProspectListItemProps = {
@@ -49,7 +55,16 @@ export const ProspectListItem: FC<ProspectListItemProps> = (props) => {
               name={prospect.name}
               color='initials'
             />
-            <Text size='md'>{prospect.name}</Text>
+            <Group gap={'xs'}>
+              <Text size='md'>{prospect.name}</Text>
+              <Avatar
+                color={PROSPECT_STATUS_COLORS[prospect.status]}
+                radius='xl'
+                size={24}
+              >
+                {PROSPECT_STATUS_ICONS[prospect.status]}
+              </Avatar>
+            </Group>
           </Group>
         </Accordion.Control>
         <ProspectListItemMenu prospectIndex={index} />
@@ -83,8 +98,10 @@ export const ProspectListItem: FC<ProspectListItemProps> = (props) => {
               <UnstyledButton onClick={() => openStatusModal(prospect)}>
                 <Badge
                   rightSection={<IconChevronDown size={12} />}
+                  leftSection={PROSPECT_STATUS_ICONS[prospect.status]}
                   variant='light'
-                  size='md'
+                  size={'md'}
+                  color={PROSPECT_STATUS_COLORS[prospect.status]}
                 >
                   {PROSPECT_STATUS_TITLES[prospect.status]}
                 </Badge>

@@ -2,7 +2,13 @@ import { Accordion, Button, Card, Drawer, Text } from '@mantine/core';
 import { Timeline } from '@mantine/core';
 import { prospectDataProvider, type Prospect, type ProspectStatus } from '../../../../data';
 import { useState, type FC } from 'react';
-import { COMMON_DRAWER_PROPS, PROSPECT_STATUS_ORDER, PROSPECT_STATUS_TITLES } from '../consts';
+import {
+  COMMON_DRAWER_PROPS,
+  PROSPECT_STATUS_COLORS,
+  PROSPECT_STATUS_ICONS,
+  PROSPECT_STATUS_ORDER,
+  PROSPECT_STATUS_TITLES,
+} from '../consts';
 import { IconPlus } from '@tabler/icons-react';
 import { useNavigate } from 'react-router';
 import styles from '../../main-page.module.css';
@@ -101,6 +107,9 @@ export const ProspectList: FC<ProspectListProps> = (props) => {
               variant='unstyled'
               classNames={{ chevron: styles.chevron }}
               styles={{ content: { padding: '0' } }}
+              defaultValue={prospects
+                .filter((prospect) => prospect.status !== 'canceled')
+                .map((prospect) => prospect.id)}
             >
               {prospectItems}
             </Accordion>
@@ -138,14 +147,18 @@ export const ProspectList: FC<ProspectListProps> = (props) => {
             }
           >
             <Timeline
-              active={activeProspect ? PROSPECT_STATUS_ORDER.indexOf(activeProspect.status) : -1}
+              active={PROSPECT_STATUS_ORDER.length - 1}
               bulletSize={18}
+              lineWidth={2}
             >
               {PROSPECT_STATUS_ORDER.map((status) => (
                 <Timeline.Item
                   key={status}
                   title={PROSPECT_STATUS_TITLES[status]}
                   onClick={() => handleSelectStatus(status)}
+                  lineVariant='dashed'
+                  color={PROSPECT_STATUS_COLORS[status]}
+                  bullet={PROSPECT_STATUS_ICONS[status]}
                 />
               ))}
             </Timeline>

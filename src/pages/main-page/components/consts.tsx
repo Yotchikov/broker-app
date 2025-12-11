@@ -1,4 +1,15 @@
-import { IconPhone, IconAt, IconBrandTelegram, IconBrandWhatsapp } from '@tabler/icons-react';
+import {
+  IconPhone,
+  IconAt,
+  IconBrandTelegram,
+  IconBrandWhatsapp,
+  IconCircleX,
+  IconContract,
+  IconCircleDashed,
+  IconClock,
+  IconMessage,
+  IconCurrencyDollar,
+} from '@tabler/icons-react';
 import type { ReactNode } from 'react';
 import type { ProspectStatus, Prospect, Property } from '../../../data';
 import { Group, type DrawerProps, Text } from '@mantine/core';
@@ -166,4 +177,87 @@ export const COMMON_DRAWER_PROPS: Partial<DrawerProps> = {
   offset: 12,
   radius: 'xl',
   closeButtonProps: { size: 'lg' },
+};
+
+export const PROSPECT_STATUS_COLORS: Record<ProspectStatus, string> = {
+  inquired: 'blue',
+  scheduled_a_showing: 'blue',
+  feedback_from_the_showing: 'blue',
+  request_to_the_owner: 'yellow',
+  bargaining: 'yellow',
+  contract_discussion: 'yellow',
+  document_preparation: 'yellow',
+  scheduled_signing: 'green',
+  deal: 'green',
+  feedback_from_the_deal: 'green',
+  canceled: 'grey',
+};
+
+export const PROSPECT_STATUS_ICONS: Record<ProspectStatus, ReactNode> = {
+  inquired: (
+    <IconCircleDashed
+      size={12}
+      stroke={1.8}
+    />
+  ),
+  scheduled_a_showing: (
+    <IconClock
+      size={12}
+      stroke={1.8}
+    />
+  ),
+  feedback_from_the_showing: (
+    <IconMessage
+      size={12}
+      stroke={1.8}
+    />
+  ),
+  request_to_the_owner: (
+    <IconMessage
+      size={12}
+      stroke={1.8}
+    />
+  ),
+  bargaining: (
+    <IconCurrencyDollar
+      size={12}
+      stroke={1.8}
+    />
+  ),
+  contract_discussion: (
+    <IconContract
+      size={12}
+      stroke={1.8}
+    />
+  ),
+  document_preparation: (
+    <IconContract
+      size={12}
+      stroke={1.8}
+    />
+  ),
+  scheduled_signing: (
+    <IconContract
+      size={12}
+      stroke={1.8}
+    />
+  ),
+  deal: (
+    <IconContract
+      size={16}
+      stroke={1.8}
+    />
+  ),
+  feedback_from_the_deal: (
+    <IconMessage
+      size={12}
+      stroke={1.8}
+    />
+  ),
+  canceled: (
+    <IconCircleX
+      size={12}
+      stroke={1.8}
+    />
+  ),
 };

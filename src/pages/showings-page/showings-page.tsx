@@ -79,19 +79,13 @@ export const ShowingsPage: FC = () => {
             <Title order={3}>Предстоящие {upcomingShowings.length}</Title>
             <Timeline
               active={upcomingShowings.length - 1}
-              bulletSize={28}
+              bulletSize={18}
+              lineWidth={2}
             >
               {upcomingShowings.map((showing) => (
                 <Timeline.Item
                   key={showing.id}
-                  title={
-                    <Text
-                      fw='bold'
-                      size='lg'
-                    >
-                      {`${formatDate(showing.dateTime)}, ${formatTime(showing.dateTime)}`}
-                    </Text>
-                  }
+                  title={`${formatDate(showing.dateTime)}, ${formatTime(showing.dateTime)}`}
                 >
                   <ShowingCard
                     key={showing.id}
